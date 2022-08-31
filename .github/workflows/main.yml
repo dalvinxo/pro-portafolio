@@ -22,6 +22,6 @@ jobs:
       - uses: actions/checkout@v3
 
       # Runs a single command using the runners shell
-      - name: ECHO HELLO WORLD
-        run: echo Hello, world!
+      - name: ECHO HELLO WORLD  ${{ secrets.NEXT_PUBLIC_NOTION_SECRECT }} /  secrets.NEXT_PUBLIC_NOTION_SECRECT // AQUI
+        run: echo Hello, world! 
 
