@@ -21,17 +21,17 @@ interface Props {
 
 const Home: NextPage<Props> = ({ info }) => {
 
-  console.log('Tamo aqui', process.env.NODE_ENV, process.env.NEXT_PUBLIC_NOTION_SECRECT, process.env.CI)
+  console.log(process.env.NEXT_PUBLIC_NOTION_SECRECT, process.env.Pro, process.env.p, process.env.CI)
 
-  const [data, setData] = useState({})
+  // const [data, setData] = useState({})
 
-  useEffect(() => {
-    fetch('/api/notion')
-      .then((res) => res.json())
-      .then((data) => {
-        setData(data)
-      })
-  }, [])
+  // useEffect(() => {
+  //   fetch('/api/notion')
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setData(data)
+  //     })
+  // }, [])
 
 
   return (
