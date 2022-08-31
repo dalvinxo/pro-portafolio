@@ -9,7 +9,8 @@ const nextConfig = {
   },
   env: {
     NOTION_SECRECT: process.env.NOTION_SECRECT,
-    CI: "alimentos"
+    CI: "Deploy",
+    NEXT_PUBLIC_NOTION_SECRECT: process.env.NEXT_PUBLIC_NOTION_SECRECT
   }
 }
 
