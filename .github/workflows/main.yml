@@ -25,7 +25,7 @@ jobs:
           NEXT_PUBLIC_NOTION_SECRECT: ${{ secrets.NEXT_PUBLIC_NOTION_SECRECT }}
           SUPER_SECRET: ${{ secrets.SuperSecret }}
         run: |
-          example-command "$SKIP"
+          example-command $SKIP
        
 
  # steps:
