@@ -40,7 +40,7 @@ const Home: NextPage<Props> = ({ info }) => {
         Hello world!
       </h1>
       <pre>
-        {JSON.stringify(data || {}, null, 2)}
+        {/* {JSON.stringify(data || {}, null, 2)} */}
       </pre>
 
     </div>
