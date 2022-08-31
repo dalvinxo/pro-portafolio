@@ -1,10 +1,10 @@
 import { Client } from '@notionhq/client'
 import { ListBlockChildrenResponse } from '@notionhq/client/build/src/api-endpoints'
 import type { GetStaticProps, NextPage } from 'next'
+import { useEffect, useState } from 'react'
 
 
 export const getStaticProps: GetStaticProps = async (context) => {
-
 
   return {
     props: {
@@ -21,13 +21,24 @@ interface Props {
 
 const Home: NextPage<Props> = ({ info }) => {
 
+  const [data, setData] = useState({})
+
+  useEffect(() => {
+    fetch('/api/notion')
+      .then((res) => res.json())
+      .then((data) => {
+        setData(data)
+      })
+  }, [])
+
+
   return (
     <div>
       <h1 className="text-3xl font-bold underline">
         Hello world!
       </h1>
       <pre>
-        {JSON.stringify(info || {}, null, 2)}
+        {JSON.stringify(data || {}, null, 2)}
       </pre>
 
     </div>
@@ -35,3 +46,4 @@ const Home: NextPage<Props> = ({ info }) => {
 }
 
 export default Home
+
