@@ -20,7 +20,6 @@ jobs:
 
     steps:
       - shell: bash
-      - name: Hello world action
         env:
           SKIP: ${{ secrets.SKIP }}
           NEXT_PUBLIC_NOTION_SECRECT: ${{ secrets.NEXT_PUBLIC_NOTION_SECRECT }}
