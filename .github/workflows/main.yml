@@ -17,13 +17,23 @@ jobs:
     runs-on: ubuntu-latest
 
     # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
 
-      # Runs a single command using the runners shell
-      - name: ECHO HELLO WORLD
-        run: echo Hello, world! 
+    steps:
+      - shell: bash
         env:
           SKIP: ${{ secrets.SKIP }}
           NEXT_PUBLIC_NOTION_SECRECT: ${{ secrets.NEXT_PUBLIC_NOTION_SECRECT }}
+          SUPER_SECRET: ${{ secrets.SuperSecret }}
+        run: |
+          example-command "$SUPER_SECRET" - "$NEXT_PUBLIC_NOTION_SECRECT" - "$          SKIP: ${{ secrets.SKIP }}
+"
+
+ # steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+   #   - uses: actions/checkout@v3
+
+      # Runs a single command using the runners shell
+    #  - name: ECHO HELLO WORLD
+     #   run: echo Hello, world! 
+      
+        
