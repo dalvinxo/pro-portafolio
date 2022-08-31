@@ -5,17 +5,10 @@ import type { GetStaticProps, NextPage } from 'next'
 
 export const getStaticProps: GetStaticProps = async (context) => {
 
-  const notion = new Client({
-    auth: process.env.NOTION_SECRECT,
-  })
-
-  const data = await notion.blocks.children.list({
-    block_id: process.env.PAGE_ID || "dwmaoid2",
-  })
 
   return {
     props: {
-      info: data
+      info: {}
     }
   }
 
@@ -34,7 +27,7 @@ const Home: NextPage<Props> = ({ info }) => {
         Hello world!
       </h1>
       <pre>
-        {JSON.stringify(info, null, 2)}
+        {JSON.stringify(info || {}, null, 2)}
       </pre>
 
     </div>
