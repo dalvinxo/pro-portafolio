@@ -1,15 +1,43 @@
-import type { NextPage } from 'next'
+import { Client } from '@notionhq/client'
+import { ListBlockChildrenResponse } from '@notionhq/client/build/src/api-endpoints'
+import type { GetStaticProps, NextPage } from 'next'
 
 
+export const getStaticProps: GetStaticProps = async (context) => {
 
-const Home: NextPage = () => {
+  const notion = new Client({
+    auth: process.env.NOTION_SECRECT,
+  })
 
-  console.log(JSON.stringify(process.env, null, 2), process.env.NEXT_PUBLIC_NOTION_SECRECT, process.env.NODE_ENV, process.env.CI, process.env.NOTION_SECRECT, ' hola desde aqui... ');
+  const data = await notion.blocks.children.list({
+    block_id: process.env.PAGE_ID || "dwmaoid2",
+  })
+
+  return {
+    props: {
+      info: data
+    }
+  }
+
+}
+
+interface Props {
+  info?: ListBlockChildrenResponse;
+}
+
+
+const Home: NextPage<Props> = ({ info }) => {
 
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <div>
+      <h1 className="text-3xl font-bold underline">
+        Hello world!
+      </h1>
+      <pre>
+        {JSON.stringify(info, null, 2)}
+      </pre>
+
+    </div>
   )
 }
 
