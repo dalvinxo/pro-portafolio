@@ -8,8 +8,8 @@ const nextConfig = {
     path: ""
   },
   env: {
-    // NOTION_SECRECT: process.env.NOTION_SECRECT,
-    // CI: "alimentos"
+    NOTION_SECRECT: process.env.NOTION_SECRECT,
+    CI: "alimentos"
   }
 }
 
