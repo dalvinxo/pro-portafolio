@@ -12,14 +12,9 @@ concurrency:
   group: "pages"
   cancel-in-progress: true
 
-env:
-  DAY_OF_WEEK: "Monday"
-
 jobs:
   build:
     runs-on: ubuntu-latest
-    env: 
-      DAY_TEST: 201
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -61,11 +56,8 @@ jobs:
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
-      - name: Build with Next.js $DAY_TEST -- DAY_OF_WEEK --
+      - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
-        env:
-          NEXT_PUBLIC_NOTION_SECRECT: KLK
-          NEXT_PUBLIC_NOTION_SECRECT_TP: $DAY_TEST
       - name: Static HTML export with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next export
       - name: Upload artifact

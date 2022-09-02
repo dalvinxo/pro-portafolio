@@ -6,6 +6,17 @@ import { useEffect, useState } from 'react'
 
 export const getStaticProps: GetStaticProps = async (context) => {
 
+  const notion = new Client({
+    auth: process.env.NOTION_SECRECT,
+  })
+
+  console.log(notion);
+
+  // const data = await notion.blocks.children.list({
+  //     block_id: process.env.PAGE_ID || "dwmaoid2",
+  // })
+
+
   return {
     props: {
       info: {}
@@ -22,6 +33,9 @@ interface Props {
 const Home: NextPage<Props> = ({ info }) => {
 
   console.log('NEXT_PUBLIC_NOTION_SECRECT:' + process.env.NEXT_PUBLIC_NOTION_SECRECT, 'NOTION_SECRECT' + process.env.NOTION_SECRECT, 'NOTION_SECRECT_ ' + process.env.NOTION_SECRECT_, 'NEXT_PUBLIC_NOTION_SECRECT_TP' + process.env.NEXT_PUBLIC_NOTION_SECRECT_TP)
+
+
+
 
   // const [data, setData] = useState({})
 
