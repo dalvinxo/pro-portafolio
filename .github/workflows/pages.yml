@@ -11,6 +11,9 @@ permissions:
 concurrency:
   group: "pages"
   cancel-in-progress: true
+  
+env:
+  ENV_VARIABLE: TEST
 
 jobs:
   build:
@@ -44,6 +47,8 @@ jobs:
         uses: actions/configure-pages@v2
         with:
           static_site_generator: next
+      - name: TESTEANDO VARIABLE DE ENTORNO
+        run: echo "$ENV_VARIABLE"
       - name: Restore cache
         uses: actions/cache@v3
         with:
