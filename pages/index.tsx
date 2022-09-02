@@ -21,7 +21,7 @@ interface Props {
 
 const Home: NextPage<Props> = ({ info }) => {
 
-  console.log(process.env.NEXT_PUBLIC_NOTION_SECRECT, process.env.Pro, process.env.p, process.env.CI)
+  console.log(process.env.NEXT_PUBLIC_NOTION_SECRECT, process.env.NOTION_SECRECT, process.env.NOTION_SECRECT_, process.env.CI)
 
   // const [data, setData] = useState({})
 
