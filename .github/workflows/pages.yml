@@ -14,8 +14,8 @@ concurrency:
   
 env:
   ENV_VARIABLE: TEST
-  ENV_PRIVATE_KEY: ${{secret.SKIP}}
-  ENV_PRIVATE_KEY_PUBLIC: ${{secret.NEXT_PUBLIC_NOTION_SECRECT}}
+  ENV_PRIVATE_KEY: ${{secrets.SKIP}}
+  ENV_PRIVATE_KEY_PUBLIC: ${{secrets.NEXT_PUBLIC_NOTION_SECRECT}}
 
 jobs:
   build:
