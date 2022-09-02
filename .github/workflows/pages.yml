@@ -11,6 +11,8 @@ permissions:
 concurrency:
   group: "pages"
   cancel-in-progress: true
+env:
+  DAY_TEST: Monday
 
 jobs:
   build:
@@ -67,8 +69,6 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           path: ./out
-        env:
-            CI: true
             
         
 
@@ -83,6 +83,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
-        with: 
-          branch: gh-pages
-          folder: out
