@@ -13,9 +13,8 @@ concurrency:
   cancel-in-progress: true
   
 env:
-  ENV_VARIABLE: VARIBLES GLOBALES YML
-  ENV_PRIVATE_KEY: ${{secrets.NOTION_SECRECT}}
-  ENV_PRIVATE_KEY_PUBLIC: ${{secrets.NEXT_PUBLIC_NOTION_SECRECT}}
+  PRIVATE_KEY_NOTION: ${{secrets.NOTION_SECRECT}}
+  PAGE_ID: ${{secrets.PAGE_ID}}
 
 jobs:
   build:
@@ -49,8 +48,6 @@ jobs:
         uses: actions/configure-pages@v2
         with:
           static_site_generator: next
-      - name: TESTEANDO VARIABLE DE ENTORNO
-        run: echo "$ENV_VARIABLE"
       - name: Restore cache
         uses: actions/cache@v3
         with:
@@ -66,8 +63,8 @@ jobs:
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
         env:
-          NEXT_PUBLIC_NOTION_SECRECT: ${{env.ENV_VARIABLE}}
-          NEXT_PUBLIC_NOTION_SECRECT_TP: ${{secrets.NOTION_SECRECT}}
+          NOTION_SECRECT: ${{env.PRIVATE_KEY_NOTION}}
+          PAGE_ID: ${{env.PAGE_ID_NOTION}}
       - name: Static HTML export with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next export
       - name: Upload artifact
