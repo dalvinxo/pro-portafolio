@@ -51,10 +51,6 @@ jobs:
           static_site_generator: next
       - name: TESTEANDO VARIABLE DE ENTORNO
         run: echo "$ENV_VARIABLE"
-      - name: TESTEANDO VARIABLE DE ENTORNO 1
-        run: echo "$ENV_PRIVATE_KEY"
-      - name: TESTEANDO VARIABLE DE ENTORNO 2
-        run: echo "$ENV_PRIVATE_KEY_PUBLIC"
       - name: Restore cache
         uses: actions/cache@v3
         with:
