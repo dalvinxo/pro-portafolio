@@ -11,6 +11,7 @@ const nextConfig = {
     },
     external: true,
     allowedNodeEnvironmentFlags: true
+
   },
   env: {
     PAGE_ID: process.env.PAGE_ID,
