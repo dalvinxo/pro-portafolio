@@ -44,6 +44,8 @@ jobs:
         with:
           node-version: "16"
           cache: ${{ steps.detect-package-manager.outputs.manager }}
+      - name: Combrando variables
+        run: echo "$PAGE_ID" | echo "$PRIVATE_KEY_NOTION"
       - name: Setup Pages
         uses: actions/configure-pages@v2
         with:
