@@ -3,6 +3,11 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  experimental: {
+    images: {
+      allowFutureImage: true,
+    },
+  },
   env: {
     PAGE_ID: process.env.PAGE_ID,
     NOTION_SECRECT: process.env.NOTION_SECRECT
