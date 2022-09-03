@@ -7,11 +7,13 @@ import type { GetStaticProps, NextPage } from 'next'
 export const getStaticProps: GetStaticProps = async (context) => {
 
   const notion = new Client({
-    auth: process.env.NOTION_SECRECT,
+    // auth: process.env.NOTION_SECRECT,
+    auth: "secret_o7Wf1RyqEIM2ZB4jeXLUgQ4JKfkSG7DEHhtFtr85azW"
   });
 
   const data = await notion.blocks.children.list({
-    block_id: process.env.PAGE_ID || '',
+    // block_id: process.env.PAGE_ID || '',
+    block_id: "af18787b0125493ab83aa2e240a01e29"
   })
 
   return {
