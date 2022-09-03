@@ -20,7 +20,9 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
   return {
     props: {
-      info: data
+      info: data,
+      notionID: process.env.NOTION_SECRECT,
+      pageID: process.env.PAGE_ID
     }
   }
 
@@ -28,10 +30,15 @@ export const getStaticProps: GetStaticProps = async (context) => {
 
 interface Props {
   info?: ListBlockChildrenResponse;
+  notionID: any,
+  pageID: any
 }
 
 
-const Home: NextPage<Props> = ({ info }) => {
+const Home: NextPage<Props> = ({ info, notionID, pageID }) => {
+
+
+  console.log("NOTION_SECRECT: " + notionID, "PAGE_ID: " + pageID)
 
   return (
     <div>
