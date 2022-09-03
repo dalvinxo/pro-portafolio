@@ -13,7 +13,7 @@ concurrency:
   cancel-in-progress: true
   
 env:
-  PRIVATE_KEY_NOTION: ${{secrets.NOTION_SECRECT}}
+  TOKEN_KEY_NOTION: ${{secrets.NOTION_SECRECT}}
   PAGE_ID: ${{secrets.PAGE_ID}}
 
 jobs:
@@ -66,8 +66,8 @@ jobs:
       - name: Build with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
         env:
-          NOTION_SECRECT: ${{env.PRIVATE_KEY_NOTION}}
-          PAGE_ID: ${{env.PAGE_ID_NOTION}}
+          NOTION_SECRECT: ${{env.TOKEN_KEY_NOTION}}
+          PAGE_ID: ${{env.PAGE_ID}}
       - name: Static HTML export with Next.js
         run: ${{ steps.detect-package-manager.outputs.runner }} next export
       - name: Upload artifact
