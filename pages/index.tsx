@@ -6,6 +6,8 @@ import type { GetStaticProps, NextPage } from 'next'
 
 export const getStaticProps: GetStaticProps = async (context) => {
 
+  console.log("NOTION_SECRECT: " + process.env.NOTION_SECRECT, "PAGE_ID: " + process.env.PAGE_ID)
+
   const notion = new Client({
     // auth: process.env.NOTION_SECRECT,
     auth: "secret_o7Wf1RyqEIM2ZB4jeXLUgQ4JKfkSG7DEHhtFtr85azW"
