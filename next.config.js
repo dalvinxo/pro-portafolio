@@ -3,11 +3,10 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  // env: {
-  //   NEXT_PUBLIC_NOTION_SECRECT: process.env.NOTION_SECRECT,
-  //   NOTION_SECRECT: process.env.NOTION_SECRECT,
-  //   NOTION_SECRECT_: "Intentando acceder"
-  // }
+  env: {
+    PAGE_ID: process.env.PAGE_ID,
+    NOTION_SECRECT: process.env.NOTION_SECRECT
+  }
 }
 
 module.exports = nextConfig
