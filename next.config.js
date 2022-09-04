@@ -8,10 +8,10 @@ const nextConfig = {
       allowFutureImage: false
     }
   },
-  env: {
-    PAGE_ID: process.env.PAGE_ID,
-    NOTION_SECRECT: process.env.NOTION_SECRECT
-  }
+  // env: {
+  //   PAGE_ID: process.env.PAGE_ID,
+  //   NOTION_SECRECT: process.env.NOTION_SECRECT
+  // }
 }
 
 module.exports = nextConfig
