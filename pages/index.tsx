@@ -4,14 +4,15 @@ import type { GetStaticProps, NextPage } from 'next'
 // import { useEffect, useState } from 'react'
 
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = async () => {
 
+  
   const notion = new Client({
     auth: process.env.NOTION_SECRECT
   });
 
   const data = await notion.blocks.children.list({
-    block_id: process.env.PAGE_ID || ''
+    block_id: process.env.PAGE_ID || 'af18787b0125493ab83aa2e240a01e29'
   })
 
   return {
