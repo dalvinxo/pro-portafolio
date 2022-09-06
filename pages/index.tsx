@@ -4,7 +4,7 @@ import type { GetStaticProps, NextPage } from 'next'
 // import { useEffect, useState } from 'react'
 
 
-export const getStaticProps: GetStaticProps = async () => {
+export const getServerSideProps: GetStaticProps = async () => {
 
   
   const notion = new Client({
