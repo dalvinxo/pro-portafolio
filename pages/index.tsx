@@ -1,6 +1,7 @@
 import { Client } from '@notionhq/client'
-import { ListBlockChildrenResponse } from '@notionhq/client/build/src/api-endpoints';
+import { ListBlockChildrenResponse } from '@notionhq/client/build/src/api-endpoints'
 import type { GetStaticProps, NextPage } from 'next'
+
 
 export const getStaticProps: GetStaticProps = async () => {
 
@@ -16,7 +17,8 @@ export const getStaticProps: GetStaticProps = async () => {
   return {
     props: {
       info: data
-    }
+    },
+    revalidate: 15
   }
 
 }
@@ -24,13 +26,9 @@ export const getStaticProps: GetStaticProps = async () => {
 interface Props {
   info?: ListBlockChildrenResponse;
 }
-// const fetcher = (url: RequestInfo | URL) => fetch(url).then((res) => res.json())
 
-const Home: NextPage<Props> = ({info}) => {
 
-  // const { data } = useSWR('/api/notion', fetcher)
-
-  // const info = data;
+const Home: NextPage<Props> = ({ info }) => {
 
   return (
     <div>
