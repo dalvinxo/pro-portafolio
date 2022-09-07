@@ -1,7 +1,6 @@
 import { Client } from '@notionhq/client'
-import { ListBlockChildrenResponse } from '@notionhq/client/build/src/api-endpoints'
+import { ListBlockChildrenResponse } from '@notionhq/client/build/src/api-endpoints';
 import type { GetStaticProps, NextPage } from 'next'
-// import { useEffect, useState } from 'react'
 
 
 export const getServerSideProps: GetStaticProps = async () => {
