@@ -13,6 +13,7 @@
     "export": "next export",
     "start": "next start",
     "lint": "next lint",
+    "prettier": "prettier --write .",
     "prepare": "husky install"
   },
   "dependencies": {
