@@ -1,11 +1,7 @@
-import { NextPage } from "next";
+import { NextPage } from 'next'
 
 const Footer: NextPage = () => {
-    return ( 
-        <div>
-            this is the footer.
-        </div>
-     );
+  return <div>this is the footer.</div>
 }
- 
-export default Footer;
+
+export default Footer

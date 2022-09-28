@@ -1,20 +1,20 @@
-import { NextPage } from "next";
-import { ReactNode } from "react";
-import Footer from "../Footer/Footer";
-import Navbar from "../Navbar/Navbar";
+import { NextPage } from 'next'
+import { ReactNode } from 'react'
+import Footer from '../Footer/Footer'
+import Navbar from '../Navbar/Navbar'
 
 type TLayout = {
-    children: ReactNode
+  children: ReactNode
 }
 
-const Layout: NextPage<TLayout> = ({children}) => {
-    return ( 
-        <div>
-            <Navbar />
-            {children}
-            <Footer />
-        </div>
-     );
+const Layout: NextPage<TLayout> = ({ children }) => {
+  return (
+    <div>
+      <Navbar />
+      {children}
+      <Footer />
+    </div>
+  )
 }
- 
-export default Layout;
+
+export default Layout

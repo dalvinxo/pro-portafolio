@@ -2,16 +2,16 @@ name: Build and Deploy
 
 on:
   push:
-    branches: ["main"]
+    branches: ['main']
   workflow_dispatch:
 permissions:
   contents: read
   pages: write
   id-token: write
 concurrency:
-  group: "pages"
+  group: 'pages'
   cancel-in-progress: true
-  
+
 env:
   TOKEN_KEY_NOTION: ${{secrets.NOTION_SECRECT}}
   PAGE_ID: ${{secrets.PAGE_ID}}
@@ -42,7 +42,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: "16"
+          node-version: '16'
           cache: ${{ steps.detect-package-manager.outputs.manager }}
       - name: Combrando variables
         run: |
@@ -74,8 +74,6 @@ jobs:
         uses: actions/upload-pages-artifact@v1
         with:
           path: ./out
-            
-        
 
   # Deployment job
   deploy:

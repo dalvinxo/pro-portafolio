@@ -5,8 +5,8 @@ const nextConfig = {
   swcMinify: true,
   experimental: {
     images: {
-      allowFutureImage: false
-    }
+      allowFutureImage: false,
+    },
   },
   // env: {
   //   PAGE_ID: process.env.PAGE_ID,
