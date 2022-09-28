@@ -2,10 +2,18 @@
 
 const nextConfig = {
   reactStrictMode: true,
+  async rewrites() {
+    return [
+      {
+        source: '/:path*',
+        destination: '/course/:path*',
+      },
+    ]
+  },
   swcMinify: true,
   experimental: {
     images: {
-      allowFutureImage: false,
+      allowFutureImage: true,
     },
   },
   // env: {
