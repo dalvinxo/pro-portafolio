@@ -5,10 +5,10 @@ const Navbar: NextPage = () => {
   return (
     <div>
       <nav>
-        <Link href="">
+        <Link href="/">
           <a>Home</a>
         </Link>
-        <Link href="">
+        <Link href="/profile">
           <a>Profile</a>
         </Link>
       </nav>

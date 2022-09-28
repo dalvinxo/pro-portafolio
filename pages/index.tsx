@@ -15,7 +15,6 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       info: 'test',
     },
-    revalidate: 15,
   }
 }
 
@@ -23,11 +22,10 @@ interface Props {
   info?: ListBlockChildrenResponse
 }
 
-const Home: NextPage<Props> = ({ info }) => {
+const Home: NextPage<Props> = () => {
   return (
     <div>
       <h1 className="text-3xl font-bold underline">Hello world!</h1>
-      <pre>{JSON.stringify(info || {}, null, 2)}</pre>
     </div>
   )
 }
