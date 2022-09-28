@@ -7,6 +7,11 @@
     "npm": ">=8.1.2",
     "yarn": "no-use-yarn"
   },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown",
+    "*.{js,ts,tsx}": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -33,6 +38,7 @@
     "eslint-config-next": "12.2.5",
     "eslint-config-prettier": "^8.5.0",
     "husky": "^8.0.1",
+    "lint-staged": "^13.0.3",
     "postcss": "^8.4.16",
     "prettier": "^2.7.1",
     "tailwindcss": "^3.1.8",
