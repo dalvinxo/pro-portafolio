@@ -9,8 +9,9 @@
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown",
-    "*.{js,ts,tsx}": "eslint --cache --fix",
-    "*.{js,css,md}": "prettier --write"
+    "*.{js,ts, tsx, css}": "eslint --cache --fix",
+    "*.{js, tsx, css}": "next lint",
+    "*.{tsx,css}": "prettier --write"
   },
   "scripts": {
     "dev": "next dev",
