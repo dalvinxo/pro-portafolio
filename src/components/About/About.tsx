@@ -1,5 +1,4 @@
-// import profile from '../../../public/avatar_profile.png'
-// import Image from 'next/image'
+import Image from 'next/image'
 import { BiRadioCircle } from 'react-icons/bi'
 
 const About = () => {
@@ -23,7 +22,9 @@ const About = () => {
                   value="xs"
                   checked
                 />
-                <div className="w-3 h-3 rounded-full flex items-center justify-center ring-1 peer-checked:ring-2 peer-checked:bg-slate-500 "></div>
+                <div className="w-3 h-3 rounded-full flex items-center justify-center ring-1 peer-checked:ring-2 peer-checked:bg-slate-500 ">
+                  S
+                </div>
               </label>
               <label>
                 <input
@@ -50,7 +51,13 @@ const About = () => {
             </div>
           </div>
           <div className="col-span-2">
-            {/* <Image className="rounded-lg" alt="icon profile" src={profile} /> */}
+            <Image
+              className="rounded-lg"
+              alt="icon profile"
+              src="/img/avatar_profile.png"
+              height={500}
+              width={500}
+            />
             <div></div>
           </div>
         </div>
