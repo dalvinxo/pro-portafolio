@@ -1,6 +1,6 @@
-import '../styles/globals.css'
+import '@styles/tailwind.css'
 import type { AppProps } from 'next/app'
-import Layout from '@components/Layout/Layout'
+import MainLayout from '@layouts/MainLayout'
 
 export const reportWebVitals = () => {
   // analytic ...
@@ -8,9 +8,9 @@ export const reportWebVitals = () => {
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Layout>
+    <MainLayout>
       <Component {...pageProps} />
-    </Layout>
+    </MainLayout>
   )
 }
 
