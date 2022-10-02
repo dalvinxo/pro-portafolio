@@ -15,11 +15,18 @@ const nextConfig = {
     images: {
       allowFutureImage: true,
     },
+    externalDir:
+      true |
+      {
+        enabled: true,
+        silent: true,
+      },
   },
-  // env: {
-  //   PAGE_ID: process.env.PAGE_ID,
-  //   NOTION_SECRECT: process.env.NOTION_SECRECT
-  // }
+  env: {
+    NEXT_PUBLIC_RESOURCE: '../../../public/',
+    //   PAGE_ID: process.env.PAGE_ID,
+    //   NOTION_SECRECT: process.env.NOTION_SECRECT
+  },
 }
 
 module.exports = nextConfig

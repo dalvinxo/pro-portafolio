@@ -1,5 +1,5 @@
-import profile from '../../../public/avatar_profile.png'
-import Image from 'next/image'
+// import profile from '../../../public/avatar_profile.png'
+// import Image from 'next/image'
 import { BiRadioCircle } from 'react-icons/bi'
 
 const About = () => {
@@ -50,7 +50,7 @@ const About = () => {
             </div>
           </div>
           <div className="col-span-2">
-            <Image className="rounded-lg" alt="icon profile" src={profile} />
+            {/* <Image className="rounded-lg" alt="icon profile" src={profile} /> */}
             <div></div>
           </div>
         </div>
