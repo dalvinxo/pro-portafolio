@@ -1,4 +1,5 @@
 // import { Client } from '@notionhq/client'
+import About from '@components/About/About'
 import { ListBlockChildrenResponse } from '@notionhq/client/build/src/api-endpoints'
 import type { GetStaticProps, NextPage } from 'next'
 
@@ -24,9 +25,9 @@ interface Props {
 
 const Home: NextPage<Props> = () => {
   return (
-    <div>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
-    </div>
+    <>
+      <About />
+    </>
   )
 }
 
