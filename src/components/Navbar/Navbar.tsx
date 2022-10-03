@@ -26,7 +26,7 @@ const Navbar: NextPage = () => {
                 Home
               </a>
             </Link>
-            <Link className="" href="/profile">
+            <Link className="" href="/projects">
               <a className="hover:bg-gray-700 rounded-md px-2 py-1 transition-colors">
                 Projects
               </a>
