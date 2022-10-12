@@ -1,12 +1,39 @@
+import { NextPage } from 'next'
 import Image from 'next/image'
+import Link from 'next/link'
+import { ChangeEvent, useEffect, useState } from 'react'
 import {
   IoChevronBackSharp,
   IoChevronForwardSharp,
   IoLogoGithub,
   IoLogoLinkedin,
+  IoLogoYoutube,
 } from 'react-icons/io5'
 
-const About = () => {
+const About: NextPage<{ data: Array<{ id: number; message: string }> }> = ({
+  data,
+}) => {
+  const [informations, setInformations] = useState<
+    Array<{ id: number; message: string }>
+  >([])
+  const [currentInfo, setCurrentInfo] = useState<{
+    id: number
+    message: string
+  }>({ id: 0, message: '' })
+
+  const onChangeRadio = (event: ChangeEvent<HTMLInputElement>) => {
+    const { value } = event.target
+
+    const information = informations.find((info) => info.id === Number(value))
+
+    setCurrentInfo((prev) => (information ? information : prev))
+  }
+
+  useEffect(() => {
+    setInformations(data)
+    setCurrentInfo(data[0])
+  }, [data])
+
   return (
     <div className="w-full h-[80vh]">
       <div className="w-11/12 h-full py-3 px-7 mx-auto flex flex-col justify-center">
@@ -17,27 +44,29 @@ const About = () => {
               <label>
                 <input
                   className="sr-only peer"
-                  name="size"
+                  name="option"
                   type="radio"
-                  value="xs"
-                  checked
+                  value="9"
+                  onChange={onChangeRadio}
+                  checked={currentInfo.id === 9}
                 />
                 <div className="w-3 h-3 flex items-center justify-center rounded-full border-2 border-sky-400/75 peer-checked:border-sky-400 peer-checked:bg-sky-400  peer-checked:shadow-3xl peer-checked:shadow-sky-300/50"></div>
               </label>
               <label>
                 <input
                   className="sr-only peer"
-                  name="size"
+                  name="option"
                   type="radio"
-                  value="s"
+                  value="1"
+                  onChange={onChangeRadio}
+                  checked={currentInfo.id === 1}
                 />
-                <div className="w-3 h-3 flex items-center justify-center rounded-full border-2 border-sky-400/75 peer-checked:border-sky-400 text-slate-700 peer-checked:font-semibold peer-checked:bg-slate-900 peer-checked:text-white"></div>
+                <div className="w-3 h-3 flex items-center justify-center rounded-full border-2 border-sky-400/75 peer-checked:border-sky-400 peer-checked:bg-sky-400  peer-checked:shadow-3xl peer-checked:shadow-sky-300/50"></div>
               </label>
               <IoChevronForwardSharp className="block text-sky-500 text-lg" />
             </div>
             <p className="text-xl h-80 py-2 px-1 text-justify align-top">
-              Soy un entusiasta desarrollador de software que busca siempre
-              salir del confort y ser mejor que antes cada día.
+              {currentInfo.message}
             </p>
           </div>
           <div className="max-w-sm mx-auto basis-1/3">
@@ -50,9 +79,26 @@ const About = () => {
             />
           </div>
         </div>
-        <div className="w-full space-x-20 mx-auto my-4 flex">
-          <IoLogoGithub className="text-6xl text-sky-400" />
-          <IoLogoLinkedin className="text-6xl text-sky-400" />
+        <div className="w-full space-x-20 mx-auto my-4 flex justify-center mt-10">
+          <Link href={'https://github.com/dalvinxo'} passHref>
+            <a target="_blank" rel="nofollow">
+              <IoLogoGithub className="text-6xl transition-colors ease-in-out text-slate-300/50 hover:text-slate-300" />
+            </a>
+          </Link>
+          <Link
+            href={'https://do.linkedin.com/in/dalvin-m-138033204/'}
+            passHref>
+            <a target="_blank" rel="nofollow">
+              <IoLogoLinkedin className="text-6xl transition-colors ease-in-out text-slate-300/50 hover:text-slate-300" />
+            </a>
+          </Link>
+          <Link
+            href={'https://www.youtube.com/channel/UC2rkNywLkhbm6KTXDfoEhkw'}
+            passHref>
+            <a target="_blank" rel="nofollow">
+              <IoLogoYoutube className="text-6xl transition-colors ease-in-out text-slate-300/50 hover:text-slate-300" />
+            </a>
+          </Link>
         </div>
       </div>
     </div>
