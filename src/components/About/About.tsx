@@ -13,63 +13,91 @@ import {
 const About: NextPage<{ data: Array<{ id: number; message: string }> }> = ({
   data,
 }) => {
-  const [informations, setInformations] = useState<
-    Array<{ id: number; message: string }>
-  >([])
+  const [position, setPosition] = useState<{ current: number; last: number }>({
+    current: 0,
+    last: data.length - 1,
+  })
+
+  const [informations, setInformations] =
+    useState<Array<{ id: number; message: string }>>(data)
+
   const [currentInfo, setCurrentInfo] = useState<{
     id: number
     message: string
-  }>({ id: 0, message: '' })
+  }>(data[0])
 
   const onChangeRadio = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target
 
-    const information = informations.find((info) => info.id === Number(value))
+    const indexMessage = informations.findIndex(
+      (info) => info.id === Number(value)
+    )
 
-    setCurrentInfo((prev) => (information ? information : prev))
+    setCurrentInfo(data[indexMessage])
+    setPosition((prev) => ({ ...prev, current: indexMessage }))
+  }
+
+  const onClickHandleArrow = (action: string) => {
+    const { current, last } = position
+
+    let index = action === 'left' ? current - 1 : current + 1
+
+    if (index > last) {
+      index = 0
+    }
+
+    if (index < 0) {
+      index = last
+    }
+
+    setPosition((prev) => ({ ...prev, current: index }))
+
+    setCurrentInfo(data[index])
   }
 
   useEffect(() => {
     setInformations(data)
-    setCurrentInfo(data[0])
   }, [data])
 
   return (
     <div className="w-full h-[80vh]">
-      <div className="w-11/12 h-full py-3 px-7 mx-auto flex flex-col justify-center">
+      <div className="w-11/12 h-full py-3 xs:px-0 px-7 mx-auto flex flex-col justify-center">
         <div className="flex justify-center xs:flex-col">
           <div className="basis-1/2 xs:order-last">
             <div className="space-x-5 flex justify-center items-center text-sm py-3">
-              <IoChevronBackSharp className="block text-sky-500/75 text-lg" />
-              <label>
-                <input
-                  className="sr-only peer"
-                  name="option"
-                  type="radio"
-                  value="9"
-                  onChange={onChangeRadio}
-                  checked={currentInfo.id === 9}
-                />
-                <div className="w-3 h-3 flex items-center justify-center rounded-full border-2 border-sky-400/75 peer-checked:border-sky-400 peer-checked:bg-sky-400  peer-checked:shadow-3xl peer-checked:shadow-sky-300/50"></div>
-              </label>
-              <label>
-                <input
-                  className="sr-only peer"
-                  name="option"
-                  type="radio"
-                  value="1"
-                  onChange={onChangeRadio}
-                  checked={currentInfo.id === 1}
-                />
-                <div className="w-3 h-3 flex items-center justify-center rounded-full border-2 border-sky-400/75 peer-checked:border-sky-400 peer-checked:bg-sky-400  peer-checked:shadow-3xl peer-checked:shadow-sky-300/50"></div>
-              </label>
-              <IoChevronForwardSharp className="block text-sky-500 text-lg" />
+              <IoChevronBackSharp
+                onClick={() => {
+                  onClickHandleArrow('left')
+                }}
+                className="block text-sky-500/75 text-lg"
+              />
+              {informations.map((message) => (
+                <div key={message.id}>
+                  <label>
+                    <input
+                      className="sr-only peer"
+                      name="option"
+                      type="radio"
+                      value={message.id}
+                      onChange={onChangeRadio}
+                      checked={currentInfo.id === message.id}
+                    />
+                    <div className="w-3 h-3 flex items-center justify-center rounded-full border-2 border-sky-400/75 peer-checked:border-sky-400 peer-checked:bg-sky-400  peer-checked:shadow-3xl peer-checked:shadow-sky-300/50"></div>
+                  </label>
+                </div>
+              ))}
+              <IoChevronForwardSharp
+                onClick={() => {
+                  onClickHandleArrow('right')
+                }}
+                className="block text-sky-500 text-lg"
+              />
             </div>
-            <p className="text-xl h-80 py-2 px-1 text-justify align-top">
+            <p className="text-xl h-80 xs:h-auto py-2 px-1 text-justify align-top">
               {currentInfo.message}
             </p>
           </div>
-          <div className="max-w-sm mx-auto basis-1/3">
+          <div className="max-w-sm mx-auto basis-1/3 xs:mx-0">
             <Image
               className="rounded-3xl"
               alt="icon profile"
@@ -79,7 +107,7 @@ const About: NextPage<{ data: Array<{ id: number; message: string }> }> = ({
             />
           </div>
         </div>
-        <div className="w-full space-x-20 mx-auto my-4 flex justify-center mt-10">
+        <div className="w-full space-x-20 xs:space-x-10 mx-auto my-4 xs:my-2 flex justify-center mt-10">
           <Link href={'https://github.com/dalvinxo'} passHref>
             <a target="_blank" rel="nofollow">
               <IoLogoGithub className="text-6xl transition-colors ease-in-out text-slate-300/50 hover:text-slate-300" />

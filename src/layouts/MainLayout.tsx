@@ -7,7 +7,7 @@ const MainLayout: NextPage<ElementWithChildren> = ({ children }) => {
     <div className="min-h-screen bg-slate-800 text-slate-100">
       <div className="xs:mx-0 xs:w-full xs:px-2 w-4/5 h-screen mx-auto py-4 font-sans">
         <Navbar />
-        <main>{children}</main>
+        <main className="overflow-auto">{children}</main>
         <Footer />
       </div>
     </div>
