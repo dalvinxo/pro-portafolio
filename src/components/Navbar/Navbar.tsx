@@ -10,7 +10,10 @@ const Navbar: NextPage = () => {
           <Image
             className="h-8 w-8 rounded-full"
             alt="icon profile"
-            src={'/img/avatar_profile.png'}
+            //src={'/img/avatar_profile.png'}
+            src={
+              'https://ui-avatars.com/api/?background=random&size=100&name=dalvin xo'
+            }
             width={40}
             height={40}
           />

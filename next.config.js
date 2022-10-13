@@ -11,6 +11,9 @@ const nextConfig = {
     ]
   },
   swcMinify: true,
+  images: {
+    domains: ['ui-avatars.com'],
+  },
   experimental: {
     images: {
       allowFutureImage: true,
