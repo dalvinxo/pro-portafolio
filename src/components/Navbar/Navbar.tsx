@@ -1,8 +1,15 @@
 import { NextPage } from 'next'
 import Image from 'next/image'
-import Link from 'next/link'
+import { useRouter } from 'next/router'
+import Nav from 'src/common/Nav'
+import { routers } from 'var-contants'
 
 const Navbar: NextPage = () => {
+  const router = useRouter()
+  const {
+    navbar: { brand, navlink },
+  } = routers
+
   return (
     <div className="w-full">
       <div className="flex items-center justify-between py-7">
@@ -10,30 +17,26 @@ const Navbar: NextPage = () => {
           <Image
             className="h-8 w-8 rounded-full"
             alt="icon profile"
-            //src={'/img/avatar_profile.png'}
-            src={
-              'https://ui-avatars.com/api/?background=random&size=100&name=dalvin xo'
-            }
+            src={brand.avatar}
             width={40}
             height={40}
           />
-          <h1 className="text-center text-lg first-letter:text-lg font-medium">
-            Dalvinxo
+          <h1 className="text-center text-lg first-letter:text-lg first-letter:uppercase font-medium">
+            {brand.title}
           </h1>
         </div>
 
         <nav>
           <menu className="space-x-7 text-base">
-            <Link href="/">
-              <a className="text-cyan-500 bg-slate-900 px-2 py-1 rounded-md">
-                Home
-              </a>
-            </Link>
-            <Link className="" href="/projects">
-              <a className="hover:bg-gray-700 rounded-md px-2 py-1 transition-colors">
-                Projects
-              </a>
-            </Link>
+            {navlink &&
+              navlink.map(({ alias, path }) => (
+                <Nav
+                  key={alias}
+                  isActive={path === router.pathname}
+                  as={alias}
+                  path={path}
+                />
+              ))}
           </menu>
         </nav>
       </div>
