@@ -15,10 +15,9 @@ const Nav = (props: TypeNav) => {
 
   return (
     <>
-      <div role={'presentation'} className="inline-block">
+      <div className="inline-block">
         <Link href={path}>
           <a
-            role={'menuitem'}
             className={`block px-3 py-1 rounded-md transition-colors ease-in ${active}`}>
             {as}
           </a>
