@@ -17,8 +17,7 @@ const Portafolio = () => {
                 working
               </div>
               <div className="text-slate-300/80">
-                <IoRocket className="inline-block" />{' '}
-                {new Date().toLocaleString() + ''}
+                <IoRocket className="inline-block" /> {'pending'}
               </div>
             </div>
           </div>
@@ -32,9 +31,8 @@ const Portafolio = () => {
           <div className="flex-1">
             <h3 className="text-2xl">Linemerd</h3>
             <div className="text-lg mt-0 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
-              <div className="text-red-500/80">
-                <IoConstruct className="animate-pulse shadow-3xl shadow-red-500/60 rounded-full inline-block" />{' '}
-                working
+              <div className="text-emerald-600/75">
+                <IoConstruct className="rounded-full inline-block" /> completed
               </div>
               <div className="text-slate-300/80">
                 <IoRocket className="inline-block" />{' '}
