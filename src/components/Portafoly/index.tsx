@@ -1,14 +1,12 @@
 import { IoEye, IoLogoGithub, IoRocket, IoConstruct } from 'react-icons/io5'
+import HeadSection from '@common/HeadSection'
 
-const Portafolio = () => {
+const Portafoly = () => {
   return (
-    <article className="w-[900px]">
-      <h2 className="block text-3xl font-bold first-letter:uppercase py-4 px-2">
-        app
-      </h2>
-      <hr />
+    <div>
+      <HeadSection title="App" />
       <menu className="my-7 space-y-3">
-        <li className="my-5 px-2 flex justify-between items-center hover:bg-slate-900 py-3 rounded-md shadow-md">
+        <li className="my-5 px-2 flex justify-between items-center py-3 rounded-md shadow-md hover:shadow-lg hover:-translate-y-0.5 hover:bg-slate-900/10">
           <div className="flex-1">
             <h3 className="text-2xl">Linemerd</h3>
             <div className="text-lg mt-0 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
@@ -27,7 +25,7 @@ const Portafolio = () => {
           </div>
         </li>
 
-        <li className="my-5 px-2 flex justify-between items-center hover:bg-slate-900 py-3 rounded-md shadow-md">
+        <li className="my-5 px-2 flex justify-between items-center py-3 rounded-md shadow-md hover:shadow-lg hover:-translate-y-0.5 hover:bg-slate-900/10">
           <div className="flex-1">
             <h3 className="text-2xl">Linemerd</h3>
             <div className="text-lg mt-0 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
@@ -46,8 +44,8 @@ const Portafolio = () => {
           </div>
         </li>
       </menu>
-    </article>
+    </div>
   )
 }
 
-export default Portafolio
+export default Portafoly

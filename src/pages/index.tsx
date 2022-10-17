@@ -42,9 +42,9 @@ interface Props {
 
 const Home: NextPage<Props> = (props) => {
   return (
-    <>
+    <div>
       <About data={props.data} />
-    </>
+    </div>
   )
 }
 

@@ -5,7 +5,8 @@
       "var-contants": ["src/constants/index.ts"],
       "@components/*": ["src/components/*"],
       "@layouts/*": ["src/layouts/*"],
-      "@styles/*": ["src/styles/*"]
+      "@styles/*": ["src/styles/*"],
+      "@common/*": ["src/common/*"]
     },
     "target": "ES6",
     "lib": ["dom", "dom.iterable", "esnext"],

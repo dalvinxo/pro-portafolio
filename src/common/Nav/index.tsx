@@ -14,16 +14,14 @@ const Nav = (props: TypeNav) => {
     : 'hover:bg-slate-700/30 hover:text-gray-50/75'
 
   return (
-    <>
-      <div className="inline-block">
-        <Link href={path}>
-          <a
-            className={`block px-3 py-1 rounded-md transition-colors ease-in ${active}`}>
-            {as}
-          </a>
-        </Link>
-      </div>
-    </>
+    <div className="inline-block">
+      <Link href={path}>
+        <a
+          className={`block px-3 py-1 rounded-md transition-colors ease-in ${active}`}>
+          {as}
+        </a>
+      </Link>
+    </div>
   )
 }
 
