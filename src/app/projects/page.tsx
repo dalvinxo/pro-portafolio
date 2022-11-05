@@ -1,6 +1,5 @@
 // import Portafoly from '@components/Portafoly'
 // import Repositories from '@components/Repositories'
-import { NextPage } from 'next'
 // import dynamic from 'next/dynamic'
 
 // const Repositories = dynamic(() => import('@components/Repositories'), {
@@ -11,7 +10,7 @@ import { NextPage } from 'next'
 //   ssr: false,
 // })
 
-const ProjectsPages: NextPage = () => (
+const ProjectsPages = () => (
   <div>
     <section className="flex flex-col mt-8 mx-6 items-center">
       <article className="container">{/* <Portafoly /> */}</article>

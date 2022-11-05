@@ -1,14 +1,8 @@
 // import { Client } from '@notionhq/client'
-import About from '@components/About/About'
 // import { ListBlockChildrenResponse } from '@notionhq/client/build/src/api-endpoints'
-// import type { GetStaticProps, NextPage } from 'next'
-// import { resolve } from 'path'
 // import { Octokit } from 'octokit'
 
-// interface Props {
-//   info?: ListBlockChildrenResponse
-//   data: Array<{ id: number; message: string }>
-// }
+import About from '@components/About/About'
 
 const fetchDataAbout = async (): Promise<{
   information: Array<{
