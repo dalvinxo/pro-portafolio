@@ -2,6 +2,7 @@
 
 const nextConfig = {
   reactStrictMode: true,
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx'],
   async rewrites() {
     return [
       {
@@ -27,12 +28,12 @@ const nextConfig = {
         silent: true,
       },
   },
-  compiler: {
-    reactRemoveProperties: true,
-    // removeConsole: {
-    //   exclude: ['error'],
-    // },
-  },
+  // compiler: {
+  //   reactRemoveProperties: true,
+  //   removeConsole: {
+  //     exclude: ['error'],
+  //   },
+  // },
   env: {
     //   PAGE_ID: process.env.PAGE_ID,
     //   NOTION_SECRECT: process.env.NOTION_SECRECT

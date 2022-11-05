@@ -1,11 +1,15 @@
+'use client'
+
+import { usePathname } from 'next/navigation'
+
 import { NextPage } from 'next'
 import Image from 'next/image'
-import { useRouter } from 'next/router'
 import Nav from 'src/common/Nav'
 import { routers } from 'var-contants'
 
 const Navbar: NextPage = () => {
-  const router = useRouter()
+  const pathname = usePathname()
+
   const {
     navbar: { brand, navlink },
   } = routers
@@ -32,7 +36,7 @@ const Navbar: NextPage = () => {
               navlink.map(({ alias, path }) => (
                 <Nav
                   key={alias}
-                  isActive={path === router.pathname}
+                  isActive={path === pathname}
                   as={alias}
                   path={path}
                 />
