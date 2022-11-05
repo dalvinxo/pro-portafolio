@@ -15,11 +15,10 @@ const Nav = (props: TypeNav) => {
 
   return (
     <div className="inline-block">
-      <Link href={path}>
-        <a
-          className={`block px-3 py-1 rounded-md transition-colors ease-in ${active}`}>
-          {as}
-        </a>
+      <Link
+        className={`block px-3 py-1 rounded-md transition-colors ease-in ${active}`}
+        href={path}>
+        {as}
       </Link>
     </div>
   )

@@ -108,21 +108,23 @@ const About: NextPage<{ data: Array<{ id: number; message: string }> }> = ({
           </div>
         </div>
         <div className="w-full space-x-20 xs:space-x-10 mx-auto my-4 xs:my-2 flex justify-center mt-10">
-          <Link href={'https://github.com/dalvinxo'} passHref>
+          <Link href={'https://github.com/dalvinxo'} passHref legacyBehavior>
             <a target="_blank" rel="nofollow">
               <IoLogoGithub className="text-6xl transition-colors ease-in-out text-slate-300/50 hover:text-slate-300" />
             </a>
           </Link>
           <Link
             href={'https://do.linkedin.com/in/dalvin-m-138033204/'}
-            passHref>
+            passHref
+            legacyBehavior>
             <a target="_blank" rel="nofollow">
               <IoLogoLinkedin className="text-6xl transition-colors ease-in-out text-slate-300/50 hover:text-slate-300" />
             </a>
           </Link>
           <Link
             href={'https://www.youtube.com/channel/UC2rkNywLkhbm6KTXDfoEhkw'}
-            passHref>
+            passHref
+            legacyBehavior>
             <a target="_blank" rel="nofollow">
               <IoLogoYoutube className="text-6xl transition-colors ease-in-out text-slate-300/50 hover:text-slate-300" />
             </a>

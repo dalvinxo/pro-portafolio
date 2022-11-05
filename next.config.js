@@ -12,9 +12,11 @@ const nextConfig = {
   },
   swcMinify: true,
   images: {
+    // disableStaticImages: true,
     domains: ['ui-avatars.com'],
   },
   experimental: {
+    appDir: true,
     images: {
       allowFutureImage: true,
     },
@@ -25,8 +27,13 @@ const nextConfig = {
         silent: true,
       },
   },
+  compiler: {
+    reactRemoveProperties: true,
+    // removeConsole: {
+    //   exclude: ['error'],
+    // },
+  },
   env: {
-    NEXT_PUBLIC_RESOURCE: '../../../public/',
     //   PAGE_ID: process.env.PAGE_ID,
     //   NOTION_SECRECT: process.env.NOTION_SECRECT
   },
