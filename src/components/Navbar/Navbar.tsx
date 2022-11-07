@@ -2,12 +2,11 @@
 
 import { usePathname } from 'next/navigation'
 
-import { NextPage } from 'next'
 import Image from 'next/image'
 import Nav from 'src/common/Nav'
 import { routers } from 'var-contants'
 
-const Navbar: NextPage = () => {
+const Navbar = () => {
   const pathname = usePathname()
 
   const {

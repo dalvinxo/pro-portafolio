@@ -1,9 +1,9 @@
 'use client'
 
-import { NextPage } from 'next'
+import { socialIcon } from 'helpers'
 import Image from 'next/image'
 import Link from 'next/link'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import {
   IoChevronBackSharp,
   IoChevronForwardSharp,
@@ -12,16 +12,17 @@ import {
   IoLogoYoutube,
 } from 'react-icons/io5'
 
-const About: NextPage<{ data: Array<{ id: number; message: string }> }> = ({
+const About = ({
   data,
+  social,
+}: {
+  data: Array<{ id: number; message: string }>
+  social: Array<{ id: number; name: string; link: string }>
 }) => {
   const [position, setPosition] = useState<{ current: number; last: number }>({
     current: 0,
     last: data.length - 1,
   })
-
-  const [informations, setInformations] =
-    useState<Array<{ id: number; message: string }>>(data)
 
   const [currentInfo, setCurrentInfo] = useState<{
     id: number
@@ -31,9 +32,7 @@ const About: NextPage<{ data: Array<{ id: number; message: string }> }> = ({
   const onChangeRadio = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target
 
-    const indexMessage = informations.findIndex(
-      (info) => info.id === Number(value)
-    )
+    const indexMessage = data.findIndex((info) => info.id === Number(value))
 
     setCurrentInfo(data[indexMessage])
     setPosition((prev) => ({ ...prev, current: indexMessage }))
@@ -57,10 +56,6 @@ const About: NextPage<{ data: Array<{ id: number; message: string }> }> = ({
     setCurrentInfo(data[index])
   }
 
-  useEffect(() => {
-    setInformations(data)
-  }, [data])
-
   return (
     <div className="w-full h-[80vh]">
       <div className="w-11/12 h-full py-3 xs:px-0 px-7 mx-auto flex flex-col justify-center">
@@ -73,7 +68,7 @@ const About: NextPage<{ data: Array<{ id: number; message: string }> }> = ({
                 }}
                 className="block text-sky-500/75 text-lg"
               />
-              {informations.map((message) => (
+              {data.map((message) => (
                 <div key={message.id}>
                   <label>
                     <input
@@ -110,7 +105,13 @@ const About: NextPage<{ data: Array<{ id: number; message: string }> }> = ({
           </div>
         </div>
         <div className="w-full space-x-20 xs:space-x-10 mx-auto my-4 xs:my-2 flex justify-center mt-10">
-          <Link href={'https://github.com/dalvinxo'} passHref legacyBehavior>
+          {social &&
+            social.map((media) => (
+              <div key={media.id + '-' + media.name}>
+                {socialIcon[media.name](media.link)}
+              </div>
+            ))}
+          {/* <Link href={'https://github.com/dalvinxo'} passHref legacyBehavior>
             <a target="_blank" rel="nofollow">
               <IoLogoGithub className="text-6xl transition-colors ease-in-out text-slate-300/50 hover:text-slate-300" />
             </a>
@@ -130,7 +131,7 @@ const About: NextPage<{ data: Array<{ id: number; message: string }> }> = ({
             <a target="_blank" rel="nofollow">
               <IoLogoYoutube className="text-6xl transition-colors ease-in-out text-slate-300/50 hover:text-slate-300" />
             </a>
-          </Link>
+          </Link> */}
         </div>
       </div>
     </div>

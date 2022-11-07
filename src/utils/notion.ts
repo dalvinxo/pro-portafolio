@@ -1,5 +1,5 @@
 import { Client } from '@notionhq/client'
 
 export default new Client({
-  auth: process.env.NOTION_SECRECT,
+  auth: process.env.NOTION_TOKEN,
 })
