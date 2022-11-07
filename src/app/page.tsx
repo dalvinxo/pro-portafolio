@@ -1,4 +1,5 @@
 import About from '@components/About/About'
+import { useEffect, useState } from 'react'
 import { getHistoryDatabase } from 'services'
 
 /*
@@ -13,6 +14,8 @@ import { getHistoryDatabase } from 'services'
   * })  
   */
 
+;('use client')
+
 const fetchDataAbout = async (): Promise<{
   history: Array<{ id: number; message: string }>
 }> => {
@@ -24,11 +27,16 @@ const fetchDataAbout = async (): Promise<{
 }
 
 export default async function Home() {
-  const data = await fetchDataAbout()
+  const [data, setdata] = useState(null)
 
-  return (
-    <div>
-      <About data={data.history} />
-    </div>
-  )
+  const setDataAbout = async () => {
+    const info = await fetchDataAbout()
+    setdata(info)
+  }
+
+  useEffect(() => {
+    setDataAbout()
+  }, [])
+
+  return <div>{data && <About data={data.history} />}</div>
 }
