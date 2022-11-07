@@ -13,30 +13,15 @@ const nextConfig = {
   },
   swcMinify: true,
   images: {
-    // disableStaticImages: true,
     domains: ['ui-avatars.com'],
   },
   experimental: {
     appDir: true,
-    images: {
-      allowFutureImage: true,
-    },
-    externalDir:
-      true |
-      {
-        enabled: true,
-        silent: true,
-      },
   },
-  // compiler: {
-  //   reactRemoveProperties: true,
-  //   removeConsole: {
-  //     exclude: ['error'],
-  //   },
-  // },
   env: {
-    //   PAGE_ID: process.env.PAGE_ID,
-    //   NOTION_SECRECT: process.env.NOTION_SECRECT
+    PAGE_NOTION_MAIN: process.env.PAGE_NOTION_MAIN,
+    NOTION_TOKEN: process.env.NOTION_TOKEN,
+    TOKEN_GITHUB: process.env.TOKEN_GITHUB,
   },
 }
 
