@@ -1,8 +1,3 @@
-type EntityRouters = {
-  ['brand']: { title: string; avatar: string }
-  ['navlink']: Array<{ path: string; alias: string }>
-}
-
 export const navbar: EntityRouters = {
   brand: {
     title: 'dalvinxo',

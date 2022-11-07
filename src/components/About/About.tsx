@@ -1,6 +1,5 @@
 'use client'
 
-import { socialIcon } from 'helpers'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ChangeEvent, useState } from 'react'
@@ -12,13 +11,7 @@ import {
   IoLogoYoutube,
 } from 'react-icons/io5'
 
-const About = ({
-  data,
-  social,
-}: {
-  data: Array<{ id: number; message: string }>
-  social: Array<{ id: number; name: string; link: string }>
-}) => {
+const About = ({ data }: { data: Array<{ id: number; message: string }> }) => {
   const [position, setPosition] = useState<{ current: number; last: number }>({
     current: 0,
     last: data.length - 1,
@@ -105,13 +98,7 @@ const About = ({
           </div>
         </div>
         <div className="w-full space-x-20 xs:space-x-10 mx-auto my-4 xs:my-2 flex justify-center mt-10">
-          {social &&
-            social.map((media) => (
-              <div key={media.id + '-' + media.name}>
-                {socialIcon[media.name](media.link)}
-              </div>
-            ))}
-          {/* <Link href={'https://github.com/dalvinxo'} passHref legacyBehavior>
+          <Link href={'https://github.com/dalvinxo'} passHref legacyBehavior>
             <a target="_blank" rel="nofollow">
               <IoLogoGithub className="text-6xl transition-colors ease-in-out text-slate-300/50 hover:text-slate-300" />
             </a>
@@ -131,7 +118,7 @@ const About = ({
             <a target="_blank" rel="nofollow">
               <IoLogoYoutube className="text-6xl transition-colors ease-in-out text-slate-300/50 hover:text-slate-300" />
             </a>
-          </Link> */}
+          </Link>
         </div>
       </div>
     </div>

@@ -8,4 +8,11 @@ declare global {
     children?: ReactNode
     props?: T
   }
+
+  type EntityRouters = {
+    ['brand']: { title: string; avatar: string }
+    ['navlink']: Array<{ path: string; alias: string }>
+  }
+
+  type EntityBrand = Pick<EntityRouters, 'brand'>
 }

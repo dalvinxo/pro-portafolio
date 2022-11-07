@@ -1,5 +1,5 @@
 import About from '@components/About/About'
-import { getHistoryDatabase, getSocialMediaDatabas } from 'services'
+import { getHistoryDatabase } from 'services'
 
 /*
   * 
@@ -15,14 +15,11 @@ import { getHistoryDatabase, getSocialMediaDatabas } from 'services'
 
 const fetchDataAbout = async (): Promise<{
   history: Array<{ id: number; message: string }>
-  social: Array<{ id: number; name: string; link: string }>
 }> => {
-  const socials = await getSocialMediaDatabas()
   const histories = await getHistoryDatabase()
 
   return {
     history: histories,
-    social: socials,
   }
 }
 
@@ -31,7 +28,7 @@ export default async function Home() {
 
   return (
     <div>
-      <About data={data.history} social={data.social} />
+      <About data={data.history} />
     </div>
   )
 }

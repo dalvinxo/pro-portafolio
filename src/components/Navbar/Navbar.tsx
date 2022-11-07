@@ -2,9 +2,9 @@
 
 import { usePathname } from 'next/navigation'
 
-import Image from 'next/image'
 import Nav from 'src/common/Nav'
 import { routers } from 'var-contants'
+import Header from '@components/Header/Header'
 
 const Navbar = () => {
   const pathname = usePathname()
@@ -16,19 +16,7 @@ const Navbar = () => {
   return (
     <div className="w-full">
       <div className="flex items-center justify-between py-7">
-        <div className="flex items-center space-x-3">
-          <Image
-            className="h-8 w-8 rounded-full"
-            alt="icon profile"
-            src={brand.avatar}
-            width={40}
-            height={40}
-          />
-          <h1 className="text-center text-lg first-letter:text-lg first-letter:uppercase font-medium">
-            {brand.title}
-          </h1>
-        </div>
-
+        <Header brand={brand} />
         <nav>
           <menu className="space-x-7 text-base">
             {navlink &&
