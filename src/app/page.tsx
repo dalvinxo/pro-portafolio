@@ -1,5 +1,4 @@
 import About from '@components/About/About'
-import { useEffect, useState } from 'react'
 import { getHistoryDatabase } from 'services'
 
 /*
@@ -14,7 +13,7 @@ import { getHistoryDatabase } from 'services'
   * })  
   */
 
-;('use client')
+export const dynamic = 'force-dynamic'
 
 const fetchDataAbout = async (): Promise<{
   history: Array<{ id: number; message: string }>
@@ -27,16 +26,11 @@ const fetchDataAbout = async (): Promise<{
 }
 
 export default async function Home() {
-  const [data, setdata] = useState(null)
+  const data = await fetchDataAbout()
 
-  const setDataAbout = async () => {
-    const info = await fetchDataAbout()
-    setdata(info)
-  }
-
-  useEffect(() => {
-    setDataAbout()
-  }, [])
-
-  return <div>{data && <About data={data.history} />}</div>
+  return (
+    <div>
+      <About data={data.history} />
+    </div>
+  )
 }
