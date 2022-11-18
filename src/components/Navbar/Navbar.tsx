@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation'
 
 import Nav from 'src/common/Nav'
 import { routers } from 'var-contants'
-import Header from '@components/Header/Header'
+import Header from '@components/Header'
 
 const Navbar = () => {
   const pathname = usePathname()
