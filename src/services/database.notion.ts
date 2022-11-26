@@ -54,6 +54,12 @@ export const getPortafoliesWorking = async () => {
         equals: true,
       },
     },
+    sorts: [
+      {
+        property: 'Progress',
+        direction: 'descending',
+      },
+    ],
   })
 
   const data = blocks.results.map((block) => ({
