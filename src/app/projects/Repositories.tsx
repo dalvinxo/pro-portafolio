@@ -31,7 +31,7 @@ const Repositories = ({ data }: fetchData) => {
         {data.map((item, indice) => (
           <li
             key={item.name + '_' + item.link + 'as-' + indice}
-            className="border p-4 rounded-md shadow-md hover:bg-slate-900/25 border-slate-600 hover:-translate-y-1.5 hover:shadow-lg">
+            className="border p-4 rounded-md shadow-md hover:bg-slate-900/25 border-slate-600 transition-all duration-5 00 hover:-translate-y-1.5 hover:shadow-lg">
             <div className="flex flex-col space-y-4">
               <a href={item.link} target={'_blank'} rel={'noreferrer'}>
                 {item.name}

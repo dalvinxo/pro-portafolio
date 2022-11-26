@@ -10,6 +10,15 @@ module.exports = {
   ],
   theme: {
     extend: {
+      animation: {
+        'hidden-fade': 'wiggle 1s ease-in-out',
+      },
+      keyframes: {
+        wiggle: {
+          '0%': { opacity: 0 },
+          '100%': { opacity: 1 },
+        },
+      },
       boxShadow: {
         '3xl': '1px 2px 12px 1px rgba(0,0,0,0.69)',
       },

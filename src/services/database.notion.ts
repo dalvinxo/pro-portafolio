@@ -34,12 +34,18 @@ export const getSocialMediaDatabas = async () => {
         equals: true,
       },
     },
+    sorts: [
+      {
+        property: 'Order',
+        direction: 'ascending',
+      },
+    ],
   })
 
   const data = blocks.results.map((block) => ({
     id: (block as any).properties.Order.number,
     name: (block as any).properties.ID.title[0].text.content,
-    link: (block as any).properties.link.rich_text[0].text['content'],
+    link: (block as any).properties.Link.rich_text[0].text['content'],
   }))
 
   return data

@@ -8,7 +8,7 @@ const Project = ({ proyect }: { proyect: TypeProyects }) => {
 
   return (
     <Fragment>
-      <li className="my-5 px-2 flex justify-between items-center py-3 rounded-md shadow-md hover:shadow-lg hover:-translate-y-0.5 hover:bg-slate-900/10">
+      <li className="my-5 px-2 flex justify-between items-center py-3 rounded-md shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 hover:bg-slate-900/10">
         <div className="flex-1">
           <h3 className="text-2xl">{name}</h3>
           <div className="text-lg mt-0 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
