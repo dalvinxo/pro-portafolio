@@ -44,3 +44,29 @@ export const getSocialMediaDatabas = async () => {
 
   return data
 }
+
+export const getPortafoliesWorking = async () => {
+  const blocks = await notion.databases.query({
+    database_id: 'e0777f43038241749df99700ca798491',
+    filter: {
+      property: 'Status',
+      checkbox: {
+        equals: true,
+      },
+    },
+  })
+
+  const data = blocks.results.map((block) => ({
+    name: (block as any).properties.Name.title[0].text.content,
+    state:
+      (block as any).properties.Progress.rich_text[0]?.text['content'] ?? null,
+    deploy:
+      (block as any).properties.Deploy.rich_text[0]?.text['content'] ?? null,
+    repository:
+      (block as any).properties.Repository.rich_text[0]?.text['content'] ??
+      null,
+    date: (block as any).properties.Date.date?.start ?? null,
+  }))
+
+  return data
+}

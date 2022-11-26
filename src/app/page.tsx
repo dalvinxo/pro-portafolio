@@ -1,7 +1,7 @@
 import About from '@components/About'
 import { getHistoryDatabase } from 'services'
 
-export const revalidate = 3600
+export const revalidate = 1200
 
 const fetchDataAbout = async (): Promise<{
   history: Array<{ id: number; message: string }>

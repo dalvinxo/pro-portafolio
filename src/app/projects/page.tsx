@@ -10,8 +10,9 @@
 //   ssr: false,
 // })
 
-import Portafoly from '@components/Portafoly'
+import Portafolies from './Portafolies'
 import Repositories from './Repositories'
+import { getPortafoliesWorking } from 'services'
 
 const getGithubRepository = async () => {
   const res = await fetch('https://api.github.com/user/repos', {
@@ -23,6 +24,8 @@ const getGithubRepository = async () => {
     next: { revalidate: 180 },
   }).then((res) => res.json())
 
+  const portafolies = await getPortafoliesWorking()
+
   let infoGithub = res
 
   const data = infoGithub.map((repos) => ({
@@ -32,7 +35,7 @@ const getGithubRepository = async () => {
     description: repos.description,
   }))
 
-  return data
+  return { repositories: data, portafolies }
 }
 
 const getListLanguageRepository = async (data) => {
@@ -52,14 +55,14 @@ const getListLanguageRepository = async (data) => {
 }
 
 const ProjectsPages = async () => {
-  const repositories = await getGithubRepository()
-  const dataProjects = await getListLanguageRepository(repositories)
+  const project = await getGithubRepository()
+  const dataProjects = await getListLanguageRepository(project.repositories)
 
   return (
     <div>
       <section className="flex flex-col mt-8 mx-6 items-center">
         <article className="container">
-          <Portafoly />
+          <Portafolies proyects={project.portafolies} />
         </article>
         <article className="container">
           <Repositories data={dataProjects} />
