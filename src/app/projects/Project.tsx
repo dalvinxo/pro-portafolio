@@ -12,16 +12,6 @@ const Project = ({ proyect }: { proyect: TypeProyects }) => {
         <div className="flex-1">
           <h3 className="text-2xl">{name}</h3>
           <div className="text-lg mt-0 flex flex-col sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
-            {/* {state == 'completed' ? (
-                  <div className="text-emerald-600/75">
-                    <IoConstruct className="rounded-full inline-block" /> {state}
-                  </div>
-                ) : (
-                  <div className="text-red-500/80">
-                    <IoConstruct className="animate-pulse shadow-3xl shadow-red-500/60 rounded-full inline-block" />{' '}
-                    {state}
-                  </div>
-                )} */}
             <StatusProject state={state} />
             <div className="text-slate-300/80">
               <IoRocket className="inline-block" />{' '}
@@ -31,10 +21,14 @@ const Project = ({ proyect }: { proyect: TypeProyects }) => {
         </div>
         <div className="grid-cols-2 inline-grid sm:w-20 gap-3 text-slate-300/50">
           {deploy && (
-            <IoEye className="hover:bg-slate-900 hover:text-blue-400/80 rounded-full h-9 w-9 p-1" />
+            <a href={deploy} target={'_blank'} rel={'noreferrer'}>
+              <IoEye className="hover:bg-slate-900 hover:text-blue-400/80 rounded-full h-9 w-9 p-1" />
+            </a>
           )}
           {repository && (
-            <IoLogoGithub className="hover:bg-slate-900 hover:text-white rounded-full h-9 w-9 p-1" />
+            <a href={repository} target={'_blank'} rel={'noreferrer'}>
+              <IoLogoGithub className="hover:bg-slate-900 hover:text-white rounded-full h-9 w-9 p-1" />
+            </a>
           )}
         </div>
       </li>
