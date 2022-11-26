@@ -28,9 +28,9 @@ const Repositories = ({ data }: fetchData) => {
     <div>
       <HeadSection title="Repositories Github" />
       <ol className="py-7 px-2 grid grid-row-3 lg:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 gap-3">
-        {data.map((item) => (
+        {data.map((item, indice) => (
           <li
-            key={item.name + '_' + item.link}
+            key={item.name + '_' + item.link + 'as-' + indice}
             className="border p-4 rounded-md shadow-md hover:bg-slate-900/25 border-slate-600 hover:-translate-y-1.5 hover:shadow-lg">
             <div className="flex flex-col space-y-4">
               <a href={item.link} target={'_blank'} rel={'noreferrer'}>
@@ -42,14 +42,15 @@ const Repositories = ({ data }: fetchData) => {
               </div>
               <div className="text-md">
                 {item.language.map((lg) => (
-                  <>
+                  <div
+                    key={lg + '-' + item.link + '-as' + item.name}
+                    className="inline-block">
                     <span
-                      key={lg}
                       className={`inline-block h-3 w-3 rounded-full border border-neutral-500 ${
                         color[lg] ?? 'bg-slate-400'
                       } ml-1 mr-2`}></span>
                     <p className="inline-block mr-1">{lg}</p>
-                  </>
+                  </div>
                 ))}
               </div>
             </div>
