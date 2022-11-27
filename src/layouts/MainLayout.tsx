@@ -1,6 +1,6 @@
 'use client'
 
-import Navbar from '../components/Navbar/Navbar'
+import Navbar from '@components/Navbar/Navbar'
 import { ThemeProvider } from 'next-themes'
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {

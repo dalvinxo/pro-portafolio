@@ -55,12 +55,10 @@ const About = ({
     setCurrentInfo(data[index])
   }
 
-  const styleSocial =
-    'text-6xl transition-colors ease-in-out text-slate-300/50 hover:text-slate-300'
   const MediaSocials = {
-    github: <IoLogoGithub className={styleSocial} />,
-    linkedin: <IoLogoLinkedin className={styleSocial} />,
-    youtube: <IoLogoYoutube className={styleSocial} />,
+    github: <IoLogoGithub className="hover:text-black" />,
+    linkedin: <IoLogoLinkedin className="hover:text-sky-700" />,
+    youtube: <IoLogoYoutube className="hover:text-rose-700" />,
   }
 
   return (
@@ -118,7 +116,10 @@ const About = ({
               href={mediaSocial.link}
               passHref
               legacyBehavior>
-              <a target="_blank" rel="nofollow">
+              <a
+                target="_blank"
+                rel="nofollow"
+                className="text-6xl transition-colors ease-in-out dark:text-slate-300/50 text-slate-800">
                 {MediaSocials[mediaSocial.name]}
               </a>
             </Link>

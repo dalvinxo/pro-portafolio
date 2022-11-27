@@ -33,7 +33,7 @@ const Navbar = () => {
             <div className="inline-block">
               <button
                 onClick={() => setTheme(theme == 'dark' ? 'light' : 'dark')}>
-                {theme == 'dark' ? <IoMoon /> : <IoSunny />}
+                {theme == 'dark' ? <IoSunny /> : <IoMoon />}
               </button>
             </div>
           </menu>
