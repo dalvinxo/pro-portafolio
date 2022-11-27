@@ -24,6 +24,7 @@
   "dependencies": {
     "@notionhq/client": "^2.2.2",
     "next": "^13.0.3",
+    "next-themes": "^0.2.1",
     "octokit": "^2.0.9",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

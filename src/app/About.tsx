@@ -123,27 +123,6 @@ const About = ({
               </a>
             </Link>
           ))}
-          {/* <Link href={'https://github.com/dalvinxo'} passHref legacyBehavior>
-            <a target="_blank" rel="nofollow">
-              <IoLogoGithub className="text-6xl transition-colors ease-in-out text-slate-300/50 hover:text-slate-300" />
-            </a>
-          </Link>
-          <Link
-            href={'https://do.linkedin.com/in/dalvin-m-138033204/'}
-            passHref
-            legacyBehavior>
-            <a target="_blank" rel="nofollow">
-              <IoLogoLinkedin className="text-6xl transition-colors ease-in-out text-slate-300/50 hover:text-slate-300" />
-            </a>
-          </Link>
-          <Link
-            href={'https://www.youtube.com/channel/UC2rkNywLkhbm6KTXDfoEhkw'}
-            passHref
-            legacyBehavior>
-            <a target="_blank" rel="nofollow">
-              <IoLogoYoutube className="text-6xl transition-colors ease-in-out text-slate-300/50 hover:text-slate-300" />
-            </a>
-          </Link> */}
         </div>
       </div>
     </div>
