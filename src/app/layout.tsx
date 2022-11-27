@@ -1,5 +1,4 @@
 import MainLayout from '@layouts/MainLayout'
-
 import '@styles/tailwinds.css'
 
 export default function RootLayout({

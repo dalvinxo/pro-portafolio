@@ -9,14 +9,14 @@ type TypeNav = {
 const Nav = (props: TypeNav) => {
   const { isActive, path, as } = props
 
-  const active = isActive
-    ? 'text-cyan-500 bg-slate-900'
-    : 'hover:bg-slate-700/30 hover:text-gray-50/75'
-
   return (
     <div className="inline-block">
       <Link
-        className={`block px-3 py-1 rounded-md transition-colors ease-in ${active}`}
+        className={`block px-3 py-1 rounded-md transition-colors ease-in ${
+          isActive
+            ? 'dark:text-cyan-500 dark:bg-slate-900 text-white bg-slate-500 shadow-md'
+            : 'dark:hover:text-cyan-500 hover:text-slate-600'
+        } `}
         href={path}>
         {as}
       </Link>
