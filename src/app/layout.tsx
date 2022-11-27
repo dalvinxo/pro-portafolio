@@ -1,11 +1,6 @@
-'use client'
-
-import '@styles/tailwinds.css'
 import MainLayout from '@layouts/MainLayout'
 
-export const reportWebVitals = () => {
-  // analytic ...
-}
+import '@styles/tailwinds.css'
 
 export default function RootLayout({
   children,
