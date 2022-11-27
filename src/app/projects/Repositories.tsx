@@ -1,6 +1,7 @@
 'use client'
 
 import HeadSection from '@common/HeadSection'
+import Link from 'next/link'
 
 type fetchData = {
   data: Array<{
@@ -29,32 +30,34 @@ const Repositories = ({ data }: fetchData) => {
       <HeadSection title="Repositories Github" />
       <ol className="py-7 px-2 grid grid-row-3 lg:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 gap-3">
         {data.map((item, indice) => (
-          <li
+          <Link
             key={item.name + '_' + item.link + 'as-' + indice}
-            className="border p-4 rounded-md shadow-md hover:bg-slate-900/25 border-slate-600 transition-all duration-5 00 hover:-translate-y-1.5 hover:shadow-lg">
-            <div className="flex flex-col space-y-4">
-              <a href={item.link} target={'_blank'} rel={'noreferrer'}>
-                {item.name}
-              </a>
-              <div>
-                {item.description ??
-                  'Este repositorio no tiene descripción en su contenido'}
+            href={item.link}
+            target={'_blank'}
+            className="border p-4 rounded-md shadow-md dark:hover:bg-slate-900/25 hover:bg-gray-300/80 border-slate-600 transition-all duration-5 00 hover:-translate-y-1.5 hover:shadow-lg">
+            <li>
+              <div className="flex flex-col space-y-4">
+                <div>{item.name}</div>
+                <div>
+                  {item.description ??
+                    'Este repositorio no tiene descripción en su contenido'}
+                </div>
+                <div className="text-md">
+                  {item.language.map((lg) => (
+                    <div
+                      key={lg + '-' + item.link + '-as' + item.name}
+                      className="inline-block">
+                      <span
+                        className={`inline-block h-3 w-3 rounded-full border border-neutral-500 ${
+                          color[lg] ?? 'bg-slate-400'
+                        } ml-1 mr-2`}></span>
+                      <p className="inline-block mr-1">{lg}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
-              <div className="text-md">
-                {item.language.map((lg) => (
-                  <div
-                    key={lg + '-' + item.link + '-as' + item.name}
-                    className="inline-block">
-                    <span
-                      className={`inline-block h-3 w-3 rounded-full border border-neutral-500 ${
-                        color[lg] ?? 'bg-slate-400'
-                      } ml-1 mr-2`}></span>
-                    <p className="inline-block mr-1">{lg}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </li>
+            </li>
+          </Link>
         ))}
       </ol>
     </div>
