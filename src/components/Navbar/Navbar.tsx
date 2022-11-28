@@ -18,10 +18,10 @@ const Navbar = () => {
 
   return (
     <div className="w-full">
-      <div className="flex items-center justify-between py-7">
+      <div className="flex items-center justify-between xs:justify-evenly py-7">
         <Header brand={brand} />
         <nav>
-          <menu className="space-x-7 xs:space-x-3 xs:mr-2 xs:py-2 text-base">
+          <menu className="space-x-7 xs:space-x-2 text-base">
             {navlink.map(({ alias, path }) => (
               <Nav
                 key={alias}
