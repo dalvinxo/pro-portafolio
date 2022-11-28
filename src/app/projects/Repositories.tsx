@@ -27,7 +27,7 @@ const Repositories = ({ data }: fetchData) => {
 
   return (
     <div>
-      <HeadSection title="Repositories Github" />
+      <HeadSection title="Github's Repositories" />
       <ol className="py-7 px-2 grid grid-row-3 lg:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 gap-3">
         {data.map((item, indice) => (
           <Link

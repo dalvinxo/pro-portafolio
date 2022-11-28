@@ -15,7 +15,7 @@ import Repositories from './Repositories'
 import { getPortafoliesWorking } from 'services'
 
 const getGithubRepository = async () => {
-  const res = await fetch('https://api.github.com/user/repos', {
+  const res = await fetch('https://api.github.com/users/dalvinxo/repos', {
     headers: {
       Authorization: `bearer ${process.env.TOKEN_GITHUB}`,
       Accept: 'application/vnd.github+json',

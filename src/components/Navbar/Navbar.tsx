@@ -9,7 +9,7 @@ import { IoSunny, IoMoon } from 'react-icons/io5'
 import { useTheme } from 'next-themes'
 
 const Navbar = () => {
-  const { theme, setTheme } = useTheme()
+  const { theme = 'dark', setTheme } = useTheme()
   const pathname = usePathname()
 
   const {

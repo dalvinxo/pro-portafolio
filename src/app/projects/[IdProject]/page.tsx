@@ -1,7 +1,7 @@
 const DetailsProject = () => {
   return (
     <div>
-      <h1>Details Projects</h1>
+      <h1>Details Projects: string</h1>
     </div>
   )
 }
