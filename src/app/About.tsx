@@ -106,7 +106,7 @@ const About = ({
               </div>
             ))}
           </div>
-          <div className="mx-auto min-w-[16rem] max-w-sm max-h-80 p-2 basis-1/3 xs:mx-0">
+          <div className="mx-auto min-w-[16rem] max-w-sm watch:max-h-80 xs:max-h-96 p-2 basis-1/3 xs:mx-0">
             <Image
               className="rounded-3xl"
               alt="icon profile"
