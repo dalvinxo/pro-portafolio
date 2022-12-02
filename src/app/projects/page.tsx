@@ -48,7 +48,7 @@ const ProjectsPages = async () => {
 
   return (
     <div>
-      <section className="flex flex-col mt-8 mx-6 items-center">
+      <section className="flex flex-col mt-8 mx-6 watch:mt-3 watch:mx-0 items-center">
         <article className="container">
           <Portafolies proyects={project.portafolies} />
         </article>

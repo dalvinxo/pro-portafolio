@@ -23,6 +23,7 @@ module.exports = {
         '3xl': '1px 2px 12px 1px rgba(0,0,0,0.69)',
       },
       screens: {
+        watch: { min: '50px', max: '359px' },
         xs: { min: '360px', max: '639px' },
         '2xl': '1536px',
       },
