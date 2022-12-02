@@ -12,8 +12,10 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
             defaultTheme="dark"
             enableSystem={false}
             attribute={'class'}>
-            <Navbar />
-            <main>{children}</main>
+            <div>
+              <Navbar />
+              <main>{children}</main>
+            </div>
           </ThemeProvider>
         </div>
       </div>

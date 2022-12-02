@@ -11,7 +11,7 @@ module.exports = {
   theme: {
     extend: {
       animation: {
-        'hidden-fade': 'wiggle 1s ease-in-out',
+        'hidden-fade': 'wiggle 400ms ease-in',
       },
       keyframes: {
         wiggle: {

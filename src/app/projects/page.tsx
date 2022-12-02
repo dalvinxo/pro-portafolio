@@ -1,15 +1,3 @@
-// import Portafoly from '@components/Portafoly'
-// import Repositories from '@components/Repositories'
-// import dynamic from 'next/dynamic'
-
-// const Repositories = dynamic(() => import('@components/Repositories'), {
-//   ssr: false,
-// })
-
-// const Portafoly = dynamic(() => import('@components/Portafoly'), {
-//   ssr: false,
-// })
-
 import Portafolies from './Portafolies'
 import Repositories from './Repositories'
 import { getPortafoliesWorking } from 'services'

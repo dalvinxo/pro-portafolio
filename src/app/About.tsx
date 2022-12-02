@@ -95,9 +95,16 @@ const About = ({
                 className="block text-sky-500 text-lg"
               />
             </div>
-            <p className="animate-hidden-fade duration-500 text-xl xs:h-auto py-6 px-4 text-justify align-top">
-              {currentInfo.message}
-            </p>
+            {data.map((paragrapher, index) => (
+              <div key={`${index}-${paragrapher.id}`}>
+                <p
+                  className={`animate-hidden-fade text-xl xs:h-auto max-w-lg py-6 px-4 text-justify align-top ${
+                    paragrapher.message != currentInfo.message && 'hidden'
+                  }`}>
+                  {paragrapher.message}
+                </p>
+              </div>
+            ))}
           </div>
           <div className="max-w-sm mx-auto min-w-[16rem] p-2 basis-1/3 xs:mx-0">
             <Image
