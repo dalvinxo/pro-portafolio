@@ -10,7 +10,7 @@ declare global {
   }
 
   type EntityRouters = {
-    ['brand']: { title: string; avatar: string }
+    ['brand']: { title: string; avatar: string; src?: string }
     ['navlink']: Array<{ path: string; alias: string }>
   }
 
