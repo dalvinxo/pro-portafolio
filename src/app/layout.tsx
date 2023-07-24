@@ -1,5 +1,14 @@
 import MainLayout from '@layouts/MainLayout'
 import '@styles/tailwinds.css'
+import { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  description:
+    "Dalvinxo is a portafoly for review skill and project to the 'junior developer'",
+  keywords: 'HTML, Link, next, react',
+  title: 'Home',
+  viewport: 'width=device-width, initial-scale=1.0',
+}
 
 export default function RootLayout({
   children,
@@ -8,16 +17,6 @@ export default function RootLayout({
 }) {
   return (
     <html>
-      <head>
-        <meta
-          name="description"
-          content="Dalvinxo is a portafoly for review skill and project to the developer dalvin"
-        />
-        <meta name="keywords" content="HTML, Link" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0"></meta>
-      </head>
       <body>
         <MainLayout>{children}</MainLayout>
       </body>

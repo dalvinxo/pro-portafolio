@@ -1,6 +1,11 @@
+import { Metadata } from 'next'
 import Portafolies from './Portafolies'
 import Repositories from './Repositories'
 import { getPortafoliesWorking } from 'services'
+
+export const metadata: Metadata = {
+  title: 'Projects',
+}
 
 const getGithubRepository = async () => {
   const res = await fetch('https://api.github.com/users/dalvinxo/repos', {
