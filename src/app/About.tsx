@@ -64,7 +64,7 @@ const About = ({
   return (
     <div className="w-full">
       <div className="py-3 watch:px-0 xs:px-0 px-7 my-5 flex flex-col justify-center">
-        <div className="flex justify-center items-start watch:flex-col xs:flex-col">
+        <div className="flex justify-center items-center watch:flex-col xs:flex-col">
           <div className="basis-1/1 xs:order-last watch:order-last">
             <div className="space-x-4 flex justify-center items-center text-sm py-3">
               <IoChevronBackSharp

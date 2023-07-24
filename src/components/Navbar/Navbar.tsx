@@ -9,7 +9,7 @@ import { IoSunny, IoMoon } from 'react-icons/io5'
 import { useTheme } from 'next-themes'
 
 const Navbar = () => {
-  const { theme = 'dark', setTheme } = useTheme()
+  const { theme, setTheme } = useTheme()
   const pathname = usePathname()
 
   const {
@@ -32,8 +32,10 @@ const Navbar = () => {
             ))}
             <div className="inline-block">
               <button
-                onClick={() => setTheme(theme == 'dark' ? 'light' : 'dark')}>
-                {theme == 'dark' ? <IoSunny /> : <IoMoon />}
+                onClick={() =>
+                  setTheme(theme == 'dark' || !theme ? 'light' : 'dark')
+                }>
+                {theme == 'dark' || !theme ? <IoSunny /> : <IoMoon />}
               </button>
             </div>
           </menu>
