@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import Portafolies from './Portafolies'
 import Repositories from './Repositories'
 import { getPortafoliesWorking } from 'services'
+import { environment } from 'var-contants'
 
 export const metadata: Metadata = {
   title: 'Projects',
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 const getGithubRepository = async () => {
   const res = await fetch('https://api.github.com/users/dalvinxo/repos', {
     headers: {
-      Authorization: `bearer ${process.env.TOKEN_GITHUB}`,
+      Authorization: `bearer ${environment.TOKEN_GITHUB}`,
       Accept: 'application/vnd.github+json',
       'Content-Type': 'application/json',
     },
@@ -35,7 +36,7 @@ const getListLanguageRepository = async (data) => {
   for (let item of data) {
     const languages = await fetch(item.language, {
       headers: {
-        Authorization: `bearer ${process.env.TOKEN_GITHUB}`,
+        Authorization: `bearer ${environment.TOKEN_GITHUB}`,
         Accept: 'application/vnd.github+json',
         'Content-Type': 'application/json',
       },
