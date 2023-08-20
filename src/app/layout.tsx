@@ -1,7 +1,6 @@
 import MainLayout from '@layouts/MainLayout'
 import '@styles/tailwinds.css'
 import { Metadata } from 'next'
-import Head from 'next/head'
 
 export const metadata: Metadata = {
   description:
@@ -12,6 +11,12 @@ export const metadata: Metadata = {
   authors: {
     name: 'dalvinxo',
   },
+  icons: {
+    icon: '/favicon.ico',
+    apple: ['/apple-touch-icon.png?v=4'],
+    shortcut: ['/apple-touch-icon.png'],
+  },
+  manifest: '/site.webmanifest',
 }
 
 export default function RootLayout({
@@ -21,9 +26,6 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
-      <Head>
-        <meta charSet="utf-8" />
-      </Head>
       <body>
         <MainLayout>{children}</MainLayout>
       </body>
