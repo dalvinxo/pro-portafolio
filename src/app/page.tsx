@@ -7,9 +7,10 @@ const fetchDataAbout = async (): Promise<{
   histories: Array<{ id: number; message: string }>
   social: Array<{ id: any; name: string; link: string }>
 }> => {
-  const histories = await getHistoryDatabase()
-
-  const social = await getSocialMediaDatabas()
+  const [histories, social] = await Promise.all([
+    getHistoryDatabase(),
+    getSocialMediaDatabas(),
+  ])
 
   return {
     histories,

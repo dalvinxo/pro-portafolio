@@ -75,17 +75,18 @@ const About = ({
               />
               {data.map((message) => (
                 <div key={message.id}>
-                  <label>
-                    <input
-                      className="sr-only peer"
-                      name="option"
-                      type="radio"
-                      value={message.id}
-                      onChange={onChangeRadio}
-                      checked={currentInfo.id === message.id}
-                    />
-                    <div className="w-3 h-3 flex items-center justify-center rounded-full border-2 border-sky-400/75 peer-checked:border-sky-400 peer-checked:bg-sky-400  peer-checked:shadow-3xl peer-checked:shadow-sky-300/50"></div>
-                  </label>
+                  <label htmlFor={`input-${message.id}`}></label>
+                  <input
+                    id={`input-${message.id}`}
+                    className="sr-only peer"
+                    placeholder={`message #${message.id}`}
+                    name="option"
+                    type="radio"
+                    value={message.id}
+                    onChange={onChangeRadio}
+                    checked={currentInfo.id === message.id}
+                  />
+                  <div className="w-3 h-3 flex items-center justify-center rounded-full border-2 border-sky-400/75 peer-checked:border-sky-400 peer-checked:bg-sky-400  peer-checked:shadow-3xl peer-checked:shadow-sky-300/50"></div>
                 </div>
               ))}
               <IoChevronForwardSharp

@@ -32,6 +32,12 @@ const Navbar = () => {
             ))}
             <div className="inline-block">
               <button
+                title=""
+                aria-label={
+                  theme === 'dark' || !theme
+                    ? 'Switch to light mode'
+                    : 'Switch to dark mode'
+                }
                 onClick={() =>
                   setTheme(theme == 'dark' || !theme ? 'light' : 'dark')
                 }>
