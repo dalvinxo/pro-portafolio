@@ -11,6 +11,7 @@ const translate = {
         do: 'Working',
         pending: 'Waiting',
       },
+      emptyApp: 'No app have been created',
     },
     navbar: {
       'button-language-mode': {
@@ -42,6 +43,7 @@ const translate = {
         do: 'En proceso',
         pending: 'En espera',
       },
+      emptyApp: 'No se ha creado ninguna aplicación',
     },
     navbar: {
       'button-language-mode': {
