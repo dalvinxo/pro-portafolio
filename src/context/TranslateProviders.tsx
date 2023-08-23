@@ -1,7 +1,7 @@
 import { useState } from 'react'
-
 import { createContext, useContext } from 'react'
 import { translate } from 'var-contants'
+import { useEffect } from 'react'
 
 export type TypeTranslateContext = {
   lang: translate.Locales
@@ -15,7 +15,17 @@ const TranslateProvider = ({ children }: { children: React.ReactNode }) => {
 
   const setLanguage: (lang: translate.Locales) => void = (lang) => {
     setLang(lang)
+    localStorage.setItem('language', lang)
   }
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      let localLang = localStorage.getItem('language')
+      if (localLang != null) {
+        setLang(localLang as translate.Locales)
+      }
+    }
+  }, [])
 
   return (
     <TranslateContext.Provider value={{ lang, setLanguage }}>
