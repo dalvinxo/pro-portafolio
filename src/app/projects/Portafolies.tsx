@@ -2,7 +2,7 @@
 
 import HeadSection from '@common/HeadSection'
 import { getDictionary } from '@utils/dictionaries'
-import { useTranslateContext } from 'src/context/TranslateProviders'
+import { useTranslateContext } from 'providers'
 import Project from './Project'
 
 const Portafoly = ({ proyects }: { proyects: Array<TypeProyects> }) => {

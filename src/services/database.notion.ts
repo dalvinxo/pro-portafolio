@@ -1,8 +1,9 @@
 import notion from '@utils/notion'
+import { databaseId } from 'var-contants'
 
 export const getHistoryDatabase = async () => {
   const blocks = await notion.databases.query({
-    database_id: '57a80229910b406dabfa79f0f6a43f76',
+    database_id: databaseId.about,
     filter: {
       property: 'Status',
       checkbox: {
@@ -20,6 +21,8 @@ export const getHistoryDatabase = async () => {
   const data = blocks.results.map((block) => ({
     id: (block as any).properties.Order.number,
     message: (block as any).properties.Description.rich_text[0].text['content'],
+    messageSpanish: (block as any).properties.DescriptionSpanish.rich_text[0]
+      .text['content'],
   }))
 
   return data
@@ -27,7 +30,7 @@ export const getHistoryDatabase = async () => {
 
 export const getSocialMediaDatabas = async () => {
   const blocks = await notion.databases.query({
-    database_id: '8b51bab5f1e545c7ae83982cd7e2695d',
+    database_id: databaseId.contact,
     filter: {
       property: 'Status',
       checkbox: {
@@ -53,7 +56,7 @@ export const getSocialMediaDatabas = async () => {
 
 export const getPortafoliesWorking = async () => {
   const blocks = await notion.databases.query({
-    database_id: 'e0777f43038241749df99700ca798491',
+    database_id: databaseId.projects,
     filter: {
       property: 'Status',
       checkbox: {
@@ -62,7 +65,7 @@ export const getPortafoliesWorking = async () => {
     },
     sorts: [
       {
-        property: 'Progress',
+        property: 'Date',
         direction: 'descending',
       },
     ],
@@ -70,8 +73,10 @@ export const getPortafoliesWorking = async () => {
 
   const data = blocks.results.map((block) => ({
     name: (block as any).properties.Name.title[0].text.content,
-    state:
-      (block as any).properties.Progress.rich_text[0]?.text['content'] ?? null,
+    nameSpanish: (block as any).properties.NameSpanish.rich_text[0]?.text[
+      'content'
+    ],
+    state: (block as any).properties.Progress.checkbox ?? false,
     deploy:
       (block as any).properties.Deploy.rich_text[0]?.text['content'] ?? null,
     repository:

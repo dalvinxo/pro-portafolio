@@ -3,7 +3,7 @@
 import HeadSection from '@common/HeadSection'
 import { getDictionary } from '@utils/dictionaries'
 import Link from 'next/link'
-import { useTranslateContext } from 'src/context/TranslateProviders'
+import { useTranslateContext } from 'providers'
 
 type fetchData = {
   data: Array<{

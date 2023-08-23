@@ -1,1 +1,1 @@
-export * as TranslateProviders from './TranslateProviders'
+export * from './TranslateProviders'

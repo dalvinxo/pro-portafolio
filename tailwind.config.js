@@ -25,6 +25,7 @@ module.exports = {
       screens: {
         watch: { min: '50px', max: '359px' },
         xs: { min: '360px', max: '639px' },
+        'custom-xs': { max: '820px' },
         '2xl': '1536px',
       },
     },

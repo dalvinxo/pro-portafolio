@@ -17,8 +17,9 @@ declare global {
   type EntityBrand = Pick<EntityRouters, 'brand'>
 
   type TypeProyects = {
+    nameSpanish: string | null
     name: string | null
-    state: string | null
+    state: boolean | null
     deploy: string | null
     repository: string | null
     date: string | null

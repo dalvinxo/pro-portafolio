@@ -5,6 +5,13 @@ const translate = {
       github: "Github's Repositories",
       descriptionGithub: 'This repository has no description in its contents',
     },
+    Project: {
+      status: {
+        done: 'Completed',
+        do: 'Working',
+        pending: 'Waiting',
+      },
+    },
     navbar: {
       'button-language-mode': {
         title: 'change language through of this button.',
@@ -28,6 +35,13 @@ const translate = {
       github: 'Repositorios de Github',
       descriptionGithub:
         'Este repositorio no tiene descripción en su contenido',
+    },
+    Project: {
+      status: {
+        done: 'Terminado',
+        do: 'En proceso',
+        pending: 'En espera',
+      },
     },
     navbar: {
       'button-language-mode': {

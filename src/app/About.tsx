@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import Link from 'next/link'
+import { useTranslateContext } from 'providers'
 import { ChangeEvent, useState } from 'react'
 import {
   IoChevronBackSharp,
@@ -15,7 +16,7 @@ const About = ({
   data,
   social,
 }: {
-  data: Array<{ id: number; message: string }>
+  data: Array<{ id: number; message: string; messageSpanish: string | null }>
   social: Array<{ id: any; name: string; link: string }>
 }) => {
   const [position, setPosition] = useState<{ current: number; last: number }>({
@@ -27,6 +28,8 @@ const About = ({
     id: number
     message: string
   }>(data[0])
+
+  const { lang } = useTranslateContext()
 
   const onChangeRadio = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target
@@ -64,8 +67,8 @@ const About = ({
   return (
     <div className="w-full">
       <div className="py-3 watch:px-0 xs:px-0 px-7 my-5 flex flex-col justify-center">
-        <div className="flex justify-center items-center watch:flex-col xs:flex-col">
-          <div className="basis-1/1 xs:order-last watch:order-last">
+        <div className="flex justify-center items-center watch:flex-col custom-xs:flex-col">
+          <div className="basis-1/1 custom-xs:order-last watch:order-last">
             <div className="space-x-4 flex justify-center items-center text-sm py-3">
               <IoChevronBackSharp
                 onClick={() => {
@@ -102,12 +105,14 @@ const About = ({
                   className={`animate-hidden-fade text-xl xs:h-auto max-w-lg py-6 px-4 text-justify align-top ${
                     paragrapher.message != currentInfo.message && 'hidden'
                   }`}>
-                  {paragrapher.message}
+                  {lang == 'en'
+                    ? paragrapher.message
+                    : paragrapher.messageSpanish}
                 </p>
               </div>
             ))}
           </div>
-          <div className="mx-auto min-w-[16rem] max-w-sm watch:max-h-80 xs:max-h-96 p-2 basis-1/3 xs:mx-0">
+          <div className="mx-auto min-w-[16rem] max-w-sm watch:max-h-80 custom-xs:max-h-96 p-2 basis-1/3 custom-xs:mx-0">
             <Image
               className="rounded-3xl"
               alt="icon profile"
