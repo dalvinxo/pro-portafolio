@@ -7,11 +7,15 @@ export const navbar: EntityRouters = {
   navlink: [
     {
       path: '/',
-      alias: 'Home',
+      alias(lang) {
+        return lang == 'en' ? 'Home' : 'Inicio'
+      },
     },
     {
       path: '/projects',
-      alias: 'Projects',
+      alias(lang) {
+        return lang == 'en' ? 'Projects' : 'Proyectos'
+      },
     },
   ],
 }

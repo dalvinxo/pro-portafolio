@@ -11,7 +11,7 @@ declare global {
 
   type EntityRouters = {
     ['brand']: { title: string; avatar: string; src?: string }
-    ['navlink']: Array<{ path: string; alias: string }>
+    ['navlink']: Array<{ path: string; alias: (lang: string) => string }>
   }
 
   type EntityBrand = Pick<EntityRouters, 'brand'>

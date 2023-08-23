@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "providers": ["src/context/index.ts"],
       "var-contants": ["src/constants/index.ts"],
       "@components/*": ["src/components/*"],
       "@layouts/*": ["src/layouts/*"],
