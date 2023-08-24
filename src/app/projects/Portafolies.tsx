@@ -38,7 +38,7 @@ const Portafoly = ({ proyects }: { proyects: Array<TypeProyects> }) => {
               <button
                 className={`text-lg ${filter == 'all' && 'font-bold'} `}
                 onClick={() => handlerFilter('all')}>
-                All
+                {translate.Project.status.all}
               </button>
               <button
                 className={`text-lg ${
