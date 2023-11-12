@@ -3,12 +3,18 @@ import Link from 'next/link'
 
 interface typeHeader extends EntityBrand {
   link?: string
+  linkBrandTitle?: string
 }
 
-const Header = ({ brand, link }: typeHeader) => {
+const Header = ({ brand, link, linkBrandTitle }: typeHeader) => {
   return (
     <div>
-      <Link href={brand.src || link} className="flex items-center space-x-3">
+      <Link
+        href={brand.src || link}
+        className="flex items-center space-x-3"
+        target="_blank"
+        rel="nofollow"
+        title={linkBrandTitle}>
         <Image
           className="h-8 w-8 rounded-full"
           alt="icon profile"

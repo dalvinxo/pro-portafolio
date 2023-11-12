@@ -24,7 +24,11 @@ const Navbar = () => {
   return (
     <div className="w-full">
       <div className="flex watch:flex-col items-center justify-between watch:justify-center watch:flex-wrap custom-xs:justify-center custom-xs:flex-col xs:justify-evenly py-7">
-        <Header brand={brand} link={navlink[0].path} />
+        <Header
+          brand={brand}
+          link={navlink[0].path}
+          linkBrandTitle={translate.brand.linkTitle}
+        />
         <nav className="watch:py-4">
           <menu className="space-x-7 custom-xs:space-y-5 watch:space-x-2 xs:space-x-4 text-base">
             {navlink.map(({ alias, path }) => (
