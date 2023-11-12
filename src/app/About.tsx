@@ -67,7 +67,7 @@ const About = ({
   return (
     <div className="w-full">
       <div className="py-3 watch:px-0 xs:px-0 px-7 my-5 flex flex-col justify-center">
-        <div className="flex justify-center items-center watch:flex-col custom-xs:flex-col">
+        <div className="flex justify-center items-center sm:items-start watch:flex-col custom-xs:flex-col">
           <div className="basis-1/1 custom-xs:order-last watch:order-last">
             <div className="space-x-4 flex justify-center items-center text-sm py-3">
               <IoChevronBackSharp
@@ -100,9 +100,11 @@ const About = ({
               />
             </div>
             {data.map((paragrapher, index) => (
-              <div key={`${index}-${paragrapher.id}`}>
+              <div
+                className="overflow-auto xs:max-h-32"
+                key={`${index}-${paragrapher.id}`}>
                 <p
-                  className={`animate-hidden-fade text-xl xs:h-auto max-w-lg py-6 px-4 text-justify align-top ${
+                  className={`animate-hidden-fade text-xl watch:h-auto max-w-lg xs:py-2 sm:py-4 px-4 text-justify align-top ${
                     paragrapher.message != currentInfo.message && 'hidden'
                   }`}>
                   {lang == 'en'
@@ -122,7 +124,7 @@ const About = ({
             />
           </div>
         </div>
-        <div className="w-full space-x-20 xs:space-x-10 mx-auto my-8 xs:my-2 flex justify-center">
+        <div className="w-full space-x-20 xs:space-x-10 mx-auto my-8 xs:my-6 flex justify-center">
           {social.map((mediaSocial) => (
             <Link
               key={mediaSocial.name}
