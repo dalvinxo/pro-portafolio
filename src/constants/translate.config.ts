@@ -1,5 +1,8 @@
 const translate = {
   en: {
+    brand: {
+      linkTitle: 'Repository Github - personal',
+    },
     notFound: {
       code: '404',
       message: 'Page Not Found',
@@ -37,6 +40,9 @@ const translate = {
     },
   },
   es: {
+    brand: {
+      linkTitle: 'Repositorio de github',
+    },
     notFound: {
       code: '404',
       message: 'Página no encontrada',
