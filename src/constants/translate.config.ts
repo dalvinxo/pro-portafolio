@@ -1,5 +1,10 @@
 const translate = {
   en: {
+    notFound: {
+      code: '404',
+      message: 'Page Not Found',
+      description: 'Sorry, the page you are looking for could not be found',
+    },
     title: {
       app: 'App',
       github: "Github's Repositories",
@@ -32,6 +37,12 @@ const translate = {
     },
   },
   es: {
+    notFound: {
+      code: '404',
+      message: 'Página no encontrada',
+      description:
+        'Lo sentimos, no se ha podido encontrar la página que buscas',
+    },
     title: {
       app: 'Aplicaciones',
       github: 'Repositorios de Github',
