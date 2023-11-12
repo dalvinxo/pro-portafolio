@@ -3,6 +3,7 @@ import Portafolies from './Portafolies'
 import Repositories from './Repositories'
 import { getPortafoliesWorking } from 'services'
 import { environment } from 'var-contants'
+import PageWrapper from '@common/PageWrapper'
 
 export const metadata: Metadata = {
   title: 'Projects',
@@ -54,14 +55,16 @@ const ProjectsPages = async () => {
 
   return (
     <div>
-      <section className="flex flex-col mt-8 mx-6 watch:mt-3 watch:mx-0 items-center">
-        <article className="container">
-          <Portafolies proyects={project.portafolies} />
-        </article>
-        <article className="container">
-          <Repositories data={dataProjects} />
-        </article>
-      </section>
+      <PageWrapper>
+        <section className="flex flex-col mt-8 mx-6 watch:mt-3 watch:mx-0 items-center">
+          <article className="container">
+            <Portafolies proyects={project.portafolies} />
+          </article>
+          <article className="container">
+            <Repositories data={dataProjects} />
+          </article>
+        </section>
+      </PageWrapper>
     </div>
   )
 }

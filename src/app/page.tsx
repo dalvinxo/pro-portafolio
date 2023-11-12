@@ -1,5 +1,6 @@
 import About from './About'
 import { getHistoryDatabase, getSocialMediaDatabas } from 'services'
+import PageWrapper from '@common/PageWrapper'
 
 export const revalidate = 1200
 
@@ -27,7 +28,9 @@ export default async function Home() {
 
   return (
     <div>
-      <About data={data.histories} social={data.social} />
+      <PageWrapper>
+        <About data={data.histories} social={data.social} />
+      </PageWrapper>
     </div>
   )
 }
