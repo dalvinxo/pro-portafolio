@@ -3,6 +3,11 @@ const translate = {
     brand: {
       linkTitle: 'Repository Github - personal',
     },
+    error: {
+      code: '500',
+      message: 'Internal Server Error.',
+      description: 'Whoops, something went wrong on our servers.',
+    },
     notFound: {
       code: '404',
       message: 'Page Not Found',
@@ -42,6 +47,11 @@ const translate = {
   es: {
     brand: {
       linkTitle: 'Repositorio de github',
+    },
+    error: {
+      code: '500',
+      message: 'Error Interno del Servidor',
+      description: '¡Vaya! algo salió mal en nuestros servidores.',
     },
     notFound: {
       code: '404',
