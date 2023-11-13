@@ -26,6 +26,7 @@ module.exports = {
         watch: { min: '50px', max: '359px' },
         xs: { min: '360px', max: '639px' },
         'custom-xs': { max: '820px' },
+        'custom-sm': { min: '821px' },
         '2xl': '1536px',
       },
     },

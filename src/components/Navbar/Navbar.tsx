@@ -57,16 +57,19 @@ const Navbar = () => {
             <div className="inline-block">
               <button
                 role="button"
+                type="button"
                 title={translate.navbar['button-language-mode'].title}
                 aria-label={
                   lang === 'en' || !lang
-                    ? translate.navbar['button-language-mode']['aria-label'].en
-                    : translate.navbar['button-language-mode']['aria-label'].es
+                    ? translate.navbar['button-language-mode']['aria-label'].es
+                    : translate.navbar['button-language-mode']['aria-label'].en
                 }
-                onClick={() =>
-                  setLanguage(lang == 'en' || !lang ? 'es' : 'en')
-                }>
-                {lang == 'en' ? (
+                onClick={() => setLanguage(lang == 'en' || !lang ? 'es' : 'en')}
+                className={`font-medium uppercase ${
+                  lang == 'en' ? 'bg-red-600/100' : 'bg-blue-600'
+                } text-cyan-50 rounded-md p-1 text-sm`}>
+                {lang == 'en' ? 'ES' : 'US'}
+                {/* {lang == 'en' ? (
                   <span
                     className="font-medium uppercase bg-red-600/100 text-cyan-50 rounded-md p-1 text-sm"
                     aria-label={
@@ -76,13 +79,13 @@ const Navbar = () => {
                   </span>
                 ) : (
                   <span
-                    className="font-medium uppercase text-cyan-50 bg-blue-600 rounded-md p-1 text-sm"
+                    className="font-medium uppercase text-cyan-50  rounded-md p-1 text-sm"
                     aria-label={
                       translate.navbar['button-language-mode']['aria-label'].en
                     }>
                     US
                   </span>
-                )}
+                )} */}
               </button>
             </div>
           </menu>

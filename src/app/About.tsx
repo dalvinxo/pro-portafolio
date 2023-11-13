@@ -76,7 +76,7 @@ const About = ({
     <div className="w-full ">
       <div className="py-3 watch:px-0 xs:px-0 px-7 my-5 flex flex-col justify-center xl:h-[70vh]">
         <div className="flex justify-center items-center sm:items-start watch:flex-col custom-xs:flex-col">
-          <div className="basis-1/1 custom-xs:order-last watch:order-last">
+          <div className="basis-1/1 custom-sm:mt-10 custom-xs:order-last watch:order-last">
             <div className="space-x-4 flex justify-center items-center text-sm py-3">
               <IoChevronBackSharp
                 onClick={() => {
@@ -122,7 +122,7 @@ const About = ({
               </div>
             ))}
           </div>
-          <div className="mx-auto min-w-[16rem] max-w-sm watch:max-h-80 custom-xs:max-h-96 p-2 basis-1/3 custom-xs:mx-0">
+          <div className="xs:mx-auto min-w-[16rem] max-w-sm watch:max-h-80 custom-xs:max-h-96 basis-1/3 custom-xs:mx-0">
             <Image
               className="rounded-3xl"
               alt="icon profile"

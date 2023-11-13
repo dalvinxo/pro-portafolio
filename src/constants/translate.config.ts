@@ -42,8 +42,8 @@ const translate = {
       'button-language-mode': {
         title: 'change language through of this button.',
         'aria-label': {
-          es: 'Switch to spanish language',
-          en: 'Switch to english language',
+          es: 'ES - Switch to spanish language',
+          en: 'US - Switch to english language',
         },
       },
       'button-mode-dark': {
@@ -102,8 +102,8 @@ const translate = {
       'button-language-mode': {
         title: 'cambiar idioma a través de este botón.',
         'aria-label': {
-          es: 'Cambiando al idioma español',
-          en: 'Cambiando al idioma ingles',
+          es: 'ES - Cambiando al idioma español',
+          en: 'US - Cambiando al idioma ingles',
         },
       },
       'button-mode-dark': {
