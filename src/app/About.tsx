@@ -72,10 +72,6 @@ const About = ({
     youtube: <IoLogoYoutube className="hover:text-rose-700" />,
   }
 
-  setTimeout(() => {
-    onClickHandleArrow('right')
-  }, 15000)
-
   return (
     <div className="w-full ">
       <div className="py-3 watch:px-0 xs:px-0 px-7 my-5 flex flex-col justify-center xl:h-[70vh]">
