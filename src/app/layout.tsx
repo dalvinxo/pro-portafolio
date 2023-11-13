@@ -11,12 +11,13 @@ export const metadata: Metadata = {
   authors: {
     name: 'dalvinxo',
   },
+  manifest: '/manifest.json',
   icons: {
     icon: '/favicon.ico',
     apple: ['/apple-touch-icon.png?v=4'],
     shortcut: ['/apple-touch-icon.png'],
   },
-  manifest: '/site.webmanifest',
+  themeColor: 'white',
 }
 
 export default function RootLayout({
