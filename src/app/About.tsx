@@ -1,5 +1,6 @@
 'use client'
 
+import { getDictionary } from '@utils/dictionaries'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useTranslateContext } from 'providers'
@@ -58,6 +59,13 @@ const About = ({
     setCurrentInfo(data[index])
   }
 
+  const translate = getDictionary(lang)
+
+  const ariaLabel = {
+    github: translate.about['aria-label-social'].github,
+    linkedin: translate.about['aria-label-social'].linkedin,
+    youtube: translate.about['aria-label-social'].youtube,
+  }
   const MediaSocials = {
     github: <IoLogoGithub className="hover:text-black" />,
     linkedin: <IoLogoLinkedin className="hover:text-sky-700" />,
@@ -69,8 +77,8 @@ const About = ({
   }, 15000)
 
   return (
-    <div className="w-full">
-      <div className="py-3 watch:px-0 xs:px-0 px-7 my-5 flex flex-col justify-center">
+    <div className="w-full ">
+      <div className="py-3 watch:px-0 xs:px-0 px-7 my-5 flex flex-col justify-center xl:h-[70vh]">
         <div className="flex justify-center items-center sm:items-start watch:flex-col custom-xs:flex-col">
           <div className="basis-1/1 custom-xs:order-last watch:order-last">
             <div className="space-x-4 flex justify-center items-center text-sm py-3">
@@ -138,7 +146,8 @@ const About = ({
               <a
                 target="_blank"
                 rel="nofollow"
-                className="text-6xl transition-colors ease-in-out dark:text-slate-300/50 text-slate-800">
+                className="text-6xl transition-colors ease-in-out dark:text-slate-300/50 text-slate-800"
+                aria-label={ariaLabel[mediaSocial.name]}>
                 {MediaSocials[mediaSocial.name]}
               </a>
             </Link>

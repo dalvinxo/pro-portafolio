@@ -19,8 +19,8 @@ const Header = ({ brand, link, linkBrandTitle }: typeHeader) => {
           className="h-8 w-8 rounded-full"
           alt="icon profile"
           src={brand.avatar}
-          width={40}
-          height={40}
+          width={200}
+          height={200}
         />
         <h1 className="text-center text-lg first-letter:text-lg first-letter:uppercase font-medium">
           {brand.title}

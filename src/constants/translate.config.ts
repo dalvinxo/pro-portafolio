@@ -18,6 +18,13 @@ const translate = {
       github: "Github's Repositories",
       descriptionGithub: 'This repository has no description in its contents',
     },
+    about: {
+      'aria-label-social': {
+        github: 'social media, read more about repository',
+        youtube: 'social media, read more about chanel youtube',
+        linkedin: 'social media, read more about linkedin',
+      },
+    },
     Project: {
       status: {
         done: 'Completed',
@@ -26,6 +33,10 @@ const translate = {
         all: 'All',
       },
       emptyApp: 'No app have been created',
+      'aria-label': {
+        github: 'Read more about code',
+        eye: 'Read more about this project',
+      },
     },
     navbar: {
       'button-language-mode': {
@@ -65,6 +76,15 @@ const translate = {
       descriptionGithub:
         'Este repositorio no tiene descripción en su contenido',
     },
+    about: {
+      'aria-label-social': {
+        github: 'redes sociales, conocer más sobre el autor en su repositorio',
+        youtube:
+          'redes sociales, conocer más sobre el autor en su canal youtube',
+        linkedin:
+          'redes sociales, conocer más sobre el autor en su cuenta de linkedin',
+      },
+    },
     Project: {
       status: {
         done: 'Terminado',
@@ -73,6 +93,10 @@ const translate = {
         all: 'Todos',
       },
       emptyApp: 'No se ha creado ninguna aplicación',
+      'aria-label': {
+        github: 'Leer más acerca del código de este proyecto',
+        eye: 'Saber más acerca de este proyecto',
+      },
     },
     navbar: {
       'button-language-mode': {
@@ -94,7 +118,7 @@ const translate = {
 }
 
 export type Locales = 'en' | 'es'
-export type typeEnTranslate = typeof translate['en']
-export type typeEsTranslate = typeof translate['es']
+export type typeEnTranslate = (typeof translate)['en']
+export type typeEsTranslate = (typeof translate)['es']
 
 export default translate

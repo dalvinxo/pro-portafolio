@@ -35,14 +35,12 @@ const Repositories = ({ data }: fetchData) => {
       <HeadSection title={translate.title.github} />
       <ol className="py-7 px-2 grid grid-row-3 lg:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 gap-3">
         {data.map((item, indice) => (
-          <Link
+          <li
             key={item.name + '_' + item.link + 'as-' + indice}
-            href={item.link}
-            target={'_blank'}
             className="border p-4 rounded-md shadow-md dark:hover:bg-slate-900/25 hover:bg-gray-300/80 border-slate-600 transition-all duration-5 00 hover:-translate-y-1 hover:shadow-lg">
-            <li>
+            <Link href={item.link} target={'_blank'} rel={'noreferrer'}>
               <div className="flex flex-col space-y-4">
-                <div>{item.name}</div>
+                <div className="overflow-hidden flex-nowrap">{item.name}</div>
                 <div>
                   {item.description ?? translate.title.descriptionGithub}
                 </div>
@@ -60,8 +58,8 @@ const Repositories = ({ data }: fetchData) => {
                   ))}
                 </div>
               </div>
-            </li>
-          </Link>
+            </Link>
+          </li>
         ))}
       </ol>
     </section>

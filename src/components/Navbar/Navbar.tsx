@@ -41,7 +41,8 @@ const Navbar = () => {
             ))}
             <div className="inline-block">
               <button
-                title=""
+                role="button"
+                title={translate.navbar['button-mode-dark'].title}
                 aria-label={
                   theme === 'dark' || !theme
                     ? translate.navbar['button-mode-dark']['aria-label'].light
@@ -55,21 +56,30 @@ const Navbar = () => {
             </div>
             <div className="inline-block">
               <button
-                title=""
+                role="button"
+                title={translate.navbar['button-language-mode'].title}
                 aria-label={
                   lang === 'en' || !lang
-                    ? translate.navbar['button-mode-dark']['aria-label'].light
-                    : translate.navbar['button-mode-dark']['aria-label'].dark
+                    ? translate.navbar['button-language-mode']['aria-label'].en
+                    : translate.navbar['button-language-mode']['aria-label'].es
                 }
                 onClick={() =>
                   setLanguage(lang == 'en' || !lang ? 'es' : 'en')
                 }>
                 {lang == 'en' ? (
-                  <span className="font-medium uppercase bg-red-600/100 text-cyan-50 rounded-md p-1 text-sm">
+                  <span
+                    className="font-medium uppercase bg-red-600/100 text-cyan-50 rounded-md p-1 text-sm"
+                    aria-label={
+                      translate.navbar['button-language-mode']['aria-label'].es
+                    }>
                     ES
                   </span>
                 ) : (
-                  <span className="font-medium uppercase text-cyan-50 bg-blue-600 rounded-md p-1 text-sm">
+                  <span
+                    className="font-medium uppercase text-cyan-50 bg-blue-600 rounded-md p-1 text-sm"
+                    aria-label={
+                      translate.navbar['button-language-mode']['aria-label'].en
+                    }>
                     US
                   </span>
                 )}

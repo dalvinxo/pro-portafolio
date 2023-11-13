@@ -71,14 +71,16 @@ const Portafoly = ({ proyects }: { proyects: Array<TypeProyects> }) => {
                 </button>
                 <button
                   className={`text-lg ${
-                    filter == 'done' && 'font-bold text-emerald-600/75'
+                    filter == 'done' &&
+                    'font-bold text-emerald-600/75 dark:text-emerald-400'
                   }`}
                   onClick={() => handlerFilter('done')}>
                   {translate.Project.status.done}
                 </button>
                 <button
                   className={`text-lg ${
-                    filter == 'doing' && 'font-bold text-red-500/80'
+                    filter == 'doing' &&
+                    'font-bold text-red-500/80 dark:text-red-400'
                   }`}
                   onClick={() => handlerFilter('doing')}>
                   {translate.Project.status.do}

@@ -39,12 +39,20 @@ const Project = ({ proyect }: { proyect: TypeProyects }) => {
             deploy && repository ? 'grid-cols-2' : 'grid-cols-1'
           } inline-grid sm:w-20 gap-3 dark:text-slate-300/50 text-slate-900/70`}>
           {deploy && (
-            <a href={deploy} target={'_blank'} rel={'noreferrer'}>
+            <a
+              href={deploy}
+              target={'_blank'}
+              rel={'noreferrer'}
+              aria-label={translate.Project['aria-label'].eye}>
               <IoEye className="transition-colors duration-300 hover:bg-slate-900 dark:hover:text-blue-400/80 hover:text-white rounded-full h-9 w-9 p-1" />
             </a>
           )}
           {repository && (
-            <a href={repository} target={'_blank'} rel={'noreferrer'}>
+            <a
+              href={repository}
+              target={'_blank'}
+              rel={'noreferrer'}
+              aria-label={translate.Project['aria-label'].github}>
               <IoLogoGithub className="transition-colors duration-300 hover:bg-slate-900 hover:text-white rounded-full h-9 w-9 p-1" />
             </a>
           )}
