@@ -16,11 +16,11 @@ const Header = ({ brand, link, linkBrandTitle }: typeHeader) => {
         rel="nofollow"
         title={linkBrandTitle}>
         <Image
-          className="h-8 w-8 rounded-full"
+          className="rounded-full"
           alt="icon profile"
           src={brand.avatar}
-          width={200}
-          height={200}
+          width={50}
+          height={50}
         />
         <h1 className="text-center text-lg first-letter:text-lg first-letter:uppercase font-medium">
           {brand.title}
