@@ -6,9 +6,11 @@ import Nav from 'src/common/Nav'
 import { routers } from 'var-contants'
 import Header from '@components/Header'
 import { IoSunny, IoMoon } from 'react-icons/io5'
+import { FaBug } from 'react-icons/fa'
 import { useTheme } from 'next-themes'
 import { useTranslateContext } from 'src/context/TranslateProviders'
 import { getDictionary } from '@utils/dictionaries'
+import Link from 'next/link'
 
 const Navbar = () => {
   const { theme, setTheme } = useTheme()
@@ -69,24 +71,18 @@ const Navbar = () => {
                   lang == 'en' ? 'bg-red-600/100' : 'bg-blue-600'
                 } text-cyan-50 rounded-md p-1 text-sm`}>
                 {lang == 'en' ? 'ES' : 'US'}
-                {/* {lang == 'en' ? (
-                  <span
-                    className="font-medium uppercase bg-red-600/100 text-cyan-50 rounded-md p-1 text-sm"
-                    aria-label={
-                      translate.navbar['button-language-mode']['aria-label'].es
-                    }>
-                    ES
-                  </span>
-                ) : (
-                  <span
-                    className="font-medium uppercase text-cyan-50  rounded-md p-1 text-sm"
-                    aria-label={
-                      translate.navbar['button-language-mode']['aria-label'].en
-                    }>
-                    US
-                  </span>
-                )} */}
               </button>
+            </div>
+            <div className="inline-block">
+              <Link
+                href="https://github.com/dalvinxo/pro-portafolio/issues/new"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={translate.navbar['button-bug']['aria-label']}
+                title={translate.navbar['button-bug'].title}
+                className="text-sm font-medium uppercase dark:hover:text-cyan-500 hover:text-slate-600">
+                <FaBug />
+              </Link>
             </div>
           </menu>
         </nav>
