@@ -53,6 +53,10 @@ const translate = {
           dark: 'Switch to dark mode',
         },
       },
+      'button-bug': {
+        title: 'Report a bug',
+        'aria-label': 'Report a bug',
+      },
     },
   },
   es: {
@@ -112,6 +116,10 @@ const translate = {
           light: 'Cambiando al modo claro',
           dark: 'Cambiando al modo oscuro',
         },
+      },
+      'button-bug': {
+        title: 'Abrir un nuevo problema en GitHub',
+        'aria-label': 'Abrir un nuevo problema en GitHub',
       },
     },
   },
