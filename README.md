@@ -1,34 +1,83 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Pro Portafolio
 
-## Getting Started
+Portafolio profesional desarrollado en Next.js para mostrar proyectos, habilidades y experiencia de desarrollo web.
 
-First, run the development server:
+## Índice
+
+- [Descripción](#descripción)
+- [Overview](#overview)
+- [Tecnologías](#tecnologías)
+- [Instalación](#instalación)
+- [Uso](#uso)
+- [Despliegue](#despliegue)
+- [Contribución](#contribución)
+- [Autor](#autor)
+- [Licencia](#licencia)
+
+## Descripción
+
+Este proyecto es un portafolio personal moderno y responsivo, diseñado para destacar proyectos, habilidades y experiencia profesional. Permite a desarrolladores y creativos mostrar su trabajo de manera atractiva y eficiente.
+
+## Overview
+
+- Interfaz moderna y responsiva.
+- Sección de proyectos destacados.
+- Información sobre habilidades técnicas.
+- Página de contacto.
+- Fácil de personalizar y desplegar.
+
+## Tecnologías
+
+- [Next.js](https://nextjs.org/)
+- [React](https://react.dev/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/) (opcional, si aplica)
+- [Vercel](https://vercel.com/) para despliegue
+
+## Instalación
+
+1. Clona el repositorio:
+   ```bash
+   git clone https://github.com/tu-usuario/pro-portafolio.git
+   cd pro-portafolio
+   ```
+2. Instala las dependencias:
+   ```bash
+   npm install
+   # o
+   yarn install
+   ```
+
+## Uso
+
+Para iniciar el servidor de desarrollo:
 
 ```bash
 npm run dev
-# or
+# o
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Abre [http://localhost:3000](http://localhost:3000) en tu navegador para ver el resultado.
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+## Despliegue
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+El proyecto puede desplegarse fácilmente en [Vercel](https://vercel.com/):
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+1. Haz push del repositorio a GitHub.
+2. Conecta tu repositorio en Vercel.
+3. Sigue las instrucciones para desplegar.
 
-## Learn More
+Más información en la [documentación de Next.js sobre despliegue](https://nextjs.org/docs/deployment).
 
-To learn more about Next.js, take a look at the following resources:
+## Contribución
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+¡Las contribuciones son bienvenidas! Por favor, abre un issue o pull request para sugerencias y mejoras.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Autor
 
-## Deploy on Vercel
+Desarrollado por [Dalvin Molina](https://github.com/dalvinxo).
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Licencia
 
-Check out our [Next.js deployment documentation](https://nextjs.ogitrg/docs/deployment) for more details.
+Este proyecto está bajo la licencia MIT.
