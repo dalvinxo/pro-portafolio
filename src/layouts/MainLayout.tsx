@@ -6,23 +6,19 @@ import TranslateProvider from 'src/context/TranslateProviders'
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div>
-      <TranslateProvider>
-        <ThemeProvider
-          defaultTheme="dark"
-          enableSystem={false}
-          attribute={'class'}>
-          <div>
-            <div className="overflow-auto min-h-screen dark:bg-slate-800 bg-white dark:text-white text-slate-700">
-              <div className="xs:mx-0 xs:w-full watch:w-full max-w-7xl xs:px-2 w-4/6 h-screen mx-auto py-4 font-sans animate-hidden-fade">
-                <Navbar />
-                <main>{children}</main>
-              </div>
-            </div>
+    <TranslateProvider>
+      <ThemeProvider
+        defaultTheme="dark"
+        enableSystem={false}
+        attribute={'class'}>
+        <div className="min-h-screen dark:bg-slate-900 bg-white dark:text-white text-slate-700">
+          <Navbar />
+          <div className="relative z-0 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <main className="py-8">{children}</main>
           </div>
-        </ThemeProvider>
-      </TranslateProvider>
-    </div>
+        </div>
+      </ThemeProvider>
+    </TranslateProvider>
   )
 }
 

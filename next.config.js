@@ -13,7 +13,12 @@ const nextConfig = {
   // },
   // swcMinify: true,
   images: {
-    domains: ['ui-avatars.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'ui-avatars.com',
+      },
+    ],
   },
   // experimental: {
   //   appDir: true,
