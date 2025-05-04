@@ -1,13 +1,12 @@
 import MainLayout from '@layouts/MainLayout'
 import '@styles/tailwinds.css'
-import { Metadata } from 'next'
+import { Metadata, Viewport } from 'next'
 
 export const metadata: Metadata = {
   description:
     "Dalvinxo is a portafoly for review skill and project to the 'junior developer'",
   keywords: 'HTML, Link, next, react',
   title: 'Home',
-  viewport: 'width=device-width, initial-scale=1.0',
   authors: {
     name: 'dalvinxo',
   },
@@ -17,7 +16,12 @@ export const metadata: Metadata = {
     apple: ['/apple-touch-icon.png?v=4'],
     shortcut: ['/apple-touch-icon.png'],
   },
+}
+
+export const viewport: Viewport = {
   themeColor: 'white',
+  width: 'device-width',
+  initialScale: 1.0,
 }
 
 export default function RootLayout({

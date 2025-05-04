@@ -11,7 +11,7 @@ const nextConfig = {
   //     },
   //   ]
   // },
-  swcMinify: true,
+  // swcMinify: true,
   images: {
     domains: ['ui-avatars.com'],
   },
