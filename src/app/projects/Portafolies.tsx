@@ -53,43 +53,53 @@ const Portafoly = ({ proyects }: { proyects: Array<TypeProyects> }) => {
   })
 
   return (
-    <section>
+    <section className="w-full">
       <HeadSection title={translate.title.app} />
-      <motion.article initial="hidden" animate="show" variants={variants}>
+      <motion.article
+        initial="hidden"
+        animate="show"
+        variants={variants}
+        className="space-y-8">
         {Array.isArray(filterProject) && filterProject.length == 0 ? (
-          <h3 className="text-center text-lg my-5 font-normal text-neutral-300">
+          <h3 className="text-center text-lg py-12 text-slate-500 dark:text-slate-400">
             {translate.Project.emptyApp}
           </h3>
         ) : (
-          <div>
-            <div>
-              <div className="flex flex-row justify-center space-x-4 mt-4">
-                <button
-                  className={`text-lg ${filter == 'all' && 'font-bold'} `}
+          <div className="space-y-8">
+            <nav className="flex justify-center" aria-label="Filter projects">
+              <div className="inline-flex items-center gap-2 p-1.5 rounded-xl bg-slate-100/80 dark:bg-slate-800/50 backdrop-blur-sm">
+                <FilterButton
+                  isActive={filter === 'all'}
                   onClick={() => handlerFilter('all')}>
                   {translate.Project.status.all}
-                </button>
-                <button
-                  className={`text-lg ${
-                    filter == 'done' &&
-                    'font-bold text-emerald-600/75 dark:text-emerald-400'
-                  }`}
-                  onClick={() => handlerFilter('done')}>
-                  {translate.Project.status.done}
-                </button>
-                <button
-                  className={`text-lg ${
-                    filter == 'doing' &&
-                    'font-bold text-red-500/80 dark:text-red-400'
-                  }`}
-                  onClick={() => handlerFilter('doing')}>
-                  {translate.Project.status.do}
-                </button>
+                </FilterButton>
+                <FilterButton
+                  isActive={filter === 'done'}
+                  onClick={() => handlerFilter('done')}
+                  activeClassName="text-emerald-600 dark:text-emerald-400">
+                  <span className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-emerald-500" />
+                    {translate.Project.status.done}
+                  </span>
+                </FilterButton>
+                <FilterButton
+                  isActive={filter === 'doing'}
+                  onClick={() => handlerFilter('doing')}
+                  activeClassName="text-amber-600 dark:text-amber-400">
+                  <span className="flex items-center gap-2">
+                    <span className="h-2 w-2 rounded-full bg-amber-500" />
+                    {translate.Project.status.do}
+                  </span>
+                </FilterButton>
               </div>
-            </div>
-            <menu className="my-7 space-y-3 watch:my-2">
+            </nav>
+
+            <menu className="space-y-4">
               {filterProject.map((proyect) => (
-                <motion.div key={proyect.name} variants={variantsItems}>
+                <motion.div
+                  key={proyect.name}
+                  variants={variantsItems}
+                  className="transform-gpu">
                   <Project proyect={proyect} />
                 </motion.div>
               ))}
@@ -98,6 +108,36 @@ const Portafoly = ({ proyects }: { proyects: Array<TypeProyects> }) => {
         )}
       </motion.article>
     </section>
+  )
+}
+
+interface FilterButtonProps {
+  children: React.ReactNode
+  isActive: boolean
+  onClick: () => void
+  activeClassName?: string
+}
+
+const FilterButton = ({
+  children,
+  isActive,
+  onClick,
+  activeClassName = '',
+}: FilterButtonProps) => {
+  return (
+    <button
+      className={`
+        px-4 py-2 rounded-lg text-sm font-medium
+        transition-all duration-200
+        ${
+          isActive
+            ? `bg-white dark:bg-slate-700 shadow-sm ${activeClassName}`
+            : 'hover:bg-white/60 dark:hover:bg-slate-700/60'
+        }
+      `}
+      onClick={onClick}>
+      {children}
+    </button>
   )
 }
 

@@ -4,11 +4,11 @@ type TypeHeadSection = {
 
 const HeadSection = ({ title }: TypeHeadSection) => {
   return (
-    <div>
-      <h2 className="block text-3xl font-bold first-letter:uppercase py-4 px-2 watch:px-0 watch:text-center watch:text-xl">
+    <div className="mb-8">
+      <h2 className="text-2xl sm:text-3xl font-bold tracking-tight pb-4">
         {title}
       </h2>
-      <hr className="watch:hidden" />
+      <div className="h-px bg-gradient-to-r from-slate-200 dark:from-slate-700 to-transparent" />
     </div>
   )
 }

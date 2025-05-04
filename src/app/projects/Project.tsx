@@ -2,25 +2,27 @@
 
 import { IoEye, IoLogoGithub } from 'react-icons/io5'
 import { FormatterDate } from 'helpers'
-import { Fragment } from 'react'
 import StatusProject from '@common/StatusProject'
 import { useTranslateContext } from 'providers'
 import { getDictionary } from '@utils/dictionaries'
 
 const Project = ({ proyect }: { proyect: TypeProyects }) => {
   const { name, nameSpanish, state, date, deploy, repository } = proyect
-
   const { lang } = useTranslateContext()
   const translate = getDictionary(lang)
 
   return (
-    <Fragment>
-      <li className="my-5 watch:w-full watch:my-2 px-2 watch:px-1 flex xs:flex-col justify-between items-center watch:items-stretch watch:flex-nowrap py-3 xs:py-1 rounded-md shadow-md hover:shadow-lg transition-all duration-300 hover:-translate-y-0.5 dark:hover:bg-slate-900/10 hover:bg-gray-200">
-        <div className="flex-1">
-          <h3 className="text-2xl xs:text-center">
+    <li
+      className="group relative bg-white dark:bg-slate-800/30 rounded-xl border border-slate-200 
+      dark:border-slate-700/50 shadow-sm transition-all duration-300 
+      hover:shadow-lg hover:-translate-y-1 transform-gpu">
+      <div className="flex flex-col sm:flex-row items-start p-5 sm:p-6 gap-6">
+        <div className="flex-1 min-w-0 space-y-3">
+          <h3 className="text-xl sm:text-2xl font-semibold tracking-tight truncate">
             {lang == 'en' ? name : nameSpanish}
           </h3>
-          <div className="text-lg mt-0 flex flex-col items-center sm:mt-0 sm:flex-row sm:flex-wrap sm:space-x-6">
+
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
             <StatusProject
               state={state}
               message={
@@ -29,37 +31,64 @@ const Project = ({ proyect }: { proyect: TypeProyects }) => {
                   : translate.Project.status.do
               }
             />
-            <div className="dark:text-slate-300/80 text-gray-600">
-              🚀{FormatterDate(date) ?? translate.Project.status.pending}
+            <div className="flex items-center text-sm text-slate-600 dark:text-slate-400">
+              <span className="inline-block w-4 h-4 mr-1.5">🚀</span>
+              <span>
+                {FormatterDate(date) ?? translate.Project.status.pending}
+              </span>
             </div>
           </div>
         </div>
-        <div
-          className={`${
-            deploy && repository ? 'grid-cols-2' : 'grid-cols-1'
-          } inline-grid sm:w-20 gap-3 dark:text-slate-300/50 text-slate-900/70`}>
+
+        <div className="flex items-center gap-2 self-start sm:self-center ml-auto">
           {deploy && (
-            <a
+            <ProjectLink
               href={deploy}
-              target={'_blank'}
-              rel={'noreferrer'}
-              aria-label={translate.Project['aria-label'].eye}>
-              <IoEye className="transition-colors duration-300 hover:bg-slate-900 dark:hover:text-blue-400/80 hover:text-white rounded-full h-9 w-9 p-1" />
-            </a>
+              ariaLabel={translate.Project['aria-label'].eye}
+              icon={<IoEye className="w-5 h-5" />}
+              className="text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-500/10"
+            />
           )}
           {repository && (
-            <a
+            <ProjectLink
               href={repository}
-              target={'_blank'}
-              rel={'noreferrer'}
-              aria-label={translate.Project['aria-label'].github}>
-              <IoLogoGithub className="transition-colors duration-300 hover:bg-slate-900 hover:text-white rounded-full h-9 w-9 p-1" />
-            </a>
+              ariaLabel={translate.Project['aria-label'].github}
+              icon={<IoLogoGithub className="w-5 h-5" />}
+              className="text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/50"
+            />
           )}
         </div>
-      </li>
-    </Fragment>
+      </div>
+    </li>
   )
 }
+
+interface ProjectLinkProps {
+  href: string
+  ariaLabel: string
+  icon: React.ReactNode
+  className?: string
+}
+
+const ProjectLink = ({
+  href,
+  ariaLabel,
+  icon,
+  className = '',
+}: ProjectLinkProps) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noreferrer"
+    aria-label={ariaLabel}
+    className={`
+      p-2.5 rounded-lg transition-all duration-200
+      hover:scale-105 focus:scale-105 
+      focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 dark:focus:ring-offset-slate-800
+      ${className}
+    `}>
+    {icon}
+  </a>
+)
 
 export default Project

@@ -31,29 +31,37 @@ const Repositories = ({ data }: fetchData) => {
   const translate = getDictionary(lang)
 
   return (
-    <section>
+    <section className="w-full">
       <HeadSection title={translate.title.github} />
-      <ol className="py-7 px-2 grid grid-row-3 lg:grid-cols-3 md:grid-cols-2 xs:grid-cols-1 gap-3">
+      <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 p-4">
         {data.map((item, indice) => (
           <li
             key={item.name + '_' + item.link + 'as-' + indice}
-            className="border p-4 rounded-md shadow-md dark:hover:bg-slate-900/25 hover:bg-gray-300/80 border-slate-600 transition-all duration-5 00 hover:-translate-y-1 hover:shadow-lg">
-            <Link href={item.link} target={'_blank'} rel={'noreferrer'}>
-              <div className="flex flex-col space-y-4">
-                <div className="overflow-hidden flex-nowrap">{item.name}</div>
-                <div>
+            className="relative border rounded-lg p-4 hover:-translate-y-1 transition-all duration-300
+              dark:border-slate-700 border-slate-200
+              dark:hover:bg-slate-800/50 hover:bg-slate-50
+              shadow-sm hover:shadow-md">
+            <Link
+              href={item.link}
+              target="_blank"
+              rel="noreferrer"
+              className="block h-full">
+              <div className="flex flex-col h-full space-y-4">
+                <h3 className="font-medium text-lg truncate">{item.name}</h3>
+                <p className="text-sm text-slate-600 dark:text-slate-400 flex-grow">
                   {item.description ?? translate.title.descriptionGithub}
-                </div>
-                <div className="text-md">
+                </p>
+                <div className="flex flex-wrap gap-2 text-sm">
                   {item.language.map((lg) => (
                     <div
-                      key={lg + '-' + item.link + '-as' + item.name}
-                      className="inline-block">
+                      key={lg + '-' + item.name}
+                      className="flex items-center space-x-1">
                       <span
-                        className={`inline-block h-3 w-3 rounded-full border border-neutral-500 ${
+                        className={`h-3 w-3 rounded-full ${
                           color[lg] ?? 'bg-slate-400'
-                        } ml-1 mr-2`}></span>
-                      <p className="inline-block mr-1">{lg}</p>
+                        }`}
+                      />
+                      <span>{lg}</span>
                     </div>
                   ))}
                 </div>
