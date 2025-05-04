@@ -74,8 +74,6 @@ const MobileMenu = ({
               </button>
 
               <button
-                role="button"
-                type="button"
                 title={translate.navbar['button-language-mode'].title}
                 aria-label={
                   lang === 'en' || !lang
