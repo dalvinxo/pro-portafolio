@@ -26,10 +26,12 @@ const fetchDataAbout = async (): Promise<{
 export default async function Home() {
   const data = await fetchDataAbout()
 
+  const { histories, social } = data
+
   return (
     <div>
       <PageWrapper>
-        <About data={data.histories} social={data.social} />
+        <About data={histories} social={social} />
       </PageWrapper>
     </div>
   )
