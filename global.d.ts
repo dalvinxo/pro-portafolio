@@ -24,4 +24,16 @@ declare global {
     repository: string | null
     date: string | null
   }
+
+  type TypeCertificates = {
+    id: string
+    title: string
+    description: string
+    descriptionSpanish: string
+    type: string
+    completionDate: string
+    expiryDate: string | null
+    certificateUrl: string | null
+    previewUrl: string | null
+  }
 }

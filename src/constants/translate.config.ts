@@ -14,7 +14,8 @@ const translate = {
       description: 'Sorry, the page you are looking for could not be found',
     },
     title: {
-      app: 'App',
+      certificates: 'Certificates',
+      app: 'Applications',
       github: "Github's Repositories",
       descriptionGithub: 'This repository has no description in its contents',
     },
@@ -25,7 +26,16 @@ const translate = {
         linkedin: 'social media, read more about linkedin',
       },
     },
-    Project: {
+    certificates: {
+      noPreview: 'No preview available',
+      type: 'Type',
+      completed: 'Completed',
+      expires: 'Expires',
+      viewCertificate: 'View certificate',
+      searchPlaceholder: 'Search certificates...',
+      noCertificatesFound: 'No certificates found',
+    },
+    project: {
       status: {
         done: 'Completed',
         do: 'Working',
@@ -75,6 +85,7 @@ const translate = {
         'Lo sentimos, no se ha podido encontrar la página que buscas',
     },
     title: {
+      certificates: 'Certificados',
       app: 'Aplicaciones',
       github: 'Repositorios de Github',
       descriptionGithub:
@@ -89,7 +100,16 @@ const translate = {
           'redes sociales, conocer más sobre el autor en su cuenta de linkedin',
       },
     },
-    Project: {
+    certificates: {
+      noPreview: 'No hay vista previa disponible',
+      type: 'Tipo',
+      completed: 'Completado',
+      expires: 'Expira',
+      viewCertificate: 'Ver certificado',
+      searchPlaceholder: 'Buscar certificados...',
+      noCertificatesFound: 'No se encontraron certificados',
+    },
+    project: {
       status: {
         done: 'Terminado',
         do: 'En proceso',

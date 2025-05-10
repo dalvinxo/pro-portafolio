@@ -17,5 +17,11 @@ export const navbar: EntityRouters = {
         return lang == 'en' ? 'Projects' : 'Proyectos'
       },
     },
+    {
+      path: '/certificates',
+      alias(lang) {
+        return lang == 'en' ? 'Certificates' : 'Certificados'
+      },
+    },
   ],
 }

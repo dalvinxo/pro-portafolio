@@ -27,14 +27,14 @@ const Project = ({ proyect }: { proyect: TypeProyects }) => {
               state={state}
               message={
                 state
-                  ? translate.Project.status.done
-                  : translate.Project.status.do
+                  ? translate.project.status.done
+                  : translate.project.status.do
               }
             />
             <div className="flex items-center text-sm text-slate-600 dark:text-slate-400">
               <span className="inline-block w-4 h-4 mr-1.5">🚀</span>
               <span>
-                {FormatterDate(date) ?? translate.Project.status.pending}
+                {FormatterDate(date) ?? translate.project.status.pending}
               </span>
             </div>
           </div>
@@ -44,7 +44,7 @@ const Project = ({ proyect }: { proyect: TypeProyects }) => {
           {deploy && (
             <ProjectLink
               href={deploy}
-              ariaLabel={translate.Project['aria-label'].eye}
+              ariaLabel={translate.project['aria-label'].eye}
               icon={<IoEye className="w-5 h-5" />}
               className="text-blue-600 dark:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-500/10"
             />
@@ -52,7 +52,7 @@ const Project = ({ proyect }: { proyect: TypeProyects }) => {
           {repository && (
             <ProjectLink
               href={repository}
-              ariaLabel={translate.Project['aria-label'].github}
+              ariaLabel={translate.project['aria-label'].github}
               icon={<IoLogoGithub className="w-5 h-5" />}
               className="text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700/50"
             />

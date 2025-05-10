@@ -62,7 +62,7 @@ const Portafoly = ({ proyects }: { proyects: Array<TypeProyects> }) => {
         className="space-y-8">
         {Array.isArray(filterProject) && filterProject.length == 0 ? (
           <h3 className="text-center text-lg py-12 text-slate-500 dark:text-slate-400">
-            {translate.Project.emptyApp}
+            {translate.project.emptyApp}
           </h3>
         ) : (
           <div className="space-y-8">
@@ -71,7 +71,7 @@ const Portafoly = ({ proyects }: { proyects: Array<TypeProyects> }) => {
                 <FilterButton
                   isActive={filter === 'all'}
                   onClick={() => handlerFilter('all')}>
-                  {translate.Project.status.all}
+                  {translate.project.status.all}
                 </FilterButton>
                 <FilterButton
                   isActive={filter === 'done'}
@@ -79,7 +79,7 @@ const Portafoly = ({ proyects }: { proyects: Array<TypeProyects> }) => {
                   activeClassName="text-emerald-600 dark:text-emerald-400">
                   <span className="flex items-center gap-2">
                     <span className="h-2 w-2 rounded-full bg-emerald-500" />
-                    {translate.Project.status.done}
+                    {translate.project.status.done}
                   </span>
                 </FilterButton>
                 <FilterButton
@@ -88,7 +88,7 @@ const Portafoly = ({ proyects }: { proyects: Array<TypeProyects> }) => {
                   activeClassName="text-amber-600 dark:text-amber-400">
                   <span className="flex items-center gap-2">
                     <span className="h-2 w-2 rounded-full bg-amber-500" />
-                    {translate.Project.status.do}
+                    {translate.project.status.do}
                   </span>
                 </FilterButton>
               </div>

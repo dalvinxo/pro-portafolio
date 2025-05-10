@@ -87,3 +87,41 @@ export const getPortafoliesWorking = async () => {
 
   return data
 }
+
+export const getCertificatesDatabase: () => Promise<
+  TypeCertificates[]
+> = async () => {
+  const blocks = await notion.databases.query({
+    database_id: databaseId.certificates,
+    filter: {
+      property: 'Status',
+      checkbox: {
+        equals: true,
+      },
+    },
+    sorts: [
+      {
+        property: 'CompletionDate',
+        direction: 'descending',
+      },
+    ],
+  })
+
+  const data = blocks.results.map((block) => ({
+    id: `${(block as any).properties.ID.unique_id.prefix}-${
+      (block as any).properties.ID.unique_id.number
+    }`,
+    title: (block as any).properties.Title.title[0].text.content,
+    description: (block as any).properties.Description.rich_text[0]?.text
+      .content,
+    descriptionSpanish: (block as any).properties.DescriptionSpanish
+      .rich_text[0]?.text.content,
+    type: (block as any).properties.Type.select.name,
+    completionDate: (block as any).properties.CompletionDate.date?.start,
+    expiryDate: (block as any).properties.ExpiryDate.date?.start ?? null,
+    certificateUrl: (block as any).properties.CertificateUrl.url ?? null,
+    previewUrl: (block as any).properties.PreviewUrl.url ?? null,
+  }))
+
+  return data
+}
