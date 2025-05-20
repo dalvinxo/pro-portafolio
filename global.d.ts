@@ -31,9 +31,9 @@ declare global {
     description: string
     descriptionSpanish: string
     type: string
+    typeSpanish: string
     completionDate: string
     expiryDate: string | null
     certificateUrl: string | null
-    previewUrl: string | null
   }
 }

@@ -116,11 +116,11 @@ export const getCertificatesDatabase: () => Promise<
       .content,
     descriptionSpanish: (block as any).properties.DescriptionSpanish
       .rich_text[0]?.text.content,
+    typeSpanish: (block as any).properties.TypeSpanish.select.name,
     type: (block as any).properties.Type.select.name,
     completionDate: (block as any).properties.CompletionDate.date?.start,
     expiryDate: (block as any).properties.ExpiryDate.date?.start ?? null,
     certificateUrl: (block as any).properties.CertificateUrl.url ?? null,
-    previewUrl: (block as any).properties.PreviewUrl.url ?? null,
   }))
 
   return data

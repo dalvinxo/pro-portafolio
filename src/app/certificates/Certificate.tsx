@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useTranslateContext } from 'providers'
 import { getDictionary } from '@utils/dictionaries'
 import HeadSection from '@common/HeadSection'
@@ -13,25 +13,41 @@ export default function Certificate({
 }: {
   certificates: Certificate[]
 }) {
-  const [search, setSearch] = useState('')
-  const [selectedType, setSelectedType] = useState<string>('all')
   const { lang } = useTranslateContext()
   const translate = getDictionary(lang)
 
+  const [search, setSearch] = useState('')
+
+  const AllOptionLabel = useMemo(
+    () => (lang === 'en' ? 'All' : 'Todos'),
+    [lang]
+  )
+
   const certificateTypes = useMemo(() => {
-    const types = new Set(certificates.map((cert) => cert.type))
-    return ['all', ...Array.from(types)]
-  }, [certificates])
+    const types = new Set(
+      certificates.map((cert) => (lang === 'en' ? cert.type : cert.typeSpanish))
+    )
+    return [AllOptionLabel, ...Array.from(types)]
+  }, [certificates, lang, AllOptionLabel])
+
+  const [selectedType, setSelectedType] = useState<string>(AllOptionLabel)
+
+  useEffect(() => {
+    setSelectedType(AllOptionLabel)
+  }, [AllOptionLabel])
 
   const filteredCertificates = useMemo(() => {
     return certificates.filter((cert) => {
       const matchesSearch =
         cert.title.toLowerCase().includes(search.toLowerCase()) ||
         cert.description.toLowerCase().includes(search.toLowerCase())
-      const matchesType = selectedType === 'all' || cert.type === selectedType
+      const matchesType =
+        selectedType === AllOptionLabel ||
+        cert.type === selectedType ||
+        cert.typeSpanish === selectedType
       return matchesSearch && matchesType
     })
-  }, [certificates, search, selectedType])
+  }, [certificates, search, selectedType, AllOptionLabel])
 
   return (
     <section className="space-y-8">
