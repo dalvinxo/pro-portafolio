@@ -29,10 +29,10 @@ export default async function Home() {
   const { histories, social } = data
 
   return (
-    <div>
+    <>
       <PageWrapper>
         <About data={histories} social={social} />
       </PageWrapper>
-    </div>
+    </>
   )
 }

@@ -9,7 +9,7 @@ const variants = {
 
 const PageWrapper = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div>
+    <>
       <AnimatePresence>
         <motion.div
           variants={variants}
@@ -20,7 +20,7 @@ const PageWrapper = ({ children }: { children: React.ReactNode }) => {
           {children}
         </motion.div>
       </AnimatePresence>
-    </div>
+    </>
   )
 }
 

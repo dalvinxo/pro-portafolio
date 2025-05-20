@@ -4,7 +4,7 @@ import { getDictionary } from '@utils/dictionaries'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useTranslateContext } from 'providers'
-import { ChangeEvent, useState } from 'react'
+import { ChangeEvent, useEffect, useState } from 'react'
 import {
   IoChevronBackSharp,
   IoChevronForwardSharp,
@@ -20,6 +20,10 @@ const About = ({
   data: Array<{ id: number; message: string; messageSpanish: string | null }>
   social: Array<{ id: any; name: string; link: string }>
 }) => {
+  const [currentImage, setCurrentImage] = useState(0)
+
+  const images = ['/img/avatar_profile.webp', '/img/avatar_profile1.webp']
+
   const [position, setPosition] = useState<{ current: number; last: number }>({
     current: 0,
     last: data.length - 1,
@@ -72,32 +76,45 @@ const About = ({
     youtube: <IoLogoYoutube className="transition-all duration-300" />,
   }
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % images.length)
+    }, 10000)
+    return () => clearInterval(timer)
+  }, [])
+
   return (
-    <main className="w-full min-h-screen flex items-center justify-center p-4 sm:p-8">
-      <div className="max-w-7xl w-full">
-        <div className="grid lg:grid-cols-2 gap-16 items-center">
-          <div className="relative group">
+    <section className="w-full h-5/6 flex items-center justify-center px-4 sm:p-8 overflow-hidden">
+      <div className="max-w-6xl w-full">
+        <div className="grid lg:grid-cols-2 gap-8 items-center">
+          <div className="relative group w-full max-w-md mx-auto">
             <div
               className="absolute -inset-0.5 bg-gradient-to-r from-sky-300/50 to-blue-500/50 rounded-3xl opacity-50 
                     blur-lg group-hover:opacity-75 transition duration-700 group-hover:duration-200"></div>
-            <div className="relative">
-              <Image
-                className="rounded-3xl transform transition duration-500 hover:scale-105 object-cover"
-                alt="icon profile"
-                src="/img/avatar_profile.png"
-                height={800}
-                width={800}
-                quality={100}
-                priority
-                placeholder="blur"
-                blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQdHx4eHRoaHSQrJyEwPENDPzE2O0FBNldRV1dXTTZBTGJhYmN5e4B7hYyQkJrR2deZ/9sAQAEVFx0eHR4rGiovKWpBPUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUFBQUH/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
-              />
+            <div
+              className="relative overflow-hidden rounded-3xl"
+              style={{ height: 400 }}>
+              {images.map((src, index) => (
+                <Image
+                  key={src}
+                  className={`absolute w-full  transform transition-all duration-500 object-cover
+                    ${
+                      index === currentImage
+                        ? 'opacity-100 translate-x-0'
+                        : 'opacity-0 translate-x-full'
+                    }`}
+                  alt={`Profile image ${index + 1}`}
+                  src={src}
+                  height={200}
+                  width={200}
+                  quality={90}
+                  priority={index === 0}
+                />
+              ))}
             </div>
           </div>
 
-          {/* Content Section */}
           <div className="flex flex-col space-y-8">
-            {/* Navigation Controls */}
             <div className="flex items-center justify-center space-x-8">
               <button
                 onClick={() => onClickHandleArrow('left')}
@@ -159,7 +176,7 @@ const About = ({
               ))}
             </div>
 
-            <div className="flex justify-center space-x-10 pt-6">
+            <div className="flex justify-center space-x-12 pt-8">
               {social.map((mediaSocial) => (
                 <Link
                   key={mediaSocial.name}
@@ -169,8 +186,8 @@ const About = ({
                   className="group relative"
                   aria-label={ariaLabel[mediaSocial.name]}>
                   <span
-                    className="absolute -top-10 left-1/2 -translate-x-1/2 scale-0 px-3 py-2 
-                                rounded-lg text-xs font-medium text-white bg-sky-900 transition-all 
+                    className="absolute -top-12 left-1/2 -translate-x-1/2 scale-0 px-4 py-2 
+                                rounded-lg text-sm font-medium text-white bg-sky-900 transition-all 
                                 duration-300 group-hover:scale-100 after:content-[''] after:absolute 
                                 after:left-1/2 after:-translate-x-1/2 after:top-[100%] after:-translate-y-0.5 
                                 after:border-4 after:border-x-transparent after:border-b-transparent 
@@ -178,7 +195,7 @@ const About = ({
                     {mediaSocial.name}
                   </span>
                   <span
-                    className="block p-3 text-4xl bg-gradient-to-r from-sky-400/10 to-blue-500/10 
+                    className="block p-4 text-5xl bg-gradient-to-r from-sky-400/10 to-blue-500/10 
                                 rounded-full transition-all duration-300 group-hover:from-sky-400/20 
                                 group-hover:to-blue-500/20 group-hover:scale-110 
                                 group-hover:text-sky-500 dark:text-gray-300 dark:group-hover:text-sky-400">
@@ -190,7 +207,7 @@ const About = ({
           </div>
         </div>
       </div>
-    </main>
+    </section>
   )
 }
 
