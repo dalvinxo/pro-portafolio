@@ -35,6 +35,8 @@ const Navbar = () => {
               brand={brand}
               link={navlink[0].path}
               linkBrandTitle={translate.brand.linkTitle}
+              role="Ingeniero de Software"
+              name="Dalvin Molina"
             />
 
             {/* Desktop Navigation */}
