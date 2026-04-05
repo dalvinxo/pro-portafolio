@@ -6,7 +6,7 @@ import { IoSunny, IoMoon, IoClose } from 'react-icons/io5'
 import { FaBug } from 'react-icons/fa'
 import Nav from '@common/Nav'
 import Link from 'next/link'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 
 interface MobileMenuProps {
   isOpen: boolean
@@ -26,13 +26,13 @@ const MobileMenu = ({
   pathname,
   translate,
 }: MobileMenuProps) => {
-  // const [mounted, setMounted] = useState(false)
+  const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
   const { lang, setLanguage } = useTranslateContext()
 
-  // useEffect(() => {
-  //   setMounted(true)
-  // }, [])
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   useEffect(() => {
     if (isOpen) {
@@ -90,36 +90,40 @@ const MobileMenu = ({
 
           <div className="mt-auto pt-4 border-t border-slate-200 dark:border-slate-700">
             <div className="grid grid-cols-3 gap-2">
-              {/* {mounted && ( */}
-              {theme === 'dark' ? (
-                <button
-                  title={translate.navbar['button-mode-dark'].title}
-                  onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                  className="flex items-center justify-center p-3 rounded-lg
-                    hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                  aria-label={
-                    theme === 'dark'
-                      ? translate.navbar['button-mode-dark']['aria-label'].light
-                      : translate.navbar['button-mode-dark']['aria-label'].dark
-                  }>
-                  <IoSunny className="w-5 h-5 text-amber-500" />
-                </button>
+              {mounted ? (
+                theme === 'dark' ? (
+                  <button
+                    title={translate.navbar['button-mode-dark'].title}
+                    onClick={() => setTheme('light')}
+                    className="flex items-center justify-center p-3 rounded-lg
+                      hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                    aria-label={
+                      translate.navbar['button-mode-dark']['aria-label'].light
+                    }>
+                    <IoSunny className="w-5 h-5 text-amber-500" />
+                  </button>
+                ) : (
+                  <button
+                    title={translate.navbar['button-mode-dark'].title}
+                    onClick={() => setTheme('dark')}
+                    className="flex items-center justify-center p-3 rounded-lg
+                        hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                    aria-label={
+                      translate.navbar['button-mode-dark']['aria-label'].dark
+                    }>
+                    <IoMoon className="w-5 h-5 text-slate-700 dark:text-slate-200" />
+                  </button>
+                )
               ) : (
                 <button
-                  title={translate.navbar['button-mode-dark'].title}
-                  onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
                   className="flex items-center justify-center p-3 rounded-lg
-                      hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-                  aria-label={
-                    theme === 'dark'
-                      ? translate.navbar['button-mode-dark']['aria-label'].light
-                      : translate.navbar['button-mode-dark']['aria-label'].dark
-                  }>
-                  <IoMoon className="w-5 h-5 text-slate-700 dark:text-slate-200" />
+                    hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+                  aria-hidden="true"
+                  disabled
+                >
+                  <IoMoon className="w-5 h-5 text-slate-400 dark:text-slate-500" />
                 </button>
               )}
-
-              {/* )} */}
 
               <button
                 title={translate.navbar['button-language-mode'].title}

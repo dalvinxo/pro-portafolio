@@ -171,11 +171,10 @@ export default function Certificate({
               <button
                 key={type}
                 onClick={() => setSelectedType(type)}
-                className={`whitespace-nowrap rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${
-                  selectedType === type
-                    ? 'bg-sky-500 text-white'
-                    : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700'
-                }`}
+                className={`whitespace-nowrap rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${selectedType === type
+                  ? 'bg-sky-500 text-white'
+                  : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700'
+                  }`}
               >
                 {type}
               </button>
@@ -211,7 +210,7 @@ export default function Certificate({
                   ? 'Close certificate preview'
                   : 'Cerrar vista previa del certificado'
               }
-              className="absolute right-4 top-4 z-10 rounded-full bg-slate-200 p-2 transition-colors hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600"
+              className="absolute text-xl right-2 top-2 px-3 py-1 z-10 rounded-md bg-slate-200 transition-colors hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600"
             >
               x
             </button>
