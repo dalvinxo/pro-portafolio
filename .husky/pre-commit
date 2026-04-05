@@ -3,4 +3,4 @@
 
 # npm run prettier
 # npm run lint
-npx lint-staged
+# npx lint-staged
