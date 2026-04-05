@@ -10,21 +10,9 @@ const auth = new google.auth.GoogleAuth({
   scopes: ['https://www.googleapis.com/auth/drive'],
 })
 
-// Agregar después de const auth = ...
-console.log('Google Auth initialized successfully')
-auth
-  .getCredentials()
-  .then((credentials) => {
-    console.log('Service Account Email:', credentials.client_email)
-  })
-  .catch((error) => {
-    console.error('Error getting service account credentials:', error)
-  })
-
 const drive = google.drive({ version: 'v3', auth })
 
 export const getCertificateFile = async (fileId: string) => {
-  console.log('Fetching file from Drive with ID:', fileId)
   try {
     const response = await drive.files.get(
       {
@@ -40,8 +28,7 @@ export const getCertificateFile = async (fileId: string) => {
       data: response.data,
       mimeType: response.headers['content-type'] || 'application/pdf',
     }
-  } catch (error) {
-    console.error('Error fetching file from Drive:', error)
+  } catch {
     throw new Error('Certificate not found or access denied')
   }
 }
@@ -54,8 +41,7 @@ export const getCertificateMetadata = async (fileId: string) => {
     })
 
     return response.data
-  } catch (error) {
-    console.error('Error fetching metadata:', error)
+  } catch {
     return null
   }
 }

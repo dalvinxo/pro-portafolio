@@ -8,46 +8,47 @@ type RoleType =
   | 'Ingeniero de Software'
   | 'Ingeniero de Datos'
 
-interface typeHeader extends EntityBrand {
+interface HeaderProps extends EntityBrand {
   link?: string
   linkBrandTitle?: string
   role: RoleType
-  name: string // Nuevo prop para el nombre
+  name: string
 }
 
-const Header = ({ brand, link, linkBrandTitle, role, name }: typeHeader) => {
+const Header = ({ brand, link, linkBrandTitle, role, name }: HeaderProps) => {
+  const href = brand.src || link || '/'
+  const isExternal = /^https?:\/\//.test(href)
+
   return (
-    <div className="flex items-center justify-between gap-2 sm:gap-4 p-2">
-      <Link
-        href={brand.src || link}
-        className="flex items-center space-x-2 sm:space-x-4 hover:opacity-90 transition-all duration-200"
-        target="_blank"
-        rel="nofollow"
-        title={linkBrandTitle}>
+    <Link
+      href={href}
+      target={isExternal ? '_blank' : undefined}
+      rel={isExternal ? 'nofollow noreferrer' : undefined}
+      title={linkBrandTitle}
+      className="group flex min-w-0 items-center gap-3 rounded-2xl transition-opacity hover:opacity-90 sm:gap-4"
+    >
+      <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full ring-1 ring-slate-200 dark:ring-slate-800 sm:h-14 sm:w-14">
         <Image
-          className="rounded-full w-10 h-10 sm:w-14 sm:h-14 ring-2 ring-gray-100 dark:ring-gray-800 flex-shrink-0"
-          alt="icon profile"
+          alt="Profile avatar"
           src={brand.avatar}
-          width={56}
-          height={56}
+          fill
+          sizes="56px"
+          className="object-cover"
         />
-        <div className="flex flex-col min-w-0">
-          <h1 className="text-base sm:text-xl font-semibold tracking-tight truncate">
-            {brand.title}
-          </h1>
-          <div className="flex flex-col gap-0.5">
-            <p className="text-sm text-gray-600 dark:text-gray-400 font-medium truncate">
-              {name}
-            </p>
-            <div className="flex items-center gap-2">
-              <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
-                {role}
-              </p>
-            </div>
-          </div>
-        </div>
-      </Link>
-    </div>
+      </div>
+
+      <div className="min-w-0">
+        <p className="truncate text-base font-semibold tracking-tight text-slate-900 dark:text-slate-50 sm:text-lg">
+          {brand.title}
+        </p>
+        <p className="truncate text-sm font-medium text-slate-600 dark:text-slate-300">
+          {name}
+        </p>
+        <p className="truncate text-xs uppercase tracking-[0.18em] text-slate-400 dark:text-slate-500">
+          {role}
+        </p>
+      </div>
+    </Link>
   )
 }
 

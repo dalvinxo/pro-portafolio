@@ -2,6 +2,10 @@
 import { NextResponse } from 'next/server'
 import { getCertificateFile } from 'services'
 
+type RouteContext = {
+    params: Promise<{ id: string }>
+}
+
 const getMimeTypeFromSignature = (data: ArrayBuffer | Buffer) => {
   const bytes = data instanceof Buffer ? data : Buffer.from(data)
 
@@ -50,8 +54,8 @@ const resolveCertificateResponse = async (id: string) => {
 }
 
 export async function GET(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
+    _request: Request,
+    { params }: RouteContext
 ) {
   try {
     const { id } = await params
@@ -74,8 +78,8 @@ export async function GET(
 }
 
 export async function HEAD(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
+    _request: Request,
+    { params }: RouteContext
 ) {
   try {
     const { id } = await params

@@ -6,74 +6,101 @@ import Link from 'next/link'
 import { useTranslateContext } from 'providers'
 import { FaExternalLinkAlt } from 'react-icons/fa'
 
-type fetchData = {
-  data: Array<{
-    name: string
-    link: string
-    language: string[]
-    description?: string
-  }>
+type RepositoryItem = {
+  name: string
+  link: string
+  language: string[]
+  description?: string | null
 }
 
-const Repositories = ({ data }: fetchData) => {
-  const color = {
-    TypeScript: 'bg-sky-600',
-    JavaScript: 'bg-yellow-500',
-    Shell: 'bg-gray-800',
-    Dockerfile: 'bg-emerald-600',
-    HTML: 'bg-violet-600',
-    CSS: 'bg-orange-800',
-    'C#': 'bg-green-300',
-    PHP: 'bg-cyan-300',
-    SCSS: 'bg-indigo-600',
-  }
+const languageTone: Record<string, string> = {
+  TypeScript: 'bg-sky-500',
+  JavaScript: 'bg-yellow-500',
+  Shell: 'bg-slate-700',
+  Dockerfile: 'bg-emerald-500',
+  HTML: 'bg-orange-500',
+  CSS: 'bg-blue-500',
+  'C#': 'bg-green-500',
+  PHP: 'bg-indigo-500',
+  SCSS: 'bg-pink-500',
+}
 
+const Repositories = ({ data }: { data: RepositoryItem[] }) => {
   const { lang } = useTranslateContext()
   const translate = getDictionary(lang)
 
   return (
-    <section className="w-full">
+    <section className="space-y-8">
       <HeadSection title={translate.title.github} />
-      <ol className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 p-3">
-        {data.map((item, indice) => (
-          <li
-            key={item.name + '_' + item.link + 'as-' + indice}
-            className="relative border rounded-lg p-5 hover:-translate-y-1 transition-all duration-300
-              dark:border-slate-700 border-slate-200
-              dark:hover:bg-slate-800/50 hover:bg-slate-50
-              shadow-md hover:shadow-lg">
-            <Link
-              href={item.link}
-              target="_blank"
-              rel="noreferrer"
-              className="block h-full">
-              <div className="flex flex-col h-full space-y-4">
-                <h3 className="font-semibold text-lg truncate flex items-center space-x-2">
-                  <span>{item.name}</span>
-                  <FaExternalLinkAlt className="text-slate-500 dark:text-slate-400 text-sm" />
-                </h3>
-                <p className="text-sm text-slate-600 dark:text-slate-400 flex-grow">
+
+      <div className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-[0_24px_60px_-42px_rgba(15,23,42,0.55)] dark:border-slate-800 dark:bg-slate-900 sm:p-6">
+        <div className="mb-6 flex flex-col gap-2 border-b border-slate-200 pb-5 dark:border-slate-800">
+          <p className="text-xs font-medium uppercase tracking-[0.24em] text-slate-400">
+            {lang === 'en' ? 'Open source' : 'Codigo abierto'}
+          </p>
+          <p className="text-sm text-slate-500 dark:text-slate-400">
+            {lang === 'en'
+              ? 'A curated set of repositories with the languages and tooling used in each one.'
+              : 'Una seleccion de repositorios con los lenguajes y herramientas usados en cada uno.'}
+          </p>
+        </div>
+
+        <ol className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {data.map((item) => (
+            <li key={`${item.name}-${item.link}`}>
+              <Link
+                href={item.link}
+                target="_blank"
+                rel="noreferrer"
+                className="group flex h-full flex-col rounded-[1.5rem] border border-slate-200 bg-slate-50/60 p-5 transition-colors hover:border-slate-300 hover:bg-white dark:border-slate-800 dark:bg-slate-950 dark:hover:border-slate-700 dark:hover:bg-slate-900"
+                aria-label={`${item.name} repository`}
+              >
+                <div className="flex items-start justify-between gap-4">
+                  <div className="min-w-0">
+                    <p className="text-xs font-medium uppercase tracking-[0.24em] text-slate-400">
+                      Repository
+                    </p>
+                    <h3 className="mt-2 truncate text-lg font-semibold text-slate-900 dark:text-slate-50">
+                      {item.name}
+                    </h3>
+                  </div>
+
+                  <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition-colors group-hover:border-slate-300 group-hover:text-slate-900 dark:border-slate-800 dark:text-slate-400 dark:group-hover:border-slate-700 dark:group-hover:text-slate-100">
+                    <FaExternalLinkAlt className="h-3.5 w-3.5" aria-hidden="true" />
+                  </span>
+                </div>
+
+                <p className="mt-4 flex-1 text-sm leading-7 text-slate-600 dark:text-slate-400">
                   {item.description ?? translate.title.descriptionGithub}
                 </p>
-                <div className="flex flex-wrap gap-2 text-sm">
-                  {item.language.map((lg) => (
-                    <div
-                      key={lg + '-' + item.name}
-                      className="flex items-center space-x-2 bg-slate-100 dark:bg-slate-700 px-2 py-1 rounded-full">
+
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {item.language.length > 0 ? (
+                    item.language.map((language) => (
                       <span
-                        className={`h-3 w-3 rounded-full ${
-                          color[lg] ?? 'bg-slate-400'
-                        }`}
-                      />
-                      <span className="font-medium">{lg}</span>
-                    </div>
-                  ))}
+                        key={`${item.name}-${language}`}
+                        className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300"
+                      >
+                        <span
+                          className={`h-2.5 w-2.5 rounded-full ${
+                            languageTone[language] ?? 'bg-slate-400'
+                          }`}
+                          aria-hidden="true"
+                        />
+                        <span>{language}</span>
+                      </span>
+                    ))
+                  ) : (
+                    <span className="inline-flex rounded-full border border-dashed border-slate-200 px-3 py-1.5 text-xs text-slate-400 dark:border-slate-800 dark:text-slate-500">
+                      {lang === 'en' ? 'No languages detected' : 'Sin lenguajes detectados'}
+                    </span>
+                  )}
                 </div>
-              </div>
-            </Link>
-          </li>
-        ))}
-      </ol>
+              </Link>
+            </li>
+          ))}
+        </ol>
+      </div>
     </section>
   )
 }

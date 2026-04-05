@@ -1,5 +1,6 @@
 'use client'
 
+import Image from 'next/image'
 import { useEffect, useMemo, useState } from 'react'
 import React from 'react'
 import { useTranslateContext } from 'providers'
@@ -9,6 +10,7 @@ import CertificateCard from './CertificateCard'
 
 type Certificate = TypeCertificates
 type PreviewKind = 'pdf' | 'image' | 'unknown'
+type PreviewStatus = 'idle' | 'resolving' | 'ready' | 'error'
 
 export default function Certificate({
   certificates,
@@ -24,7 +26,8 @@ export default function Certificate({
   const [isLoading, setIsLoading] = useState(false)
   const [hasPreviewError, setHasPreviewError] = useState(false)
   const [previewKind, setPreviewKind] = useState<PreviewKind>('unknown')
-  const [previewRequestId, setPreviewRequestId] = useState<number | null>(null)
+  const [previewNonce, setPreviewNonce] = useState(0)
+  const [previewStatus, setPreviewStatus] = useState<PreviewStatus>('idle')
 
   const documentUrl = useMemo(() => {
     if (!selectedFileId) {
@@ -33,8 +36,8 @@ export default function Certificate({
 
     const searchParams = new URLSearchParams()
 
-    if (previewRequestId) {
-      searchParams.set('v', String(previewRequestId))
+    if (previewNonce > 0) {
+      searchParams.set('v', String(previewNonce))
     }
 
     const queryString = searchParams.toString()
@@ -42,19 +45,21 @@ export default function Certificate({
     return queryString
       ? `/api/certificate/${selectedFileId}?${queryString}`
       : `/api/certificate/${selectedFileId}`
-  }, [previewRequestId, selectedFileId])
+  }, [previewNonce, selectedFileId])
 
   useEffect(() => {
     if (!isModalOpen || !selectedFileId) {
       setIsLoading(false)
       setHasPreviewError(false)
       setPreviewKind('unknown')
+      setPreviewStatus('idle')
       return
     }
 
     setIsLoading(true)
     setHasPreviewError(false)
     setPreviewKind('unknown')
+    setPreviewStatus('resolving')
   }, [isModalOpen, selectedFileId])
 
   useEffect(() => {
@@ -79,18 +84,22 @@ export default function Certificate({
 
         if (contentType.includes('pdf')) {
           setPreviewKind('pdf')
+          setPreviewStatus('ready')
           return
         }
 
         if (contentType.startsWith('image/')) {
           setPreviewKind('image')
+          setPreviewStatus('ready')
           return
         }
 
         setPreviewKind('unknown')
+        setPreviewStatus('ready')
       } catch (error) {
         if (isActive) {
           setPreviewKind('unknown')
+          setPreviewStatus('error')
         }
       }
     }
@@ -107,7 +116,8 @@ export default function Certificate({
     setHasPreviewError(false)
     setIsLoading(true)
     setPreviewKind('unknown')
-    setPreviewRequestId(Date.now())
+    setPreviewStatus('resolving')
+    setPreviewNonce((current) => current + 1)
     setIsModalOpen(true)
   }
 
@@ -117,7 +127,7 @@ export default function Certificate({
     setHasPreviewError(false)
     setIsLoading(false)
     setPreviewKind('unknown')
-    setPreviewRequestId(null)
+    setPreviewStatus('idle')
   }
 
   const allOptionLabel = useMemo(
@@ -159,53 +169,58 @@ export default function Certificate({
       <section className="space-y-8">
         <HeadSection title={translate.title.certificates} />
 
-        <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <div className="max-w-md flex-1">
-            <input
-              type="search"
-              placeholder={translate.certificates.searchPlaceholder}
-              className="w-full rounded-lg border border-slate-200 bg-white px-4 py-2 focus:ring-2 focus:ring-sky-500 dark:border-slate-700 dark:bg-slate-800"
-              value={search}
-              onChange={(event) => setSearch(event.target.value)}
-            />
+        <div className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-[0_24px_60px_-42px_rgba(15,23,42,0.55)] dark:border-slate-800 dark:bg-slate-900 sm:p-6">
+          <div className="mb-6 flex flex-col gap-4 border-b border-slate-200 pb-5 dark:border-slate-800 sm:flex-row sm:items-center sm:justify-between">
+            <div className="max-w-md flex-1">
+              <input
+                type="search"
+                placeholder={translate.certificates.searchPlaceholder}
+                className="w-full rounded-full border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none transition-colors focus:border-sky-300 focus:bg-white focus:ring-2 focus:ring-sky-500/20 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200 dark:focus:border-sky-800 dark:focus:bg-slate-900"
+                value={search}
+                onChange={(event) => setSearch(event.target.value)}
+              />
+            </div>
+
+            <div className="flex gap-2 overflow-x-auto pb-2 sm:pb-0">
+              {certificateTypes.map((type) => (
+                <button
+                  key={type}
+                  type="button"
+                  onClick={() => setSelectedType(type)}
+                  aria-pressed={selectedType === type}
+                  className={`whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
+                    selectedType === type
+                      ? 'border-slate-900 bg-slate-900 text-white dark:border-slate-100 dark:bg-slate-100 dark:text-slate-900'
+                      : 'border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:bg-slate-800'
+                  }`}
+                >
+                  {type}
+                </button>
+              ))}
+            </div>
           </div>
 
-          <div className="flex gap-2 overflow-x-auto pb-2 sm:pb-0">
-            {certificateTypes.map((type) => (
-              <button
-                key={type}
-                onClick={() => setSelectedType(type)}
-                className={`whitespace-nowrap rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${
-                  selectedType === type
-                    ? 'bg-sky-500 text-white'
-                    : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700'
-                }`}>
-                {type}
-              </button>
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {filteredCertificates.map((certificate) => (
+              <CertificateCard
+                key={certificate.id}
+                certificate={certificate}
+                onViewAction={openModal}
+              />
             ))}
           </div>
-        </div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {filteredCertificates.map((certificate) => (
-            <CertificateCard
-              key={certificate.id}
-              certificate={certificate}
-              onViewAction={openModal}
-            />
-          ))}
+          {filteredCertificates.length === 0 && (
+            <p className="py-10 text-center text-slate-500 dark:text-slate-400">
+              {translate.certificates.noCertificatesFound}
+            </p>
+          )}
         </div>
-
-        {filteredCertificates.length === 0 && (
-          <p className="py-8 text-center text-slate-500 dark:text-slate-400">
-            {translate.certificates.noCertificatesFound}
-          </p>
-        )}
       </section>
 
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4">
-          <div className="relative max-h-[90vh] w-full max-w-4xl overflow-hidden rounded-xl bg-white dark:bg-slate-800">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
+          <div className="relative max-h-[90vh] w-full max-w-5xl overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-900">
             <button
               type="button"
               onClick={closeModal}
@@ -214,14 +229,14 @@ export default function Certificate({
                   ? 'Close certificate preview'
                   : 'Cerrar vista previa del certificado'
               }
-              className="absolute text-xl right-2 top-2 px-3 py-1 z-10 rounded-md bg-slate-200 transition-colors hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600">
+              className="absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 transition-colors hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200 dark:hover:border-slate-700 dark:hover:bg-slate-800">
               x
             </button>
 
             <div className="h-[80vh] w-full">
               {documentUrl ? (
                 <div className="relative h-full w-full">
-                  {isLoading && (
+                  {isLoading && previewStatus !== 'error' && (
                     <div className="absolute inset-0 flex items-center justify-center bg-white/90 dark:bg-slate-800/90">
                       <div className="text-slate-500 dark:text-slate-400">
                         {lang === 'en'
@@ -239,7 +254,7 @@ export default function Certificate({
                           : 'No se pudo cargar la vista previa del certificado.'}
                       </div>
                     </div>
-                  ) : previewKind === 'unknown' ? (
+                  ) : previewStatus === 'resolving' ? (
                     <div className="flex h-full items-center justify-center px-6 text-center">
                       <div className="text-slate-500 dark:text-slate-400">
                         {lang === 'en'
@@ -248,23 +263,28 @@ export default function Certificate({
                       </div>
                     </div>
                   ) : previewKind === 'image' ? (
-                    <div className="flex h-full items-center justify-center bg-slate-100 p-4 dark:bg-slate-900">
-                      <img
-                        src={documentUrl}
-                        alt={
-                          lang === 'en'
-                            ? 'Certificate preview'
-                            : 'Vista previa del certificado'
-                        }
-                        className="max-h-full max-w-full rounded-lg object-contain shadow-lg"
-                        onLoad={() => setIsLoading(false)}
-                        onError={() => {
-                          setHasPreviewError(true)
-                          setIsLoading(false)
-                        }}
-                      />
+                    <div className="flex h-full items-center justify-center bg-slate-100 p-4 dark:bg-slate-950">
+                      <div className="relative h-full w-full">
+                        <Image
+                          src={documentUrl}
+                          alt={
+                            lang === 'en'
+                              ? 'Certificate preview'
+                              : 'Vista previa del certificado'
+                          }
+                          fill
+                          unoptimized
+                          sizes="100vw"
+                          className="object-contain"
+                          onLoad={() => setIsLoading(false)}
+                          onError={() => {
+                            setHasPreviewError(true)
+                            setIsLoading(false)
+                          }}
+                        />
+                      </div>
                     </div>
-                  ) : (
+                  ) : previewKind === 'pdf' ? (
                     <object
                       data={documentUrl}
                       className="h-full w-full"
@@ -283,6 +303,14 @@ export default function Certificate({
                         }}
                       />
                     </object>
+                  ) : (
+                    <div className="flex h-full items-center justify-center px-6 text-center">
+                      <div className="text-slate-500 dark:text-slate-400">
+                        {lang === 'en'
+                          ? 'This file type cannot be previewed here.'
+                          : 'Este tipo de archivo no se puede previsualizar aqui.'}
+                      </div>
+                    </div>
                   )}
                 </div>
               ) : (

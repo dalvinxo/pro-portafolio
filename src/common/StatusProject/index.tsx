@@ -7,25 +7,19 @@ type TypeStatusProject = {
 
 const StatusProject = ({ state, message }: TypeStatusProject) => {
   return (
-    <div
-      className={`
-      inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium
-      transition-all duration-300 select-none
-      ${
+    <span
+      className={`inline-flex select-none items-center gap-2 rounded-full border px-3 py-1.5 text-sm font-medium ${
         state
-          ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-500/10 dark:text-emerald-400'
-          : 'bg-red-50 text-amber-600  dark:bg-red-500/10 dark:text-amber-400'
-      }
-    `}>
+          ? 'border-emerald-200 bg-emerald-50 text-emerald-700 dark:border-emerald-900/60 dark:bg-emerald-500/10 dark:text-emerald-300'
+          : 'border-amber-200 bg-amber-50 text-amber-700 dark:border-amber-900/60 dark:bg-amber-500/10 dark:text-amber-300'
+      }`}
+    >
       <IoConstruct
-        className={`
-        w-4 h-4
-        ${!state && 'animate-pulse'}
-        transition-transform group-hover:scale-110
-      `}
+        className={`h-4 w-4 ${!state ? 'animate-pulse' : ''}`}
+        aria-hidden="true"
       />
       <span>{message}</span>
-    </div>
+    </span>
   )
 }
 

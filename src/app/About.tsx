@@ -100,7 +100,6 @@ const About = ({
                     src={src}
                     alt={`Profile image ${index + 1}`}
                     fill
-                    quality={92}
                     priority={index === 0}
                     sizes="(max-width: 1024px) 100vw, 40vw"
                     className={`object-cover transition-all duration-700 ${
