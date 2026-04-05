@@ -119,8 +119,7 @@ const MobileMenu = ({
                   className="flex items-center justify-center p-3 rounded-lg
                     hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
                   aria-hidden="true"
-                  disabled
-                >
+                  disabled>
                   <IoMoon className="w-5 h-5 text-slate-400 dark:text-slate-500" />
                 </button>
               )}

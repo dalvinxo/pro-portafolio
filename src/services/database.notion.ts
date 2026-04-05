@@ -108,8 +108,9 @@ export const getCertificatesDatabase: () => Promise<
   })
 
   const data = blocks.results.map((block) => ({
-    id: `${(block as any).properties.ID.unique_id.prefix}-${(block as any).properties.ID.unique_id.number
-      }`,
+    id: `${(block as any).properties.ID.unique_id.prefix}-${
+      (block as any).properties.ID.unique_id.number
+    }`,
     title: (block as any).properties.Title.title[0].text.content,
     description: (block as any).properties.Description.rich_text[0]?.text
       .content,
@@ -121,7 +122,7 @@ export const getCertificatesDatabase: () => Promise<
     expiryDate: (block as any).properties.ExpiryDate.date?.start ?? null,
     certificateUrl: (block as any).properties.CertificateUrl.url ?? null,
     driveFileId: (block as any).properties.DriveFileId.rich_text[0]?.text
-      .content
+      .content,
   }))
 
   return data

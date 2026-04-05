@@ -103,10 +103,11 @@ const About = ({
                     quality={92}
                     priority={index === 0}
                     sizes="(max-width: 1024px) 100vw, 40vw"
-                    className={`object-cover transition-all duration-700 ${index === currentImage
-                      ? 'translate-x-0 opacity-100'
-                      : 'translate-x-8 opacity-0'
-                      }`}
+                    className={`object-cover transition-all duration-700 ${
+                      index === currentImage
+                        ? 'translate-x-0 opacity-100'
+                        : 'translate-x-8 opacity-0'
+                    }`}
                   />
                 ))}
               </div>
@@ -150,8 +151,7 @@ const About = ({
                     type="button"
                     onClick={() => onClickHandleArrow('left')}
                     className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition-colors hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:bg-slate-800"
-                    aria-label="Previous slide"
-                  >
+                    aria-label="Previous slide">
                     <IoChevronBackSharp className="h-5 w-5" />
                   </button>
 
@@ -159,8 +159,7 @@ const About = ({
                     type="button"
                     onClick={() => onClickHandleArrow('right')}
                     className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition-colors hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:bg-slate-800"
-                    aria-label="Next slide"
-                  >
+                    aria-label="Next slide">
                     <IoChevronForwardSharp className="h-5 w-5" />
                   </button>
                 </div>
@@ -176,8 +175,7 @@ const About = ({
                 {data.map((message) => (
                   <label
                     key={message.id}
-                    className="group inline-flex cursor-pointer items-center gap-2"
-                  >
+                    className="group inline-flex cursor-pointer items-center gap-2">
                     <input
                       id={`input-${message.id}`}
                       className="sr-only"
@@ -188,10 +186,11 @@ const About = ({
                       checked={currentInfo.id === message.id}
                     />
                     <span
-                      className={`h-2.5 w-2.5 rounded-full transition-all ${currentInfo.id === message.id
-                        ? 'bg-slate-900 ring-4 ring-slate-200 dark:bg-slate-100 dark:ring-slate-800'
-                        : 'bg-slate-300 group-hover:bg-slate-400 dark:bg-slate-700 dark:group-hover:bg-slate-600'
-                        }`}
+                      className={`h-2.5 w-2.5 rounded-full transition-all ${
+                        currentInfo.id === message.id
+                          ? 'bg-slate-900 ring-4 ring-slate-200 dark:bg-slate-100 dark:ring-slate-800'
+                          : 'bg-slate-300 group-hover:bg-slate-400 dark:bg-slate-700 dark:group-hover:bg-slate-600'
+                      }`}
                     />
                     <span className="text-xs font-medium uppercase tracking-[0.22em] text-slate-400">
                       {String(message.id).padStart(2, '0')}
@@ -209,8 +208,7 @@ const About = ({
                   target="_blank"
                   rel="nofollow"
                   aria-label={ariaLabel[mediaSocial.name]}
-                  className="group inline-flex items-center gap-3 rounded-full border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-600 transition-all hover:border-slate-300 hover:text-slate-900 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:text-slate-100"
-                >
+                  className="group inline-flex items-center gap-3 rounded-full border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-600 transition-all hover:border-slate-300 hover:text-slate-900 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:text-slate-100">
                   <span className="text-slate-500 transition-colors group-hover:text-slate-900 dark:text-slate-400 dark:group-hover:text-slate-100">
                     {mediaSocials[mediaSocial.name]}
                   </span>

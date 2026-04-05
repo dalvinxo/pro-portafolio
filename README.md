@@ -47,7 +47,6 @@ Este proyecto es un portafolio personal moderno y responsivo, diseñado para des
    # o
    yarn install
    ```
-   
 3. Crea un archivo `.env` en la raíz del proyecto con las siguientes variables de entorno:
    ```env
    TOKEN_GITHUB=tu_token_de_github

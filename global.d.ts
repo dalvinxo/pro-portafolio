@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-export { }
+export {}
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/ban-types

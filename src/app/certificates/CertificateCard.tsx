@@ -9,7 +9,10 @@ type CertificateCardProps = {
   onViewAction: (fileId: string) => void
 }
 
-export default function CertificateCard({ certificate, onViewAction }: CertificateCardProps) {
+export default function CertificateCard({
+  certificate,
+  onViewAction,
+}: CertificateCardProps) {
   const { lang } = useTranslateContext()
   const translate = getDictionary(lang)
   const actionLabels = {
@@ -109,8 +112,7 @@ export default function CertificateCard({ certificate, onViewAction }: Certifica
                 onClick={() => {
                   onViewAction(certificate.driveFileId)
                 }}
-                className="flex w-full items-center justify-center gap-2 rounded-lg bg-sky-500 px-4 py-2.5 font-medium text-white transition-all duration-300 hover:bg-sky-600 group-hover:scale-[1.02] active:scale-[0.98]"
-              >
+                className="flex w-full items-center justify-center gap-2 rounded-lg bg-sky-500 px-4 py-2.5 font-medium text-white transition-all duration-300 hover:bg-sky-600 group-hover:scale-[1.02] active:scale-[0.98]">
                 <span className="text-sm">{actionLabels.viewDrive}</span>
                 <FaExternalLinkAlt className="text-xs sm:text-sm" />
               </button>
@@ -121,8 +123,7 @@ export default function CertificateCard({ certificate, onViewAction }: Certifica
                 href={certificate.certificateUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="flex w-full items-center justify-center gap-2 rounded-lg border border-slate-200 px-4 py-2.5 font-medium text-slate-700 transition-all duration-300 hover:border-sky-300 hover:text-sky-600 dark:border-slate-700 dark:text-slate-200 dark:hover:border-sky-500 dark:hover:text-sky-400"
-              >
+                className="flex w-full items-center justify-center gap-2 rounded-lg border border-slate-200 px-4 py-2.5 font-medium text-slate-700 transition-all duration-300 hover:border-sky-300 hover:text-sky-600 dark:border-slate-700 dark:text-slate-200 dark:hover:border-sky-500 dark:hover:text-sky-400">
                 <span className="text-sm">{actionLabels.openOnline}</span>
                 <FaGlobe className="text-sm" />
               </a>

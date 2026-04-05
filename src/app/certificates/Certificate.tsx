@@ -70,7 +70,8 @@ export default function Certificate({
           method: 'HEAD',
           cache: 'no-store',
         })
-        const contentType = response.headers.get('content-type')?.toLowerCase() ?? ''
+        const contentType =
+          response.headers.get('content-type')?.toLowerCase() ?? ''
 
         if (!isActive) {
           return
@@ -119,7 +120,10 @@ export default function Certificate({
     setPreviewRequestId(null)
   }
 
-  const allOptionLabel = useMemo(() => (lang === 'en' ? 'All' : 'Todos'), [lang])
+  const allOptionLabel = useMemo(
+    () => (lang === 'en' ? 'All' : 'Todos'),
+    [lang]
+  )
 
   const certificateTypes = useMemo(() => {
     const types = new Set(
@@ -171,11 +175,11 @@ export default function Certificate({
               <button
                 key={type}
                 onClick={() => setSelectedType(type)}
-                className={`whitespace-nowrap rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${selectedType === type
-                  ? 'bg-sky-500 text-white'
-                  : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700'
-                  }`}
-              >
+                className={`whitespace-nowrap rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 ${
+                  selectedType === type
+                    ? 'bg-sky-500 text-white'
+                    : 'bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700'
+                }`}>
                 {type}
               </button>
             ))}
@@ -210,8 +214,7 @@ export default function Certificate({
                   ? 'Close certificate preview'
                   : 'Cerrar vista previa del certificado'
               }
-              className="absolute text-xl right-2 top-2 px-3 py-1 z-10 rounded-md bg-slate-200 transition-colors hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600"
-            >
+              className="absolute text-xl right-2 top-2 px-3 py-1 z-10 rounded-md bg-slate-200 transition-colors hover:bg-slate-300 dark:bg-slate-700 dark:hover:bg-slate-600">
               x
             </button>
 
@@ -221,7 +224,9 @@ export default function Certificate({
                   {isLoading && (
                     <div className="absolute inset-0 flex items-center justify-center bg-white/90 dark:bg-slate-800/90">
                       <div className="text-slate-500 dark:text-slate-400">
-                        {lang === 'en' ? 'Loading certificate...' : 'Cargando certificado...'}
+                        {lang === 'en'
+                          ? 'Loading certificate...'
+                          : 'Cargando certificado...'}
                       </div>
                     </div>
                   )}
@@ -246,7 +251,11 @@ export default function Certificate({
                     <div className="flex h-full items-center justify-center bg-slate-100 p-4 dark:bg-slate-900">
                       <img
                         src={documentUrl}
-                        alt={lang === 'en' ? 'Certificate preview' : 'Vista previa del certificado'}
+                        alt={
+                          lang === 'en'
+                            ? 'Certificate preview'
+                            : 'Vista previa del certificado'
+                        }
                         className="max-h-full max-w-full rounded-lg object-contain shadow-lg"
                         onLoad={() => setIsLoading(false)}
                         onError={() => {
@@ -260,8 +269,9 @@ export default function Certificate({
                       data={documentUrl}
                       className="h-full w-full"
                       title="Certificate preview"
-                      type={previewKind === 'pdf' ? 'application/pdf' : undefined}
-                    >
+                      type={
+                        previewKind === 'pdf' ? 'application/pdf' : undefined
+                      }>
                       <iframe
                         src={documentUrl}
                         className="h-full w-full"
