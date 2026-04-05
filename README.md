@@ -47,6 +47,13 @@ Este proyecto es un portafolio personal moderno y responsivo, diseñado para des
    # o
    yarn install
    ```
+   
+3. Crea un archivo `.env` en la raíz del proyecto con las siguientes variables de entorno:
+   ```env
+   TOKEN_GITHUB=tu_token_de_github
+   PAGE_NOTION_MAIN=tu_id_de_pagina_notion
+   NOTION_TOKEN=tu_token_de_notion
+   ```
 
 ## Uso
 
@@ -76,7 +83,7 @@ Más información en la [documentación de Next.js sobre despliegue](https://nex
 
 ## Autor
 
-Desarrollado por [Dalvin Molina](https://github.com/dalvinxo).
+Desarrollado por [dalvinxo](https://github.com/dalvinxo).
 
 ## Licencia
 

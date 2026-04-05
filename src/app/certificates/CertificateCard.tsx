@@ -2,15 +2,20 @@
 
 import { useTranslateContext } from 'providers'
 import { getDictionary } from '@utils/dictionaries'
-import { FaExternalLinkAlt, FaCertificate } from 'react-icons/fa'
+import { FaCertificate, FaExternalLinkAlt, FaGlobe } from 'react-icons/fa'
 
 type CertificateCardProps = {
   certificate: TypeCertificates
+  onViewAction: (fileId: string) => void
 }
 
-export default function CertificateCard({ certificate }: CertificateCardProps) {
+export default function CertificateCard({ certificate, onViewAction }: CertificateCardProps) {
   const { lang } = useTranslateContext()
   const translate = getDictionary(lang)
+  const actionLabels = {
+    viewDrive: translate.certificates.viewCertificate,
+    openOnline: translate.certificates.openCourse,
+  }
 
   const formatDate = (date: string) => {
     return new Date(date).toLocaleDateString(
@@ -96,23 +101,32 @@ export default function CertificateCard({ certificate }: CertificateCardProps) {
           )}
         </div>
 
-        {certificate.certificateUrl && (
-          <div className="pt-2 sm:pt-4 mt-auto">
-            <button
-              type="button"
-              onClick={() => {
-                window.open(certificate.certificateUrl, '_blank')
-              }}
-              className="flex items-center justify-center gap-2 w-full py-2.5 px-4
-              bg-sky-500/10 hover:bg-sky-500/20 dark:bg-sky-400/10 
-              dark:hover:bg-sky-400/20 rounded-lg text-sky-600 
-              dark:text-sky-400 font-medium transition-all duration-300 
-              group-hover:scale-[1.02] active:scale-[0.98]">
-              <span className="text-sm">
-                {translate.certificates.viewCertificate}
-              </span>
-              <FaExternalLinkAlt className="text-xs sm:text-sm" />
-            </button>
+        {(certificate.driveFileId || certificate.certificateUrl) && (
+          <div className="mt-auto grid gap-3 pt-2 sm:pt-4">
+            {certificate.driveFileId && (
+              <button
+                type="button"
+                onClick={() => {
+                  onViewAction(certificate.driveFileId)
+                }}
+                className="flex w-full items-center justify-center gap-2 rounded-lg bg-sky-500 px-4 py-2.5 font-medium text-white transition-all duration-300 hover:bg-sky-600 group-hover:scale-[1.02] active:scale-[0.98]"
+              >
+                <span className="text-sm">{actionLabels.viewDrive}</span>
+                <FaExternalLinkAlt className="text-xs sm:text-sm" />
+              </button>
+            )}
+
+            {certificate.certificateUrl && (
+              <a
+                href={certificate.certificateUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="flex w-full items-center justify-center gap-2 rounded-lg border border-slate-200 px-4 py-2.5 font-medium text-slate-700 transition-all duration-300 hover:border-sky-300 hover:text-sky-600 dark:border-slate-700 dark:text-slate-200 dark:hover:border-sky-500 dark:hover:text-sky-400"
+              >
+                <span className="text-sm">{actionLabels.openOnline}</span>
+                <FaGlobe className="text-sm" />
+              </a>
+            )}
           </div>
         )}
       </div>

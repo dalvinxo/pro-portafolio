@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-export {}
+export { }
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/ban-types
@@ -35,5 +35,6 @@ declare global {
     completionDate: string
     expiryDate: string | null
     certificateUrl: string | null
+    driveFileId: string | null
   }
 }
