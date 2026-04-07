@@ -17,9 +17,7 @@ const PageWrapper = ({ children }: { children: React.ReactNode }) => {
           animate="enter"
           exit="hidden"
           transition={{ type: 'linear' }}>
-          <section className="px-4 sm:px-6 lg:px-8 py-2">
-            {children}
-          </section>
+          <section className="px-4 sm:px-6 lg:px-8 py-2">{children}</section>
         </motion.div>
       </AnimatePresence>
     </>

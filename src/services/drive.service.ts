@@ -24,8 +24,10 @@ export const getCertificateFile = async (fileId: string) => {
       }
     )
 
+    const fileBuffer = Buffer.from(response.data as ArrayBuffer)
+
     return {
-      data: response.data,
+      data: fileBuffer,
       mimeType: response.headers['content-type'] || 'application/pdf',
     }
   } catch {

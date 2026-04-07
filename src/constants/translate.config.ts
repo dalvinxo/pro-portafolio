@@ -16,13 +16,14 @@ const translate = {
     title: {
       certificates: 'Certificates',
       app: 'Applications',
+      resume: 'Resume',
       github: "Github's Repositories",
       descriptionGithub: 'This repository has no description in its contents',
     },
     about: {
       'aria-label-social': {
         github: 'social media, read more about repository',
-        youtube: 'social media, read more about chanel youtube',
+        youtube: 'social media, read more about youtube channel',
         linkedin: 'social media, read more about linkedin',
       },
     },
@@ -51,14 +52,14 @@ const translate = {
     },
     navbar: {
       'button-language-mode': {
-        title: 'change language through of this button.',
+        title: 'change language through this button.',
         'aria-label': {
           es: 'ES - Switch to spanish language',
           en: 'US - Switch to english language',
         },
       },
       'button-mode-dark': {
-        title: 'change theme through of this button.',
+        title: 'change theme through this button.',
         'aria-label': {
           light: 'Switch to light mode',
           dark: 'Switch to dark mode',
@@ -76,29 +77,26 @@ const translate = {
     },
     error: {
       code: '500',
-      message: 'Error Interno del Servidor',
-      description: '¡Vaya! algo salió mal en nuestros servidores.',
+      message: 'Error interno del servidor',
+      description: 'Vaya, algo salio mal en nuestros servidores.',
     },
     notFound: {
       code: '404',
-      message: 'Página no encontrada',
-      description:
-        'Lo sentimos, no se ha podido encontrar la página que buscas',
+      message: 'Pagina no encontrada',
+      description: 'Lo sentimos, no se ha podido encontrar la pagina que buscas',
     },
     title: {
       certificates: 'Certificados',
       app: 'Aplicaciones',
+      resume: 'Resumen',
       github: 'Repositorios de Github',
-      descriptionGithub:
-        'Este repositorio no tiene descripción en su contenido',
+      descriptionGithub: 'Este repositorio no tiene descripcion en su contenido',
     },
     about: {
       'aria-label-social': {
-        github: 'redes sociales, conocer más sobre el autor en su repositorio',
-        youtube:
-          'redes sociales, conocer más sobre el autor en su canal youtube',
-        linkedin:
-          'redes sociales, conocer más sobre el autor en su cuenta de linkedin',
+        github: 'redes sociales, conocer mas sobre el autor en su repositorio',
+        youtube: 'redes sociales, conocer mas sobre el autor en su canal youtube',
+        linkedin: 'redes sociales, conocer mas sobre el autor en su cuenta de linkedin',
       },
     },
     certificates: {
@@ -118,22 +116,22 @@ const translate = {
         pending: 'En espera',
         all: 'Todos',
       },
-      emptyApp: 'No se ha creado ninguna aplicación',
+      emptyApp: 'No se ha creado ninguna aplicacion',
       'aria-label': {
-        github: 'Leer más acerca del código de este proyecto',
-        eye: 'Saber más acerca de este proyecto',
+        github: 'Leer mas acerca del codigo de este proyecto',
+        eye: 'Saber mas acerca de este proyecto',
       },
     },
     navbar: {
       'button-language-mode': {
-        title: 'cambiar idioma a través de este botón.',
+        title: 'cambiar idioma a traves de este boton.',
         'aria-label': {
-          es: 'ES - Cambiando al idioma español',
+          es: 'ES - Cambiando al idioma espanol',
           en: 'US - Cambiando al idioma ingles',
         },
       },
       'button-mode-dark': {
-        title: 'cambiar tema a través de este botón.',
+        title: 'cambiar tema a traves de este boton.',
         'aria-label': {
           light: 'Cambiando al modo claro',
           dark: 'Cambiando al modo oscuro',
