@@ -256,8 +256,7 @@ const ResumeDocument = ({
         style={{
           color: '#64748b',
           fontSize: '11px',
-        }}
-      >
+        }}>
         {({ currentPage, totalPages }) => (
           <span>
             {content.name} | {currentPage} / {totalPages}
@@ -289,7 +288,9 @@ const ResumeDocument = ({
           <h2 style={styles.sectionTitle}>{content.educationTitle}</h2>
 
           {content.education.map((item) => (
-            <article key={`${item.institution}-${item.period}`} style={styles.card}>
+            <article
+              key={`${item.institution}-${item.period}`}
+              style={styles.card}>
               <p style={styles.itemMeta}>{item.period}</p>
               <p style={styles.itemTitle}>{item.institution}</p>
               <p style={styles.itemText}>{item.details}</p>
@@ -319,7 +320,9 @@ const ResumeDocument = ({
           <h2 style={styles.sectionTitle}>{content.experienceTitle}</h2>
 
           {content.experience.map((item) => (
-            <article key={`${item.institution}-${item.period}`} style={styles.card}>
+            <article
+              key={`${item.institution}-${item.period}`}
+              style={styles.card}>
               <p style={styles.itemMeta}>{item.period}</p>
               <p style={styles.itemTitle}>{item.position}</p>
               <p style={styles.itemSubtitle}>{item.institution}</p>
