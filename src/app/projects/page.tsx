@@ -85,18 +85,16 @@ const ProjectsPages = async () => {
   const dataProjects = await getListLanguageRepository(project.repositories)
 
   return (
-    <div className="min-h-screen">
-      <PageWrapper>
-        <section className="flex flex-col space-y-8 px-4 sm:px-6 lg:px-8 py-8 sm:py-12">
-          <article className="w-full max-w-7xl mx-auto">
-            <Portafolies proyects={project.portafolies} />
-          </article>
-          <article className="w-full max-w-7xl mx-auto">
-            <Repositories data={dataProjects} />
-          </article>
-        </section>
-      </PageWrapper>
-    </div>
+    <PageWrapper>
+      <div className="flex flex-col space-y-8">
+        <article className="w-full max-w-7xl mx-auto">
+          <Portafolies proyects={project.portafolies} />
+        </article>
+        <article className="w-full max-w-7xl mx-auto">
+          <Repositories data={dataProjects} />
+        </article>
+      </div>
+    </PageWrapper>
   )
 }
 
