@@ -83,20 +83,24 @@ const translate = {
     notFound: {
       code: '404',
       message: 'Pagina no encontrada',
-      description: 'Lo sentimos, no se ha podido encontrar la pagina que buscas',
+      description:
+        'Lo sentimos, no se ha podido encontrar la pagina que buscas',
     },
     title: {
       certificates: 'Certificados',
       app: 'Aplicaciones',
       resume: 'Resumen',
       github: 'Repositorios de Github',
-      descriptionGithub: 'Este repositorio no tiene descripcion en su contenido',
+      descriptionGithub:
+        'Este repositorio no tiene descripcion en su contenido',
     },
     about: {
       'aria-label-social': {
         github: 'redes sociales, conocer mas sobre el autor en su repositorio',
-        youtube: 'redes sociales, conocer mas sobre el autor en su canal youtube',
-        linkedin: 'redes sociales, conocer mas sobre el autor en su cuenta de linkedin',
+        youtube:
+          'redes sociales, conocer mas sobre el autor en su canal youtube',
+        linkedin:
+          'redes sociales, conocer mas sobre el autor en su cuenta de linkedin',
       },
     },
     certificates: {

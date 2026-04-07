@@ -1,7 +1,6 @@
 'use client'
 
 import Link from 'next/link'
-import { Document, Footer, Page } from '@htmldocs/react'
 import { FiArrowUpRight, FiDownload } from 'react-icons/fi'
 
 import HeadSection from '@common/HeadSection'
@@ -23,7 +22,9 @@ const ResumePage = ({
   const { lang } = useTranslateContext()
   const translate = getDictionary(lang)
   const content = getResumeContent(lang, socialLinks)
-  const printableHref = `/api/resume?lang=${lang}`
+  const printableHref = `/api/resume?lang=${lang}&v=${encodeURIComponent(
+    content.pageTitle
+  )}`
 
   return (
     <section className="space-y-8">
@@ -50,8 +51,7 @@ const ResumePage = ({
               href={printableHref}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-900 bg-slate-900 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-slate-700 dark:border-slate-100 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-300"
-            >
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-slate-900 bg-slate-900 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-slate-700 dark:border-slate-100 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-300">
               <FiDownload className="h-4 w-4" />
               <span>{content.printAction}</span>
             </Link>
@@ -102,8 +102,7 @@ const ResumePage = ({
                   href={link.link}
                   target="_blank"
                   rel="noreferrer"
-                  className="group flex items-center justify-between rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-600 transition-colors hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:bg-slate-950"
-                >
+                  className="group flex items-center justify-between rounded-2xl border border-slate-200 px-4 py-3 text-sm text-slate-600 transition-colors hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:bg-slate-950">
                   <span className="font-medium text-slate-900 dark:text-slate-100">
                     {link.name}
                   </span>
@@ -123,8 +122,7 @@ const ResumePage = ({
               {content.education.map((item) => (
                 <article
                   key={`${item.institution}-${item.period}`}
-                  className="rounded-2xl bg-slate-50 p-4 dark:bg-slate-950"
-                >
+                  className="rounded-2xl bg-slate-50 p-4 dark:bg-slate-950">
                   <p className="text-xs font-medium uppercase tracking-[0.22em] text-slate-400">
                     {item.period}
                   </p>
@@ -147,8 +145,7 @@ const ResumePage = ({
               {content.softSkills.map((skill) => (
                 <li
                   key={skill}
-                  className="rounded-2xl bg-slate-50 px-4 py-3 text-sm leading-7 text-slate-600 dark:bg-slate-950 dark:text-slate-300"
-                >
+                  className="rounded-2xl bg-slate-50 px-4 py-3 text-sm leading-7 text-slate-600 dark:bg-slate-950 dark:text-slate-300">
                   {skill}
                 </li>
               ))}
@@ -164,8 +161,7 @@ const ResumePage = ({
             {content.technicalSkills.map((group) => (
               <article
                 key={group.group}
-                className="rounded-2xl bg-slate-50 p-4 dark:bg-slate-950"
-              >
+                className="rounded-2xl bg-slate-50 p-4 dark:bg-slate-950">
                 <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-slate-400">
                   {group.group}
                 </h3>
@@ -203,8 +199,7 @@ const ResumePage = ({
               {certificates.map((certificate) => (
                 <span
                   key={certificate.id}
-                  className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm text-slate-700 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-300"
-                >
+                  className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm text-slate-700 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-300">
                   {certificate.title}
                 </span>
               ))}
@@ -219,8 +214,7 @@ const ResumePage = ({
               {content.experience.map((item) => (
                 <article
                   key={`${item.institution}-${item.period}`}
-                  className="rounded-2xl bg-slate-50 p-4 dark:bg-slate-950"
-                >
+                  className="rounded-2xl bg-slate-50 p-4 dark:bg-slate-950">
                   <p className="text-xs font-medium uppercase tracking-[0.22em] text-slate-400">
                     {item.period}
                   </p>
@@ -248,8 +242,7 @@ const ResumePage = ({
               {content.additional.map((item) => (
                 <article
                   key={item.title}
-                  className="rounded-2xl bg-slate-50 p-4 dark:bg-slate-950"
-                >
+                  className="rounded-2xl bg-slate-50 p-4 dark:bg-slate-950">
                   <h3 className="text-base font-semibold text-slate-900 dark:text-slate-50">
                     {item.title}
                   </h3>
@@ -261,79 +254,6 @@ const ResumePage = ({
             </div>
           </section>
         </div>
-
-        <section className="mt-6 rounded-[1.5rem] border border-dashed border-slate-200 p-4 dark:border-slate-800">
-          <p className="text-sm leading-7 text-slate-500 dark:text-slate-400">
-            {lang === 'en'
-              ? 'Preview below: the same summary is also rendered as a document using htmldocs for a cleaner print and sharing workflow.'
-              : 'Vista previa abajo: este mismo resumen tambien se renderiza como documento con htmldocs para compartirlo o imprimirlo con mejor formato.'}
-          </p>
-
-          <div className="mt-5 overflow-hidden rounded-[1.5rem] border border-slate-200 bg-slate-50 p-3 dark:border-slate-800 dark:bg-slate-950">
-            <div className="mx-auto max-w-[860px] overflow-hidden rounded-[1.25rem] border border-slate-200 bg-white shadow-sm dark:border-slate-800 dark:bg-white">
-              <div className="scale-[0.92] origin-top overflow-hidden md:scale-100">
-                <Document size="A4" orientation="portrait" margin="0.45in">
-                  <Footer
-                    style={{
-                      color: '#64748b',
-                      fontSize: '12px',
-                    }}
-                  >
-                    {({ currentPage, totalPages }) => (
-                      <span>
-                        {content.name} | {content.pageTitle} | {currentPage} /{' '}
-                        {totalPages}
-                      </span>
-                    )}
-                  </Footer>
-
-                  <Page
-                    style={{
-                      backgroundColor: '#ffffff',
-                      color: '#0f172a',
-                      fontFamily:
-                        '"Inter", "Segoe UI", ui-sans-serif, system-ui, sans-serif',
-                      padding: '40px 44px 32px',
-                    }}
-                  >
-                    <div
-                      style={{
-                        color: '#64748b',
-                        fontSize: '11px',
-                        fontWeight: 700,
-                        letterSpacing: '0.28em',
-                        marginBottom: '16px',
-                        textTransform: 'uppercase',
-                      }}
-                    >
-                      {content.eyebrow}
-                    </div>
-                    <h2
-                      style={{
-                        fontSize: '30px',
-                        fontWeight: 700,
-                        letterSpacing: '-0.04em',
-                        margin: 0,
-                      }}
-                    >
-                      {content.name}
-                    </h2>
-                    <p
-                      style={{
-                        color: '#475569',
-                        fontSize: '15px',
-                        lineHeight: 1.7,
-                        marginTop: '14px',
-                      }}
-                    >
-                      {content.summary}
-                    </p>
-                  </Page>
-                </Document>
-              </div>
-            </div>
-          </div>
-        </section>
       </div>
     </section>
   )

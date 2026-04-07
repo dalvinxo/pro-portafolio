@@ -12,10 +12,10 @@ const Nav = (props: TypeNav) => {
   return (
     <div className="inline-block">
       <Link
-        className={`block px-3 py-1 rounded-md ease-in font-medium text-sm transition-colors ${
+        className={`block rounded-full px-2.5 py-1 text-[13px] font-medium transition-colors ${
           isActive
-            ? 'dark:text-cyan-500 dark:bg-slate-900 text-white bg-slate-500 shadow-md'
-            : 'dark:hover:text-cyan-500 hover:text-slate-600'
+            ? 'bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900'
+            : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-slate-100'
         } `}
         href={path}>
         {as}

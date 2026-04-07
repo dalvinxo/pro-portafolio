@@ -33,6 +33,7 @@ export type ResumeLearningItem = {
 export type ResumeCertificateItem = {
   id: string
   title: string
+  completionDate?: string | null
 }
 
 export type ResumeLocalizedContent = {
@@ -89,14 +90,12 @@ const localizedResumeContent: Record<Locales, ResumeLocalizedContent> = {
       {
         institution: 'ITLA',
         period: 'sept. 2018 - abr. 2021',
-        details:
-          'Tecnólogo en desarrollo de software.',
+        details: 'Tecnólogo en desarrollo de software.',
       },
       {
         institution: 'Universidad APEC',
         period: 'sept. 2022 - Actualidad',
-        details:
-          'Ingeniería de software.',
+        details: 'Ingeniería de software.',
       },
     ],
     technicalSkills: [
@@ -105,7 +104,7 @@ const localizedResumeContent: Record<Locales, ResumeLocalizedContent> = {
         items: [
           { name: 'C#', level: 'Avanzado', score: 95 },
           { name: 'TypeScript', level: 'Avanzado', score: 85 },
-          { name: 'SQL', level: 'Intermedio - Avanzado', score: 80 }
+          { name: 'SQL', level: 'Intermedio - Avanzado', score: 80 },
         ],
       },
       {
@@ -123,7 +122,11 @@ const localizedResumeContent: Record<Locales, ResumeLocalizedContent> = {
           { name: 'Git / GitHub', level: 'Intermedio - Avanzado', score: 78 },
           { name: 'Web Services API', level: 'Avanzado', score: 83 },
           { name: 'Integracion de APIs', level: 'Avanzado', score: 82 },
-          { name: 'Gestion de bases de datos', level: 'Intermedio - Avanzado', score: 80 },
+          {
+            name: 'Gestion de bases de datos',
+            level: 'Intermedio - Avanzado',
+            score: 80,
+          },
         ],
       },
     ],
@@ -150,8 +153,7 @@ const localizedResumeContent: Record<Locales, ResumeLocalizedContent> = {
     additional: [
       {
         title: 'Principales aptitudes',
-        description:
-          '.NET Core, React.js, ASP.NET Web API, SQL y AngularJS.',
+        description: '.NET Core, React.js, ASP.NET Web API, SQL y AngularJS.',
       },
       {
         title: 'Enfoque profesional',
@@ -185,14 +187,12 @@ const localizedResumeContent: Record<Locales, ResumeLocalizedContent> = {
       {
         institution: 'ITLA',
         period: 'Sept. 2018 - Apr. 2021',
-        details:
-          'Technologist in software development.',
+        details: 'Technologist in software development.',
       },
       {
         institution: 'Universidad APEC',
         period: 'Sept. 2022 - Present',
-        details:
-          'Computer Software Engineering.',
+        details: 'Computer Software Engineering.',
       },
     ],
     technicalSkills: [
@@ -250,8 +250,7 @@ const localizedResumeContent: Record<Locales, ResumeLocalizedContent> = {
     additional: [
       {
         title: 'Top skills',
-        description:
-          '.NET Core, React.js, ASP.NET Web API, SQL and AngularJS.',
+        description: '.NET Core, React.js, ASP.NET Web API, SQL and AngularJS.',
       },
       {
         title: 'Professional focus',

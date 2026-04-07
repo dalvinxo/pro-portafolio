@@ -5,8 +5,12 @@ import { renderAsync } from '@htmldocs/render'
 import ResumeDocument, {
   resumeDocumentCss,
 } from '../../../documents/ResumeDocument'
+import { ResumeCertificateItem } from '../../../content/resume'
 import { Locales } from '../../../constants/translate.config'
-import { getCertificatesDatabase, getSocialMediaDatabas } from '../../../services'
+import {
+  getCertificatesDatabase,
+  getSocialMediaDatabas,
+} from '../../../services'
 
 const isLocale = (value: string | null): value is Locales => {
   return value === 'en' || value === 'es'
@@ -20,9 +24,20 @@ export async function GET(request: Request) {
     getSocialMediaDatabas(),
     getCertificatesDatabase(),
   ])
+  const resumeCertificates: ResumeCertificateItem[] = certificates.map(
+    (certificate) => ({
+      id: certificate.id,
+      title: certificate.title,
+      completionDate: certificate.completionDate,
+    })
+  )
 
   const html = await renderAsync(
-    React.createElement(ResumeDocument, { lang, socialLinks, certificates }),
+    React.createElement(ResumeDocument, {
+      lang,
+      socialLinks,
+      certificates: resumeCertificates,
+    }),
     resumeDocumentCss
   )
 
@@ -30,7 +45,9 @@ export async function GET(request: Request) {
     headers: {
       'Content-Type': 'text/html; charset=utf-8',
       'Content-Disposition': `inline; filename="resume-${lang}.html"`,
-      'Cache-Control': 'public, max-age=3600',
+      'Cache-Control': 'no-store, max-age=0, must-revalidate',
+      Pragma: 'no-cache',
+      Expires: '0',
     },
   })
 }

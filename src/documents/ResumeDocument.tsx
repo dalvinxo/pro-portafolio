@@ -20,141 +20,170 @@ const styles = {
     color: '#0f172a',
     fontFamily:
       '"Inter", "Segoe UI", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, sans-serif',
-    padding: '36px 40px 28px',
+    padding: '30px 34px 24px',
     minHeight: '100%',
   } as React.CSSProperties,
   eyebrow: {
     color: '#64748b',
-    fontSize: '11px',
+    fontSize: '10px',
     fontWeight: 700,
-    letterSpacing: '0.28em',
-    marginBottom: '16px',
+    letterSpacing: '0.24em',
+    marginBottom: '12px',
     textTransform: 'uppercase',
   } as React.CSSProperties,
+  header: {
+    borderBottom: '1px solid #e2e8f0',
+    paddingBottom: '16px',
+  } as React.CSSProperties,
+  titleRow: {
+    display: 'block',
+  } as React.CSSProperties,
   title: {
-    fontSize: '30px',
+    fontSize: '27px',
     fontWeight: 700,
     letterSpacing: '-0.04em',
-    lineHeight: 1.08,
+    lineHeight: 1.06,
     margin: 0,
   } as React.CSSProperties,
-  summary: {
+  position: {
     color: '#475569',
-    fontSize: '14px',
-    lineHeight: 1.8,
-    margin: '14px 0 0',
-    maxWidth: '620px',
+    fontSize: '12px',
+    fontWeight: 600,
+    margin: '8px 0 0',
   } as React.CSSProperties,
-  divider: {
-    borderTop: '1px solid #e2e8f0',
-    marginTop: '22px',
-    paddingTop: '22px',
+  summary: {
+    color: '#334155',
+    fontSize: '13px',
+    lineHeight: 1.7,
+    margin: '12px 0 0',
   } as React.CSSProperties,
-  grid: {
-    display: 'grid',
-    gap: '16px',
-    gridTemplateColumns: '1.1fr 0.9fr',
+  contactsRow: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    gap: '8px',
+    marginTop: '14px',
   } as React.CSSProperties,
-  twoColumns: {
-    display: 'grid',
-    gap: '16px',
-    gridTemplateColumns: '1fr 1fr',
-    marginTop: '16px',
-  } as React.CSSProperties,
-  threeColumns: {
-    display: 'grid',
-    gap: '14px',
-    gridTemplateColumns: '1fr 1fr 1fr',
-    marginTop: '16px',
-  } as React.CSSProperties,
-  card: {
+  contactChip: {
     border: '1px solid #e2e8f0',
-    borderRadius: '22px',
-    padding: '18px',
+    borderRadius: '999px',
+    color: '#475569',
+    fontSize: '11px',
+    fontWeight: 600,
+    padding: '6px 10px',
+    textDecoration: 'none',
   } as React.CSSProperties,
-  softCard: {
-    backgroundColor: '#f8fafc',
-    borderRadius: '18px',
-    padding: '14px 16px',
+  section: {
+    border: '1px solid #e2e8f0',
+    borderRadius: '20px',
+    marginTop: '14px',
+    padding: '16px',
   } as React.CSSProperties,
   sectionTitle: {
     color: '#0f172a',
-    fontSize: '17px',
+    fontSize: '15px',
     fontWeight: 700,
     letterSpacing: '-0.02em',
     margin: 0,
   } as React.CSSProperties,
-  label: {
+  itemMeta: {
     color: '#64748b',
-    fontSize: '11px',
+    fontSize: '10px',
     fontWeight: 700,
-    letterSpacing: '0.22em',
-    marginBottom: '10px',
+    letterSpacing: '0.18em',
+    margin: 0,
     textTransform: 'uppercase',
   } as React.CSSProperties,
-  text: {
-    color: '#334155',
+  itemTitle: {
+    color: '#0f172a',
     fontSize: '13px',
-    lineHeight: 1.75,
+    fontWeight: 700,
+    lineHeight: 1.5,
+    margin: '8px 0 0',
+  } as React.CSSProperties,
+  itemSubtitle: {
+    color: '#64748b',
+    fontSize: '12px',
+    lineHeight: 1.6,
+    margin: '4px 0 0',
+  } as React.CSSProperties,
+  itemText: {
+    color: '#334155',
+    fontSize: '12px',
+    lineHeight: 1.7,
+    margin: '8px 0 0',
+  } as React.CSSProperties,
+  card: {
+    backgroundColor: '#f8fafc',
+    borderRadius: '16px',
+    marginTop: '12px',
+    padding: '14px',
+  } as React.CSSProperties,
+  skillGroupTitle: {
+    color: '#475569',
+    fontSize: '11px',
+    fontWeight: 700,
+    letterSpacing: '0.16em',
+    margin: 0,
+    textTransform: 'uppercase',
+  } as React.CSSProperties,
+  skillList: {
+    display: 'grid',
+    gap: '8px',
+    marginTop: '12px',
+  } as React.CSSProperties,
+  skillRow: {
+    alignItems: 'baseline',
+    display: 'flex',
+    gap: '10px',
+    justifyContent: 'space-between',
+  } as React.CSSProperties,
+  skillName: {
+    color: '#0f172a',
+    fontSize: '12px',
+    fontWeight: 600,
+    lineHeight: 1.5,
     margin: 0,
   } as React.CSSProperties,
-  strongText: {
-    color: '#0f172a',
-    fontSize: '14px',
-    fontWeight: 600,
-    lineHeight: 1.6,
+  skillLevel: {
+    color: '#64748b',
+    fontSize: '11px',
+    lineHeight: 1.5,
     margin: 0,
+    textAlign: 'right',
   } as React.CSSProperties,
   list: {
     color: '#334155',
     display: 'grid',
-    gap: '8px',
-    margin: '12px 0 0',
+    gap: '6px',
+    margin: '10px 0 0',
     paddingLeft: '18px',
   } as React.CSSProperties,
-  skillGroup: {
-    backgroundColor: '#f8fafc',
-    borderRadius: '18px',
-    padding: '16px',
-  } as React.CSSProperties,
-  skillRow: {
+  certificateList: {
     display: 'grid',
-    gap: '10px',
-    gridTemplateColumns: '135px 1fr 110px',
-    alignItems: 'center',
+    gap: '12px',
     marginTop: '12px',
   } as React.CSSProperties,
-  skillBar: {
-    backgroundColor: '#e2e8f0',
-    borderRadius: '999px',
-    height: '8px',
-    overflow: 'hidden',
-  } as React.CSSProperties,
-  socialList: {
-    display: 'grid',
-    gap: '8px',
-    marginTop: '12px',
-  } as React.CSSProperties,
-  socialLink: {
-    color: '#0f172a',
-    fontSize: '13px',
-    lineHeight: 1.6,
-    textDecoration: 'none',
-    wordBreak: 'break-word',
-  } as React.CSSProperties,
-  entryCard: {
+  certificateItem: {
     backgroundColor: '#f8fafc',
-    borderRadius: '18px',
-    padding: '16px',
-    marginTop: '14px',
+    borderRadius: '16px',
+    listStyle: 'none',
+    margin: 0,
+    padding: '14px',
   } as React.CSSProperties,
-  meta: {
+  certificateDate: {
     color: '#64748b',
-    fontSize: '11px',
+    fontSize: '10px',
     fontWeight: 700,
-    letterSpacing: '0.2em',
-    marginBottom: '10px',
+    letterSpacing: '0.18em',
+    margin: 0,
     textTransform: 'uppercase',
+  } as React.CSSProperties,
+  certificateTitle: {
+    color: '#0f172a',
+    fontSize: '12px',
+    fontWeight: 600,
+    lineHeight: 1.7,
+    margin: '8px 0 0',
   } as React.CSSProperties,
 } as const
 
@@ -166,7 +195,7 @@ export const resumeDocumentCss = `
   }
 
   body {
-    padding: 20px 0;
+    padding: 18px 0;
   }
 
   #document {
@@ -179,6 +208,36 @@ export const resumeDocumentCss = `
   }
 `
 
+const getContactLabel = (link: ResumeSocialLink) => {
+  const normalizedName = link.name.trim()
+
+  if (normalizedName.length > 0) {
+    return normalizedName
+  }
+
+  return 'Contact'
+}
+
+const formatCertificateDate = (
+  value: string | null | undefined,
+  lang: Locales
+) => {
+  if (!value) {
+    return lang === 'es' ? 'Fecha no especificada' : 'Date not specified'
+  }
+
+  const date = new Date(`${value}T00:00:00`)
+
+  if (Number.isNaN(date.getTime())) {
+    return value
+  }
+
+  return new Intl.DateTimeFormat(lang === 'es' ? 'es-DO' : 'en-US', {
+    month: 'short',
+    year: 'numeric',
+  }).format(date)
+}
+
 const ResumeDocument = ({
   lang,
   socialLinks,
@@ -187,7 +246,7 @@ const ResumeDocument = ({
   const content = getResumeContent(lang, socialLinks)
 
   return (
-    <Document size="A4" orientation="portrait" margin="0.45in">
+    <Document size="A4" orientation="portrait" margin="0.4in">
       <Head>
         <meta charSet="utf-8" />
         <title>{content.pageTitle}</title>
@@ -196,138 +255,74 @@ const ResumeDocument = ({
       <Footer
         style={{
           color: '#64748b',
-          fontSize: '12px',
+          fontSize: '11px',
         }}
       >
         {({ currentPage, totalPages }) => (
           <span>
-            {content.name} | {content.pageTitle} | {currentPage} / {totalPages}
+            {content.name} | {currentPage} / {totalPages}
           </span>
         )}
       </Footer>
 
       <Page style={styles.page}>
-        <div style={styles.eyebrow}>{content.eyebrow}</div>
-        <h1 style={styles.title}>{content.name}</h1>
-        <p style={styles.summary}>{content.summary}</p>
+        <header style={styles.header}>
+          <div style={styles.eyebrow}>{content.eyebrow}</div>
 
-        <div style={styles.divider}>
-          <div style={styles.grid}>
-            <section style={styles.card}>
-              <div style={styles.label}>{content.professionalSummaryLabel}</div>
-              <p style={styles.text}>{content.summary}</p>
-
-              <div style={styles.twoColumns}>
-                <div style={styles.softCard}>
-                  <div style={styles.label}>{content.currentPositionLabel}</div>
-                  <p style={styles.strongText}>{content.currentPosition}</p>
-                </div>
-
-                <div style={styles.softCard}>
-                  <div style={styles.label}>{content.contactLabel}</div>
-                  <p style={styles.text}>{content.contactNote}</p>
-                </div>
-              </div>
-            </section>
-
-            <section style={styles.card}>
-              <h2 style={styles.sectionTitle}>{content.contactLabel}</h2>
-              <div style={styles.socialList}>
-                {content.socialLinks.map((link) => (
-                  <a key={link.id} href={link.link} style={styles.socialLink}>
-                    {link.name}: {link.link}
-                  </a>
-                ))}
-              </div>
-            </section>
+          <div style={styles.titleRow}>
+            <h1 style={styles.title}>{content.name}</h1>
+            <p style={styles.position}>{content.currentPosition}</p>
           </div>
-        </div>
 
-        <div style={styles.twoColumns}>
-          <section style={styles.card}>
-            <h2 style={styles.sectionTitle}>{content.educationTitle}</h2>
-            {content.education.map((item) => (
-              <article
-                key={`${item.institution}-${item.period}`}
-                style={styles.entryCard}
-              >
-                <div style={styles.meta}>{item.period}</div>
-                <p style={styles.strongText}>{item.institution}</p>
-                <p style={{ ...styles.text, marginTop: '10px' }}>{item.details}</p>
-              </article>
+          <p style={styles.summary}>{content.summary}</p>
+
+          <div style={styles.contactsRow}>
+            {socialLinks.map((link) => (
+              <a key={link.id} href={link.link} style={styles.contactChip}>
+                {getContactLabel(link)}
+              </a>
             ))}
-          </section>
+          </div>
+        </header>
 
-          <section style={styles.card}>
-            <h2 style={styles.sectionTitle}>{content.softSkillsTitle}</h2>
-            <div style={{ display: 'grid', gap: '10px', marginTop: '14px' }}>
-              {content.softSkills.map((skill) => (
-                <div key={skill} style={styles.softCard}>
-                  <p style={styles.text}>{skill}</p>
-                </div>
-              ))}
-            </div>
-          </section>
-        </div>
+        <section style={styles.section}>
+          <h2 style={styles.sectionTitle}>{content.educationTitle}</h2>
 
-        <section style={{ ...styles.card, marginTop: '16px' }}>
+          {content.education.map((item) => (
+            <article key={`${item.institution}-${item.period}`} style={styles.card}>
+              <p style={styles.itemMeta}>{item.period}</p>
+              <p style={styles.itemTitle}>{item.institution}</p>
+              <p style={styles.itemText}>{item.details}</p>
+            </article>
+          ))}
+        </section>
+
+        <section style={styles.section}>
           <h2 style={styles.sectionTitle}>{content.technicalSkillsTitle}</h2>
-          <div style={styles.threeColumns}>
-            {content.technicalSkills.map((group) => (
-              <article key={group.group} style={styles.skillGroup}>
-                <div style={styles.label}>{group.group}</div>
+
+          {content.technicalSkills.map((group) => (
+            <article key={group.group} style={styles.card}>
+              <p style={styles.skillGroupTitle}>{group.group}</p>
+              <div style={styles.skillList}>
                 {group.items.map((item) => (
                   <div key={item.name} style={styles.skillRow}>
-                    <span style={styles.text}>{item.name}</span>
-                    <div style={styles.skillBar}>
-                      <div
-                        style={{
-                          backgroundColor: '#0f172a',
-                          borderRadius: '999px',
-                          height: '100%',
-                          width: `${item.score}%`,
-                        }}
-                      />
-                    </div>
-                    <span
-                      style={{
-                        ...styles.text,
-                        color: '#64748b',
-                        textAlign: 'right',
-                      }}
-                    >
-                      {item.level}
-                    </span>
+                    <p style={styles.skillName}>{item.name}</p>
+                    <p style={styles.skillLevel}>{item.level}</p>
                   </div>
                 ))}
-              </article>
-            ))}
-          </div>
+              </div>
+            </article>
+          ))}
         </section>
 
-        <section style={{ ...styles.card, marginTop: '16px' }}>
-          <h2 style={styles.sectionTitle}>{content.certificatesTitle}</h2>
-          <div style={styles.twoColumns}>
-            {certificates.map((certificate) => (
-              <article key={certificate.id} style={styles.entryCard}>
-                <p style={styles.text}>{certificate.title}</p>
-              </article>
-            ))}
-          </div>
-        </section>
-
-        <section style={{ ...styles.card, marginTop: '16px' }}>
+        <section style={styles.section}>
           <h2 style={styles.sectionTitle}>{content.experienceTitle}</h2>
+
           {content.experience.map((item) => (
-            <article
-              key={`${item.institution}-${item.period}`}
-              style={styles.entryCard}
-            >
-              <div style={styles.meta}>{item.period}</div>
-              <p style={styles.strongText}>{item.position}</p>
-              <p style={{ ...styles.text, color: '#64748b', marginTop: '4px' }}>
-                {item.institution}
-              </p>
+            <article key={`${item.institution}-${item.period}`} style={styles.card}>
+              <p style={styles.itemMeta}>{item.period}</p>
+              <p style={styles.itemTitle}>{item.position}</p>
+              <p style={styles.itemSubtitle}>{item.institution}</p>
               <ul style={styles.list}>
                 {item.responsibilities.map((responsibility) => (
                   <li key={responsibility}>{responsibility}</li>
@@ -337,18 +332,18 @@ const ResumeDocument = ({
           ))}
         </section>
 
-        <section style={{ ...styles.card, marginTop: '16px' }}>
-          <h2 style={styles.sectionTitle}>{content.additionalTitle}</h2>
-          <div style={styles.twoColumns}>
-            {content.additional.map((item) => (
-              <article key={item.title} style={styles.entryCard}>
-                <p style={styles.strongText}>{item.title}</p>
-                <p style={{ ...styles.text, marginTop: '10px' }}>
-                  {item.description}
+        <section style={styles.section}>
+          <h2 style={styles.sectionTitle}>{content.certificatesTitle}</h2>
+          <ul style={styles.certificateList}>
+            {certificates.map((certificate) => (
+              <li key={certificate.id} style={styles.certificateItem}>
+                <p style={styles.certificateDate}>
+                  {formatCertificateDate(certificate.completionDate, lang)}
                 </p>
-              </article>
+                <p style={styles.certificateTitle}>{certificate.title}</p>
+              </li>
             ))}
-          </div>
+          </ul>
         </section>
       </Page>
     </Document>
