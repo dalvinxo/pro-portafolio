@@ -53,8 +53,7 @@ const Repositories = ({ data }: { data: RepositoryItem[] }) => {
                 target="_blank"
                 rel="noreferrer"
                 className="group flex h-full flex-col rounded-[1.5rem] border border-slate-200 bg-slate-50/60 p-5 transition-colors hover:border-slate-300 hover:bg-white dark:border-slate-800 dark:bg-slate-950 dark:hover:border-slate-700 dark:hover:bg-slate-900"
-                aria-label={`${item.name} repository`}
-              >
+                aria-label={`${item.name} repository`}>
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
                     <p className="text-xs font-medium uppercase tracking-[0.24em] text-slate-400">
@@ -66,7 +65,10 @@ const Repositories = ({ data }: { data: RepositoryItem[] }) => {
                   </div>
 
                   <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-slate-200 text-slate-500 transition-colors group-hover:border-slate-300 group-hover:text-slate-900 dark:border-slate-800 dark:text-slate-400 dark:group-hover:border-slate-700 dark:group-hover:text-slate-100">
-                    <FaExternalLinkAlt className="h-3.5 w-3.5" aria-hidden="true" />
+                    <FaExternalLinkAlt
+                      className="h-3.5 w-3.5"
+                      aria-hidden="true"
+                    />
                   </span>
                 </div>
 
@@ -79,8 +81,7 @@ const Repositories = ({ data }: { data: RepositoryItem[] }) => {
                     item.language.map((language) => (
                       <span
                         key={`${item.name}-${language}`}
-                        className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300"
-                      >
+                        className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white px-3 py-1.5 text-xs font-medium text-slate-600 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300">
                         <span
                           className={`h-2.5 w-2.5 rounded-full ${
                             languageTone[language] ?? 'bg-slate-400'
@@ -92,7 +93,9 @@ const Repositories = ({ data }: { data: RepositoryItem[] }) => {
                     ))
                   ) : (
                     <span className="inline-flex rounded-full border border-dashed border-slate-200 px-3 py-1.5 text-xs text-slate-400 dark:border-slate-800 dark:text-slate-500">
-                      {lang === 'en' ? 'No languages detected' : 'Sin lenguajes detectados'}
+                      {lang === 'en'
+                        ? 'No languages detected'
+                        : 'Sin lenguajes detectados'}
                     </span>
                   )}
                 </div>

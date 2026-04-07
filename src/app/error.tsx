@@ -24,8 +24,7 @@ export default function Error({
         <div
           className="w-full rounded-[2rem] border border-slate-200 bg-white p-8 text-center shadow-[0_24px_60px_-42px_rgba(15,23,42,0.55)] dark:border-slate-800 dark:bg-slate-900 sm:p-10"
           role="alert"
-          aria-live="assertive"
-        >
+          aria-live="assertive">
           <p className="text-xs font-medium uppercase tracking-[0.28em] text-slate-400">
             {lang === 'en' ? 'Unexpected error' : 'Error inesperado'}
           </p>
@@ -43,8 +42,7 @@ export default function Error({
             <button
               type="button"
               onClick={reset}
-              className="inline-flex items-center justify-center rounded-full border border-slate-900 bg-slate-900 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-slate-700 dark:border-slate-100 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-300"
-            >
+              className="inline-flex items-center justify-center rounded-full border border-slate-900 bg-slate-900 px-5 py-3 text-sm font-medium text-white transition-colors hover:bg-slate-700 dark:border-slate-100 dark:bg-slate-100 dark:text-slate-900 dark:hover:bg-slate-300">
               {lang === 'en' ? 'Try again' : 'Intentar de nuevo'}
             </button>
           </div>

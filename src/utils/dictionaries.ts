@@ -11,5 +11,4 @@ const dictionaries: Record<Locales, () => typeEnTranslate | typeEsTranslate> = {
 
 export const getDictionary = (
   locale: Locales
-): typeEnTranslate | typeEsTranslate =>
-  dictionaries[locale]()
+): typeEnTranslate | typeEsTranslate => dictionaries[locale]()

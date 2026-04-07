@@ -85,15 +85,15 @@ const Portafolies = ({ proyects }: { proyects: TypeProyects[] }) => {
 
           <nav
             className="flex flex-wrap gap-2"
-            aria-label={lang === 'en' ? 'Project filters' : 'Filtros de proyectos'}
-          >
+            aria-label={
+              lang === 'en' ? 'Project filters' : 'Filtros de proyectos'
+            }>
             {filterOptions.map((option) => (
               <FilterButton
                 key={option.key}
                 isActive={filter === option.key}
                 onClick={() => setFilter(option.key)}
-                tone={option.tone ?? 'default'}
-              >
+                tone={option.tone ?? 'default'}>
                 {option.label}
               </FilterButton>
             ))}
@@ -111,13 +111,11 @@ const Portafolies = ({ proyects }: { proyects: TypeProyects[] }) => {
             initial="hidden"
             animate="show"
             variants={containerVariants}
-            className="grid gap-4"
-          >
+            className="grid gap-4">
             {filterProject.map((proyect, index) => (
               <motion.li
                 key={`${proyect.name ?? 'project'}-${index}`}
-                variants={itemVariants}
-              >
+                variants={itemVariants}>
                 <Project proyect={proyect} />
               </motion.li>
             ))}
@@ -158,8 +156,7 @@ const FilterButton = ({
       type="button"
       aria-pressed={isActive}
       onClick={onClick}
-      className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors ${toneClassName[tone]}`}
-    >
+      className={`rounded-full border px-4 py-2 text-sm font-medium transition-colors ${toneClassName[tone]}`}>
       {children}
     </button>
   )

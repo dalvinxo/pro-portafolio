@@ -192,8 +192,7 @@ export default function Certificate({
                     selectedType === type
                       ? 'border-slate-900 bg-slate-900 text-white dark:border-slate-100 dark:bg-slate-100 dark:text-slate-900'
                       : 'border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:bg-slate-800'
-                  }`}
-                >
+                  }`}>
                   {type}
                 </button>
               ))}

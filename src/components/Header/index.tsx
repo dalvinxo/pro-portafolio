@@ -25,8 +25,7 @@ const Header = ({ brand, link, linkBrandTitle, role, name }: HeaderProps) => {
       target={isExternal ? '_blank' : undefined}
       rel={isExternal ? 'nofollow noreferrer' : undefined}
       title={linkBrandTitle}
-      className="group flex min-w-0 items-center gap-3 rounded-2xl transition-opacity hover:opacity-90 sm:gap-4"
-    >
+      className="group flex min-w-0 items-center gap-3 rounded-2xl transition-opacity hover:opacity-90 sm:gap-4">
       <div className="relative h-11 w-11 shrink-0 overflow-hidden rounded-full ring-1 ring-slate-200 dark:ring-slate-800 sm:h-14 sm:w-14">
         <Image
           alt="Profile avatar"

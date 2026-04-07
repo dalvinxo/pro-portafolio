@@ -1,6 +1,11 @@
 'use client'
 
-import { IoArrowForward, IoCalendarOutline, IoEye, IoLogoGithub } from 'react-icons/io5'
+import {
+  IoArrowForward,
+  IoCalendarOutline,
+  IoEye,
+  IoLogoGithub,
+} from 'react-icons/io5'
 
 import StatusProject from '@common/StatusProject'
 import { FormatterDate } from 'helpers'
@@ -101,8 +106,7 @@ const ProjectLink = ({
       target="_blank"
       rel="noreferrer"
       aria-label={ariaLabel}
-      className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 dark:focus:ring-offset-slate-950 ${toneClassName[tone]}`}
-    >
+      className={`inline-flex items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-colors focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 dark:focus:ring-offset-slate-950 ${toneClassName[tone]}`}>
       {icon}
       <span>{label}</span>
       <IoArrowForward className="h-4 w-4" aria-hidden="true" />
