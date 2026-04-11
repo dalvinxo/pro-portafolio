@@ -1,5 +1,5 @@
 import React from 'react'
-import { Document, Footer, Head, Page } from '@htmldocs/react'
+import { Document, Head, Page } from '@htmldocs/react'
 
 import {
   getResumeContent,
@@ -143,6 +143,7 @@ const styles = {
     fontWeight: 600,
     lineHeight: 1.5,
     margin: 0,
+    display: 'inline-block',
   } as React.CSSProperties,
   skillLevel: {
     color: '#64748b',
@@ -150,6 +151,7 @@ const styles = {
     lineHeight: 1.5,
     margin: 0,
     textAlign: 'right',
+    display: 'inline-block',
   } as React.CSSProperties,
   list: {
     color: '#334155',
@@ -161,6 +163,7 @@ const styles = {
   certificateList: {
     display: 'grid',
     gap: '12px',
+    margin: 0,
     marginTop: '12px',
   } as React.CSSProperties,
   certificateItem: {
@@ -252,7 +255,7 @@ const ResumeDocument = ({
         <title>{content.pageTitle}</title>
       </Head>
 
-      <Footer
+      {/* <Footer
         style={{
           color: '#64748b',
           fontSize: '11px',
@@ -262,7 +265,7 @@ const ResumeDocument = ({
             {content.name} | {currentPage} / {totalPages}
           </span>
         )}
-      </Footer>
+      </Footer> */}
 
       <Page style={styles.page}>
         <header style={styles.header}>
@@ -285,7 +288,7 @@ const ResumeDocument = ({
         </header>
 
         <section style={styles.section}>
-          <h2 style={styles.sectionTitle}>{content.educationTitle}</h2>
+          <h3 style={styles.sectionTitle}>{content.educationTitle}</h3>
 
           {content.education.map((item) => (
             <article
@@ -299,16 +302,20 @@ const ResumeDocument = ({
         </section>
 
         <section style={styles.section}>
-          <h2 style={styles.sectionTitle}>{content.technicalSkillsTitle}</h2>
+          <h3 style={styles.sectionTitle}>{content.technicalSkillsTitle}</h3>
 
           {content.technicalSkills.map((group) => (
-            <article key={group.group} style={styles.card}>
-              <p style={styles.skillGroupTitle}>{group.group}</p>
+            <article key={group.group} style={{
+              ...styles.card,
+              pageBreakInside: 'avoid',
+              breakInside: 'avoid'
+            }}>
+              <h3 style={styles.skillGroupTitle}>{group.group}</h3>
               <div style={styles.skillList}>
                 {group.items.map((item) => (
                   <div key={item.name} style={styles.skillRow}>
-                    <p style={styles.skillName}>{item.name}</p>
-                    <p style={styles.skillLevel}>{item.level}</p>
+                    <span style={styles.skillName}>{item.name}</span>
+                    <span style={styles.skillLevel}>{item.level}</span>
                   </div>
                 ))}
               </div>
@@ -336,7 +343,10 @@ const ResumeDocument = ({
         </section>
 
         <section style={styles.section}>
-          <h2 style={styles.sectionTitle}>{content.certificatesTitle}</h2>
+          <h3 style={{
+            ...styles.sectionTitle,
+            pageBreakAfter: 'avoid',
+          }}>{content.certificatesTitle}</h3>
           <ul style={styles.certificateList}>
             {certificates.map((certificate) => (
               <li key={certificate.id} style={styles.certificateItem}>

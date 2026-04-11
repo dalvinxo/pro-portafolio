@@ -100,33 +100,29 @@ const localizedResumeContent: Record<Locales, ResumeLocalizedContent> = {
     ],
     technicalSkills: [
       {
-        group: 'Lenguajes de programacion',
+        group: 'Desarrollo Fullstack',
         items: [
-          { name: 'C#', level: 'Avanzado', score: 95 },
-          { name: 'TypeScript', level: 'Avanzado', score: 85 },
-          { name: 'SQL', level: 'Intermedio - Avanzado', score: 80 },
+          { name: 'C# / .NET Web API', level: 'Avanzado', score: 95 },
+          { name: 'JavaScript / TypeScript', level: 'Avanzado', score: 90 },
+          { name: 'React / Next.js', level: 'Avanzado', score: 88 },
+          { name: 'Angular', level: 'Intermedio - Avanzado', score: 82 },
+          { name: 'Node.js (MERN)', level: 'Intermedio - Avanzado', score: 80 },
+          { name: 'HTML5 / CSS3 / Tailwind', level: 'Avanzado', score: 90 },
+          { name: 'Python', level: 'Avanzado', score: 50 },
         ],
       },
       {
-        group: 'Frameworks, librerias y tecnologias',
+        group: 'Arquitectura, Datos y DevOps',
         items: [
-          { name: '.NET Web API', level: 'Avanzado', score: 84 },
-          { name: 'React JS', level: 'Avanzado', score: 88 },
-          { name: 'Redux', level: 'Intermedio', score: 72 },
-          { name: 'SQL Server', level: 'Intermedio - Avanzado', score: 84 },
-        ],
-      },
-      {
-        group: 'Herramientas de despliegue y flujo de trabajo',
-        items: [
-          { name: 'Git / GitHub', level: 'Intermedio - Avanzado', score: 78 },
-          { name: 'Web Services API', level: 'Avanzado', score: 83 },
-          { name: 'Integracion de APIs', level: 'Avanzado', score: 82 },
-          {
-            name: 'Gestion de bases de datos',
-            level: 'Intermedio - Avanzado',
-            score: 80,
-          },
+          { name: 'Diseño de APIs REST', level: 'Avanzado', score: 85 },
+          { name: 'Autenticación (JWT/JWE) & Seguridad', level: 'Avanzado', score: 83 },
+          { name: 'Integración de APIs', level: 'Avanzado', score: 82 },
+          { name: 'SQL Server & Modelado de Datos', level: 'Intermedio - Avanzado', score: 84 },
+          { name: 'Microservicios & API Gateway', level: 'Intermedio', score: 78 },
+          { name: 'Git / GitHub & Workflow', level: 'Intermedio - Avanzado', score: 78 },
+          { name: 'Deploy (Vercel, entornos)', level: 'Intermedio', score: 75 },
+          { name: 'Testing & herramientas (Postman)', level: 'Avanzado', score: 82 },
+          { name: 'Streamlit (Data)', level: 'Intermedio', score: 30 },
         ],
       },
     ],
@@ -149,6 +145,17 @@ const localizedResumeContent: Record<Locales, ResumeLocalizedContent> = {
           'Migración de servicios web a las versiones más recientes de .NET.',
         ],
       },
+      {
+        institution: 'Entidad gubernamental dedicada a la investigación | República Dominicana | Presencial',
+        period: 'feb. 2025 - actualidad | 1 año+',
+        position: 'Desarrollador de software [Encargado de innovación]',
+        responsibilities: [
+          'Digitalización de procesos manuales para optimizar la gestión institucional.',
+          'Diseño y desarrollo de herramientas de análisis de datos.',
+          'Implementación de soluciones para el manejo y visualización de información.',
+          'Innovación tecnológica aplicada a proyectos de investigación y gestión pública.',
+        ],
+      }
     ],
     additional: [
       {
@@ -197,33 +204,29 @@ const localizedResumeContent: Record<Locales, ResumeLocalizedContent> = {
     ],
     technicalSkills: [
       {
-        group: 'Programming languages',
+        group: 'Fullstack Development',
         items: [
-          { name: 'C#', level: 'Advanced', score: 95 },
-          { name: 'TypeScript', level: 'Advanced', score: 85 },
-          { name: 'SQL', level: 'Intermediate - Advanced', score: 80 },
+          { name: 'C# / .NET Web API', level: 'Avanzado', score: 95 },
+          { name: 'JavaScript / TypeScript', level: 'Avanzado', score: 90 },
+          { name: 'React / Next.js', level: 'Avanzado', score: 88 },
+          { name: 'Angular', level: 'Intermedio - Avanzado', score: 82 },
+          { name: 'Node.js (MERN)', level: 'Intermedio - Avanzado', score: 80 },
+          { name: 'HTML5 / CSS3 / Tailwind', level: 'Avanzado', score: 90 },
+          { name: 'Python', level: 'Avanzado', score: 50 },
         ],
       },
       {
-        group: 'Frameworks, libraries and technologies',
+        group: 'Architecture, Data & DevOps',
         items: [
-          { name: '.NET Web API', level: 'Advanced', score: 84 },
-          { name: 'React JS', level: 'Advanced', score: 88 },
-          { name: 'Redux', level: 'Intermediate', score: 72 },
-          { name: 'SQL Server', level: 'Intermediate - Advanced', score: 84 },
-        ],
-      },
-      {
-        group: 'Deployment and workflow tools',
-        items: [
-          { name: 'Git / GitHub', level: 'Intermediate - Advanced', score: 78 },
-          { name: 'Web Services API', level: 'Advanced', score: 83 },
+          { name: 'REST API Design', level: 'Advanced', score: 85 },
+          { name: 'Authentication (JWT) & Security', level: 'Advanced', score: 83 },
           { name: 'API Integration', level: 'Advanced', score: 82 },
-          {
-            name: 'Database Management',
-            level: 'Intermediate - Advanced',
-            score: 80,
-          },
+          { name: 'SQL Server & Data Modeling', level: 'Intermediate - Advanced', score: 84 },
+          { name: 'Microservices & API Gateway', level: 'Intermediate', score: 78 },
+          { name: 'Git / GitHub & Workflow', level: 'Intermediate - Advanced', score: 78 },
+          { name: 'Deployment (Vercel, environments)', level: 'Intermediate', score: 75 },
+          { name: 'Testing & Tools (Postman)', level: 'Advanced', score: 82 },
+          { name: 'Streamlit (Data)', level: 'Beginner', score: 30 },
         ],
       },
     ],
@@ -246,6 +249,17 @@ const localizedResumeContent: Record<Locales, ResumeLocalizedContent> = {
           'Migration of web services to the latest versions of .NET.',
         ],
       },
+      {
+        institution: 'Government entity dedicated to research | Dominican Republic | On-site',
+        period: 'Feb. 2025 - Present | 1 year+',
+        position: 'Software Developer [Innovation Lead]',
+        responsibilities: [
+          'Digitization of manual processes to optimize institutional management.',
+          'Design and development of data analysis tools.',
+          'Implementation of solutions for information management and visualization.',
+          'Technological innovation applied to research and public management projects.',
+        ],
+      }
     ],
     additional: [
       {
