@@ -157,7 +157,12 @@ const ResumePage = ({
           <h2 className="text-lg font-semibold tracking-tight text-slate-900 dark:text-slate-50">
             {content.technicalSkillsTitle}
           </h2>
-          <div className="mt-4 grid gap-4 lg:grid-cols-3">
+          <div
+            className={`mt-4 grid gap-4 ${
+              content.technicalSkills?.length > 2
+                ? 'lg:grid-cols-3'
+                : 'lg:grid-cols-2'
+            }`}>
             {content.technicalSkills.map((group) => (
               <article
                 key={group.group}
