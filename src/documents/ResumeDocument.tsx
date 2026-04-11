@@ -305,11 +305,13 @@ const ResumeDocument = ({
           <h3 style={styles.sectionTitle}>{content.technicalSkillsTitle}</h3>
 
           {content.technicalSkills.map((group) => (
-            <article key={group.group} style={{
-              ...styles.card,
-              pageBreakInside: 'avoid',
-              breakInside: 'avoid'
-            }}>
+            <article
+              key={group.group}
+              style={{
+                ...styles.card,
+                pageBreakInside: 'avoid',
+                breakInside: 'avoid',
+              }}>
               <h3 style={styles.skillGroupTitle}>{group.group}</h3>
               <div style={styles.skillList}>
                 {group.items.map((item) => (
@@ -343,10 +345,13 @@ const ResumeDocument = ({
         </section>
 
         <section style={styles.section}>
-          <h3 style={{
-            ...styles.sectionTitle,
-            pageBreakAfter: 'avoid',
-          }}>{content.certificatesTitle}</h3>
+          <h3
+            style={{
+              ...styles.sectionTitle,
+              pageBreakAfter: 'avoid',
+            }}>
+            {content.certificatesTitle}
+          </h3>
           <ul style={styles.certificateList}>
             {certificates.map((certificate) => (
               <li key={certificate.id} style={styles.certificateItem}>

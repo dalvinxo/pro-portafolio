@@ -115,13 +115,33 @@ const localizedResumeContent: Record<Locales, ResumeLocalizedContent> = {
         group: 'Arquitectura, Datos y DevOps',
         items: [
           { name: 'Diseño de APIs REST', level: 'Avanzado', score: 85 },
-          { name: 'Autenticación (JWT/JWE) & Seguridad', level: 'Avanzado', score: 83 },
+          {
+            name: 'Autenticación (JWT/JWE) & Seguridad',
+            level: 'Avanzado',
+            score: 83,
+          },
           { name: 'Integración de APIs', level: 'Avanzado', score: 82 },
-          { name: 'SQL Server & Modelado de Datos', level: 'Intermedio - Avanzado', score: 84 },
-          { name: 'Microservicios & API Gateway', level: 'Intermedio', score: 78 },
-          { name: 'Git / GitHub & Workflow', level: 'Intermedio - Avanzado', score: 78 },
+          {
+            name: 'SQL Server & Modelado de Datos',
+            level: 'Intermedio - Avanzado',
+            score: 84,
+          },
+          {
+            name: 'Microservicios & API Gateway',
+            level: 'Intermedio',
+            score: 78,
+          },
+          {
+            name: 'Git / GitHub & Workflow',
+            level: 'Intermedio - Avanzado',
+            score: 78,
+          },
           { name: 'Deploy (Vercel, entornos)', level: 'Intermedio', score: 75 },
-          { name: 'Testing & herramientas (Postman)', level: 'Avanzado', score: 82 },
+          {
+            name: 'Testing & herramientas (Postman)',
+            level: 'Avanzado',
+            score: 82,
+          },
           { name: 'Streamlit (Data)', level: 'Intermedio', score: 30 },
         ],
       },
@@ -146,7 +166,8 @@ const localizedResumeContent: Record<Locales, ResumeLocalizedContent> = {
         ],
       },
       {
-        institution: 'Entidad gubernamental dedicada a la investigación | República Dominicana | Presencial',
+        institution:
+          'Entidad gubernamental dedicada a la investigación | República Dominicana | Presencial',
         period: 'feb. 2025 - actualidad | 1 año+',
         position: 'Desarrollador de software [Encargado de innovación]',
         responsibilities: [
@@ -155,7 +176,7 @@ const localizedResumeContent: Record<Locales, ResumeLocalizedContent> = {
           'Implementación de soluciones para el manejo y visualización de información.',
           'Innovación tecnológica aplicada a proyectos de investigación y gestión pública.',
         ],
-      }
+      },
     ],
     additional: [
       {
@@ -219,12 +240,32 @@ const localizedResumeContent: Record<Locales, ResumeLocalizedContent> = {
         group: 'Architecture, Data & DevOps',
         items: [
           { name: 'REST API Design', level: 'Advanced', score: 85 },
-          { name: 'Authentication (JWT) & Security', level: 'Advanced', score: 83 },
+          {
+            name: 'Authentication (JWT) & Security',
+            level: 'Advanced',
+            score: 83,
+          },
           { name: 'API Integration', level: 'Advanced', score: 82 },
-          { name: 'SQL Server & Data Modeling', level: 'Intermediate - Advanced', score: 84 },
-          { name: 'Microservices & API Gateway', level: 'Intermediate', score: 78 },
-          { name: 'Git / GitHub & Workflow', level: 'Intermediate - Advanced', score: 78 },
-          { name: 'Deployment (Vercel, environments)', level: 'Intermediate', score: 75 },
+          {
+            name: 'SQL Server & Data Modeling',
+            level: 'Intermediate - Advanced',
+            score: 84,
+          },
+          {
+            name: 'Microservices & API Gateway',
+            level: 'Intermediate',
+            score: 78,
+          },
+          {
+            name: 'Git / GitHub & Workflow',
+            level: 'Intermediate - Advanced',
+            score: 78,
+          },
+          {
+            name: 'Deployment (Vercel, environments)',
+            level: 'Intermediate',
+            score: 75,
+          },
           { name: 'Testing & Tools (Postman)', level: 'Advanced', score: 82 },
           { name: 'Streamlit (Data)', level: 'Beginner', score: 30 },
         ],
@@ -250,7 +291,8 @@ const localizedResumeContent: Record<Locales, ResumeLocalizedContent> = {
         ],
       },
       {
-        institution: 'Government entity dedicated to research | Dominican Republic | On-site',
+        institution:
+          'Government entity dedicated to research | Dominican Republic | On-site',
         period: 'Feb. 2025 - Present | 1 year+',
         position: 'Software Developer [Innovation Lead]',
         responsibilities: [
@@ -259,7 +301,7 @@ const localizedResumeContent: Record<Locales, ResumeLocalizedContent> = {
           'Implementation of solutions for information management and visualization.',
           'Technological innovation applied to research and public management projects.',
         ],
-      }
+      },
     ],
     additional: [
       {
