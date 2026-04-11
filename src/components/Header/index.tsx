@@ -26,12 +26,12 @@ const Header = ({ brand, link, linkBrandTitle, role, name }: HeaderProps) => {
       rel={isExternal ? 'nofollow noreferrer' : undefined}
       title={linkBrandTitle}
       className="group flex min-w-0 items-center gap-2.5 rounded-xl transition-opacity hover:opacity-90 sm:gap-3">
-      <div className="relative h-9 w-9 shrink-0 overflow-hidden rounded-full ring-1 ring-slate-200 dark:ring-slate-800 sm:h-10 sm:w-10">
+      <div className="relative md:h-18 md:w-18 shrink-0 overflow-hidden rounded-lg ring-1 ring-slate-200 dark:ring-slate-800 sm:h-10 sm:w-10">
         <Image
           alt="Profile avatar"
           src={brand.avatar}
           fill
-          sizes="40px"
+          sizes="3rem"
           className="object-cover"
         />
       </div>

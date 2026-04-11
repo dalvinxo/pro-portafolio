@@ -1,7 +1,7 @@
 export const navbar: EntityRouters = {
   brand: {
     title: 'dalvinxo',
-    avatar: '/img/faceavatar.webp',
+    avatar: '/img/avatar_profile2.webp',
     src: 'https://github.com/dalvinxo',
   },
   navlink: [
