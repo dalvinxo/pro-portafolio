@@ -292,8 +292,7 @@ const localizedResumeContent: Record<Locales, ResumeLocalizedContent> = {
         ],
       },
       {
-        institution:
-          'Government entity | Dominican Republic | On-site',
+        institution: 'Government entity | Dominican Republic | On-site',
         period: 'Feb. 2025 - Present | 1 year+',
         position: 'Software Developer',
         responsibilities: [
