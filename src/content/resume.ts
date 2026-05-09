@@ -167,10 +167,11 @@ const localizedResumeContent: Record<Locales, ResumeLocalizedContent> = {
       },
       {
         institution:
-          'Entidad gubernamental dedicada a la investigación | República Dominicana | Presencial',
+          'Entidad gubernamental | República Dominicana | Presencial',
         period: 'feb. 2025 - actualidad | 1 año+',
-        position: 'Desarrollador de software [Encargado de innovación]',
+        position: 'Desarrollador de software',
         responsibilities: [
+          'Lider de equipo',
           'Digitalización de procesos manuales para optimizar la gestión institucional.',
           'Diseño y desarrollo de herramientas de análisis de datos.',
           'Implementación de soluciones para el manejo y visualización de información.',
@@ -291,11 +292,11 @@ const localizedResumeContent: Record<Locales, ResumeLocalizedContent> = {
         ],
       },
       {
-        institution:
-          'Government entity dedicated to research | Dominican Republic | On-site',
+        institution: 'Government entity | Dominican Republic | On-site',
         period: 'Feb. 2025 - Present | 1 year+',
-        position: 'Software Developer [Innovation Lead]',
+        position: 'Software Developer',
         responsibilities: [
+          'Team Lead',
           'Digitization of manual processes to optimize institutional management.',
           'Design and development of data analysis tools.',
           'Implementation of solutions for information management and visualization.',
