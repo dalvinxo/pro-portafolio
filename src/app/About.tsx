@@ -101,11 +101,10 @@ const About = ({
                   fill
                   priority={index === 0}
                   sizes="(max-width: 1024px) 100vw, 40vw"
-                  className={`object-cover transition-all duration-700 ${
-                    index === currentImage
+                  className={`object-cover transition-all duration-700 ${index === currentImage
                       ? 'translate-x-0 opacity-100'
                       : 'translate-x-8 opacity-0'
-                  }`}
+                    }`}
                 />
               ))}
             </div>
@@ -184,11 +183,10 @@ const About = ({
                     checked={currentInfo.id === message.id}
                   />
                   <span
-                    className={`h-2.5 w-2.5 rounded-full transition-all ${
-                      currentInfo.id === message.id
+                    className={`h-2.5 w-2.5 rounded-full transition-all ${currentInfo.id === message.id
                         ? 'bg-slate-900 ring-4 ring-slate-200 dark:bg-slate-100 dark:ring-slate-800'
                         : 'bg-slate-300 group-hover:bg-slate-400 dark:bg-slate-700 dark:group-hover:bg-slate-600'
-                    }`}
+                      }`}
                   />
                   <span className="text-xs font-medium uppercase tracking-[0.22em] text-slate-400">
                     {String(message.id).padStart(2, '0')}
