@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { createContext, useContext } from 'react'
 import { translate } from 'var-contants'
 import { useEffect } from 'react'
+import { detectBrowserLanguage } from 'src/utils/detectBrowserLanguage'
 
 export type TypeTranslateContext = {
   lang: translate.Locales
@@ -23,6 +24,9 @@ const TranslateProvider = ({ children }: { children: React.ReactNode }) => {
       let localLang = localStorage.getItem('language')
       if (localLang != null) {
         setLang(localLang as translate.Locales)
+      } else {
+        const browserLang = detectBrowserLanguage()
+        setLang(browserLang)
       }
     }
   }, [])
