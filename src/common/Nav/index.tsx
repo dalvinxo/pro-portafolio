@@ -4,10 +4,11 @@ type TypeNav = {
   isActive: boolean
   path: string
   as: string
+  onNavigate?: () => void
 }
 
 const Nav = (props: TypeNav) => {
-  const { isActive, path, as } = props
+  const { isActive, path, as, onNavigate } = props
 
   return (
     <div className="inline-block">
@@ -17,6 +18,8 @@ const Nav = (props: TypeNav) => {
             ? 'bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900'
             : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-900 dark:hover:text-slate-100'
         } `}
+        aria-current={isActive ? 'page' : undefined}
+        onClick={onNavigate}
         href={path}>
         {as}
       </Link>

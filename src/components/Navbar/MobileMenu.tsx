@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { FaBug } from 'react-icons/fa'
 import { IoClose, IoMoon, IoSunny } from 'react-icons/io5'
 
@@ -28,6 +28,7 @@ const MobileMenu = ({
   translate,
 }: MobileMenuProps) => {
   const [mounted, setMounted] = useState(false)
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
   const { theme, setTheme } = useTheme()
   const { lang, setLanguage } = useTranslateContext()
 
@@ -43,6 +44,24 @@ const MobileMenu = ({
     }
   }, [isOpen])
 
+  useEffect(() => {
+    if (!isOpen) {
+      return
+    }
+
+    closeButtonRef.current?.focus()
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        onClose()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [isOpen, onClose])
+
   const isDarkTheme = theme === 'dark'
 
   return (
@@ -56,20 +75,25 @@ const MobileMenu = ({
       />
 
       <div
+        id="mobile-menu"
         role="dialog"
         aria-modal="true"
-        aria-label={lang === 'en' ? 'Mobile menu' : 'Menu movil'}
+        aria-labelledby="mobile-menu-title"
+        aria-hidden={!isOpen}
         className={`fixed right-0 top-0 z-50 flex h-full w-[300px] transform flex-col border-l border-slate-200 bg-white shadow-2xl transition-transform duration-300 ease-out dark:border-slate-800 dark:bg-slate-950 md:hidden ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
+          isOpen ? 'visible translate-x-0' : 'invisible translate-x-full'
         }`}>
         <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4 dark:border-slate-800">
           <div>
             <p className="text-xs font-medium uppercase tracking-[0.24em] text-slate-400">
-              {lang === 'en' ? 'Navigation' : 'Navegacion'}
+              <span id="mobile-menu-title">
+                {lang === 'en' ? 'Navigation' : 'Navegacion'}
+              </span>
             </p>
           </div>
 
           <button
+            ref={closeButtonRef}
             type="button"
             onClick={onClose}
             className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition-colors hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:bg-slate-900"
@@ -88,6 +112,7 @@ const MobileMenu = ({
                   isActive={path === pathname}
                   as={alias(lang)}
                   path={path}
+                  onNavigate={onClose}
                 />
               </li>
             ))}

@@ -8,6 +8,7 @@ import { ChangeEvent, useEffect, useMemo, useState } from 'react'
 import {
   IoChevronBackSharp,
   IoChevronForwardSharp,
+  IoInformationCircleOutline,
   IoLogoGithub,
   IoLogoLinkedin,
   IoLogoYoutube,
@@ -15,26 +16,40 @@ import {
 
 const profileImages = ['/img/avatar_profile2.webp', '/img/avatar_profile3.webp']
 
+type AboutInfo = {
+  id: number
+  message: string
+  messageSpanish: string | null
+}
+
+type SocialMediaName = 'github' | 'linkedin' | 'youtube'
+
+const fallbackInfo: AboutInfo = {
+  id: 1,
+  message: 'Profile information is temporarily unavailable.',
+  messageSpanish: 'La informacion del perfil no esta disponible temporalmente.',
+}
+
 const About = ({
   data,
   social,
 }: {
-  data: Array<{ id: number; message: string; messageSpanish: string | null }>
+  data: AboutInfo[]
   social: Array<{ id: any; name: string; link: string }>
 }) => {
   const { lang } = useTranslateContext()
   const translate = getDictionary(lang)
+  const journeyItems = useMemo(() => {
+    return data.length > 0 ? data : [fallbackInfo]
+  }, [data])
+  const hasJourneyData = data.length > 0
 
   const [currentImage, setCurrentImage] = useState(0)
   const [position, setPosition] = useState<{ current: number; last: number }>({
     current: 0,
-    last: data.length - 1,
+    last: journeyItems.length - 1,
   })
-  const [currentInfo, setCurrentInfo] = useState<{
-    id: number
-    message: string
-    messageSpanish: string | null
-  }>(data[0])
+  const [currentInfo, setCurrentInfo] = useState<AboutInfo>(journeyItems[0])
 
   const ariaLabel = {
     github: translate.about['aria-label-social'].github,
@@ -42,7 +57,7 @@ const About = ({
     youtube: translate.about['aria-label-social'].youtube,
   }
 
-  const mediaSocials = {
+  const mediaSocials: Record<SocialMediaName, React.ReactNode> = {
     github: <IoLogoGithub className="h-5 w-5" />,
     linkedin: <IoLogoLinkedin className="h-5 w-5" />,
     youtube: <IoLogoYoutube className="h-5 w-5" />,
@@ -54,13 +69,23 @@ const About = ({
 
   const onChangeRadio = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target
-    const indexMessage = data.findIndex((info) => info.id === Number(value))
+    const indexMessage = journeyItems.findIndex(
+      (info) => info.id === Number(value)
+    )
 
-    setCurrentInfo(data[indexMessage])
+    if (indexMessage < 0) {
+      return
+    }
+
+    setCurrentInfo(journeyItems[indexMessage])
     setPosition((prev) => ({ ...prev, current: indexMessage }))
   }
 
   const onClickHandleArrow = (action: string) => {
+    if (journeyItems.length <= 1) {
+      return
+    }
+
     const { current, last } = position
 
     let index = action === 'left' ? current - 1 : current + 1
@@ -74,7 +99,7 @@ const About = ({
     }
 
     setPosition((prev) => ({ ...prev, current: index }))
-    setCurrentInfo(data[index])
+    setCurrentInfo(journeyItems[index])
   }
 
   useEffect(() => {
@@ -84,6 +109,22 @@ const About = ({
 
     return () => clearInterval(timer)
   }, [])
+
+  useEffect(() => {
+    setPosition({ current: 0, last: journeyItems.length - 1 })
+    setCurrentInfo(journeyItems[0])
+  }, [journeyItems])
+
+  const canNavigateJourney = journeyItems.length > 1 && hasJourneyData
+  const currentMessageText =
+    currentMessage ||
+    (lang === 'en' ? fallbackInfo.message : fallbackInfo.messageSpanish)
+  const journeyStatus =
+    lang === 'en'
+      ? `Journey item ${position.current + 1} of ${journeyItems.length}`
+      : `Elemento ${position.current + 1} de ${
+          journeyItems.length
+        } del recorrido`
 
   return (
     <div className="mx-auto max-w-6xl">
@@ -97,7 +138,11 @@ const About = ({
                 <Image
                   key={src}
                   src={src}
-                  alt={`Profile image ${index + 1}`}
+                  alt={
+                    lang === 'en'
+                      ? `Dalvin Molina profile photo ${index + 1}`
+                      : `Foto de perfil de Dalvin Molina ${index + 1}`
+                  }
                   fill
                   priority={index === 0}
                   sizes="(max-width: 1024px) 100vw, 40vw"
@@ -140,7 +185,10 @@ const About = ({
                 </p>
                 <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                   {String(position.current + 1).padStart(2, '0')} /{' '}
-                  {String(data.length).padStart(2, '0')}
+                  {String(journeyItems.length).padStart(2, '0')}
+                </p>
+                <p className="sr-only" aria-live="polite">
+                  {journeyStatus}
                 </p>
               </div>
 
@@ -148,32 +196,56 @@ const About = ({
                 <button
                   type="button"
                   onClick={() => onClickHandleArrow('left')}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition-colors hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:bg-slate-800"
-                  aria-label="Previous slide">
+                  disabled={!canNavigateJourney}
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition-colors hover:border-slate-300 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-45 dark:border-slate-800 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:bg-slate-800"
+                  aria-label={
+                    lang === 'en'
+                      ? 'Show previous journey item'
+                      : 'Mostrar elemento anterior del recorrido'
+                  }>
                   <IoChevronBackSharp className="h-5 w-5" />
                 </button>
 
                 <button
                   type="button"
                   onClick={() => onClickHandleArrow('right')}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition-colors hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:bg-slate-800"
-                  aria-label="Next slide">
+                  disabled={!canNavigateJourney}
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition-colors hover:border-slate-300 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-45 dark:border-slate-800 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:bg-slate-800"
+                  aria-label={
+                    lang === 'en'
+                      ? 'Show next journey item'
+                      : 'Mostrar siguiente elemento del recorrido'
+                  }>
                   <IoChevronForwardSharp className="h-5 w-5" />
                 </button>
               </div>
             </div>
 
-            <div className="min-h-[190px] py-6">
+            <div className="min-h-[190px] py-6" aria-live="polite">
+              {!hasJourneyData && (
+                <div
+                  role="status"
+                  className="mb-4 flex items-start gap-2 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-100">
+                  <IoInformationCircleOutline className="mt-0.5 h-4 w-4 shrink-0" />
+                  <span>
+                    {lang === 'en'
+                      ? 'The personal journey could not be loaded right now.'
+                      : 'El recorrido personal no se pudo cargar en este momento.'}
+                  </span>
+                </div>
+              )}
               <p className="max-w-2xl text-lg leading-8 text-slate-700 sm:text-[1.15rem] dark:text-slate-200">
-                {currentMessage}
+                {currentMessageText}
               </p>
             </div>
 
             <div className="flex flex-wrap items-center gap-3 border-t border-slate-200 pt-4 dark:border-slate-800">
-              {data.map((message) => (
+              {journeyItems.map((message, index) => (
                 <label
                   key={message.id}
-                  className="group inline-flex cursor-pointer items-center gap-2">
+                  className={`group inline-flex items-center gap-2 ${
+                    canNavigateJourney ? 'cursor-pointer' : 'cursor-not-allowed'
+                  }`}>
                   <input
                     id={`input-${message.id}`}
                     className="sr-only"
@@ -182,6 +254,12 @@ const About = ({
                     value={message.id}
                     onChange={onChangeRadio}
                     checked={currentInfo.id === message.id}
+                    disabled={!canNavigateJourney}
+                    aria-label={
+                      lang === 'en'
+                        ? `Show journey item ${index + 1}`
+                        : `Mostrar elemento ${index + 1} del recorrido`
+                    }
                   />
                   <span
                     className={`h-2.5 w-2.5 rounded-full transition-all ${
@@ -191,7 +269,7 @@ const About = ({
                     }`}
                   />
                   <span className="text-xs font-medium uppercase tracking-[0.22em] text-slate-400">
-                    {String(message.id).padStart(2, '0')}
+                    {String(index + 1).padStart(2, '0')}
                   </span>
                 </label>
               ))}
@@ -204,11 +282,18 @@ const About = ({
                 key={mediaSocial.name}
                 href={mediaSocial.link}
                 target="_blank"
-                rel="nofollow"
-                aria-label={ariaLabel[mediaSocial.name]}
+                rel="nofollow noopener noreferrer"
+                aria-label={
+                  ariaLabel[mediaSocial.name as SocialMediaName] ||
+                  (lang === 'en'
+                    ? `Open ${mediaSocial.name} profile`
+                    : `Abrir perfil de ${mediaSocial.name}`)
+                }
                 className="group inline-flex items-center gap-3 rounded-full border border-slate-200 bg-white px-4 py-3 text-sm font-medium text-slate-600 transition-all hover:border-slate-300 hover:text-slate-900 dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:text-slate-100">
                 <span className="text-slate-500 transition-colors group-hover:text-slate-900 dark:text-slate-400 dark:group-hover:text-slate-100">
-                  {mediaSocials[mediaSocial.name]}
+                  {mediaSocials[mediaSocial.name as SocialMediaName] || (
+                    <IoInformationCircleOutline className="h-5 w-5" />
+                  )}
                 </span>
                 <span className="capitalize">{mediaSocial.name}</span>
               </Link>

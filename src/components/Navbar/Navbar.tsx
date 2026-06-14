@@ -120,8 +120,11 @@ const Navbar = () => {
 
             <button
               type="button"
+              id="mobile-menu-button"
               className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-700 transition-colors hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:text-slate-200 dark:hover:border-slate-700 dark:hover:bg-slate-900 md:hidden"
               onClick={() => setIsMobileMenuOpen(true)}
+              aria-controls="mobile-menu"
+              aria-expanded={isMobileMenuOpen}
               aria-label={lang === 'en' ? 'Open menu' : 'Abrir menu'}>
               <HiMenu className="h-4.5 w-4.5" />
             </button>
