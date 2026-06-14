@@ -71,9 +71,9 @@ const Navbar = () => {
                     aria-label={
                       isDarkTheme
                         ? translate.navbar['button-mode-dark']['aria-label']
-                          .light
+                            .light
                         : translate.navbar['button-mode-dark']['aria-label']
-                          .dark
+                            .dark
                     }
                     onClick={() => setTheme(isDarkTheme ? 'light' : 'dark')}
                     className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition-colors hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:bg-slate-900">
@@ -97,9 +97,9 @@ const Navbar = () => {
                   aria-label={
                     lang === 'en'
                       ? translate.navbar['button-language-mode']['aria-label']
-                        .es
+                          .es
                       : translate.navbar['button-language-mode']['aria-label']
-                        .en
+                          .en
                   }
                   onClick={() => setLanguage(lang === 'en' ? 'es' : 'en')}
                   className="inline-flex min-w-[2.8rem] items-center justify-center rounded-full border border-slate-200 px-2.5 py-1.5 text-[13px] font-medium text-slate-700 transition-colors hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:text-slate-200 dark:hover:border-slate-700 dark:hover:bg-slate-900">
