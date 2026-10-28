@@ -1,26 +1,18 @@
 'use client'
 
-import { motion, AnimatePresence } from 'framer-motion'
-
-const variants = {
-  hidden: { opacity: 0, x: -200, y: 0 },
-  enter: { opacity: 1, x: 0, y: 0 },
-}
+import { motion, useReducedMotion } from 'framer-motion'
 
 const PageWrapper = ({ children }: { children: React.ReactNode }) => {
+  const shouldReduceMotion = useReducedMotion()
+
   return (
-    <>
-      <AnimatePresence>
-        <motion.div
-          variants={variants}
-          initial="hidden"
-          animate="enter"
-          exit="hidden"
-          transition={{ type: 'linear' }}>
-          <section className="px-4 sm:px-6 lg:px-8 py-2">{children}</section>
-        </motion.div>
-      </AnimatePresence>
-    </>
+    <motion.section
+      className="py-2"
+      initial={shouldReduceMotion ? false : { opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: 'easeOut' }}>
+      {children}
+    </motion.section>
   )
 }
 

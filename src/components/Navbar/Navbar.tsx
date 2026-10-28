@@ -1,26 +1,25 @@
 'use client'
 
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useTheme } from 'next-themes'
-import { useEffect, useState } from 'react'
-import { FaBug } from 'react-icons/fa'
-import { HiMenu } from 'react-icons/hi'
-import { IoMoon, IoSunny } from 'react-icons/io5'
+import { useCallback, useEffect, useState } from 'react'
+import { HiMenuAlt3 } from 'react-icons/hi'
 
 import Header from '@components/Header'
+import Nav from '@common/Nav'
 import { getDictionary } from '@utils/dictionaries'
-import Nav from 'src/common/Nav'
-import { useTranslateContext } from 'src/context/TranslateProviders'
+import { useTranslateContext } from 'providers'
 import { routers } from 'var-contants'
 import MobileMenu from './MobileMenu'
+import NavbarActions from './NavbarActions'
+
+const isActivePath = (path: string, pathname: string) =>
+  path === '/' ? pathname === '/' : pathname.startsWith(path)
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
-  const [mounted, setMounted] = useState(false)
-  const { theme, setTheme } = useTheme()
+  const [isScrolled, setIsScrolled] = useState(false)
   const pathname = usePathname()
-  const { lang, setLanguage } = useTranslateContext()
+  const { lang } = useTranslateContext()
   const translate = getDictionary(lang)
 
   const {
@@ -28,116 +27,75 @@ const Navbar = () => {
   } = routers
 
   useEffect(() => {
-    setMounted(true)
+    const onScroll = () => setIsScrolled(window.scrollY > 8)
+
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
+
+    return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const isDarkTheme = theme === 'dark'
+  const closeMobileMenu = useCallback(() => setIsMobileMenuOpen(false), [])
 
   return (
-    <header className="sticky top-0 z-50 w-full">
-      <div className="border-b border-slate-200/80 bg-white/88 backdrop-blur-xl dark:border-slate-800/80 dark:bg-slate-950/84">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between gap-3 py-2.5">
-            <Header
-              brand={brand}
-              link={navlink[0].path}
-              linkBrandTitle={translate.brand.linkTitle}
-              role="Ingeniero de Software"
-              name="Dalvin Molina"
-            />
+    <header className="sticky top-0 z-50 w-full px-3 pt-3 sm:px-6">
+      <div
+        className={`mx-auto flex max-w-6xl items-center justify-between gap-3 rounded-full border px-2 py-2 pl-2.5 transition-all duration-300 sm:pl-3 ${
+          isScrolled
+            ? 'border-slate-200/80 bg-white/80 shadow-lg shadow-slate-900/5 backdrop-blur-xl dark:border-white/10 dark:bg-slate-950/75 dark:shadow-black/20'
+            : 'border-transparent bg-transparent'
+        }`}>
+        <Header
+          brand={brand}
+          link={navlink[0].path}
+          linkBrandTitle={translate.brand.linkTitle}
+          role="Ingeniero de Software"
+          name="Dalvin Molina"
+        />
 
-            <nav
-              className="hidden items-center gap-4 md:flex"
-              aria-label={
-                lang === 'en' ? 'Main navigation' : 'Navegacion principal'
-              }>
-              <ul className="flex items-center gap-2">
-                {navlink.map(({ alias, path }) => (
-                  <li key={path}>
-                    <Nav
-                      isActive={path === pathname}
-                      as={alias(lang)}
-                      path={path}
-                    />
-                  </li>
-                ))}
-              </ul>
+        <nav
+          className="hidden md:block"
+          aria-label={
+            lang === 'en' ? 'Main navigation' : 'Navegación principal'
+          }>
+          <ul className="flex items-center gap-1 rounded-full bg-slate-100/80 p-1 dark:bg-white/5">
+            {navlink.map(({ alias, path }) => (
+              <li key={path}>
+                <Nav
+                  isActive={isActivePath(path, pathname)}
+                  as={alias(lang)}
+                  path={path}
+                />
+              </li>
+            ))}
+          </ul>
+        </nav>
 
-              <div className="flex items-center gap-1.5 border-l border-slate-200 pl-4 dark:border-slate-800">
-                {mounted ? (
-                  <button
-                    type="button"
-                    title={translate.navbar['button-mode-dark'].title}
-                    aria-label={
-                      isDarkTheme
-                        ? translate.navbar['button-mode-dark']['aria-label']
-                            .light
-                        : translate.navbar['button-mode-dark']['aria-label']
-                            .dark
-                    }
-                    onClick={() => setTheme(isDarkTheme ? 'light' : 'dark')}
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition-colors hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:bg-slate-900">
-                    {isDarkTheme ? (
-                      <IoSunny className="h-4 w-4 text-amber-500" />
-                    ) : (
-                      <IoMoon className="h-4 w-4" />
-                    )}
-                  </button>
-                ) : (
-                  <span
-                    aria-hidden="true"
-                    className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-400 dark:border-slate-800 dark:text-slate-600">
-                    <IoMoon className="h-4 w-4" />
-                  </span>
-                )}
-
-                <button
-                  type="button"
-                  title={translate.navbar['button-language-mode'].title}
-                  aria-label={
-                    lang === 'en'
-                      ? translate.navbar['button-language-mode']['aria-label']
-                          .es
-                      : translate.navbar['button-language-mode']['aria-label']
-                          .en
-                  }
-                  onClick={() => setLanguage(lang === 'en' ? 'es' : 'en')}
-                  className="inline-flex min-w-[2.8rem] items-center justify-center rounded-full border border-slate-200 px-2.5 py-1.5 text-[13px] font-medium text-slate-700 transition-colors hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:text-slate-200 dark:hover:border-slate-700 dark:hover:bg-slate-900">
-                  {lang === 'en' ? 'ES' : 'EN'}
-                </button>
-
-                <Link
-                  href="https://github.com/dalvinxo/pro-portafolio/issues/new?template=bug_report.md"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={translate.navbar['button-bug']['aria-label']}
-                  title={translate.navbar['button-bug'].title}
-                  className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition-colors hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:bg-slate-900">
-                  <FaBug className="h-3.5 w-3.5" />
-                </Link>
-              </div>
-            </nav>
-
-            <button
-              type="button"
-              id="mobile-menu-button"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 text-slate-700 transition-colors hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:text-slate-200 dark:hover:border-slate-700 dark:hover:bg-slate-900 md:hidden"
-              onClick={() => setIsMobileMenuOpen(true)}
-              aria-controls="mobile-menu"
-              aria-expanded={isMobileMenuOpen}
-              aria-label={lang === 'en' ? 'Open menu' : 'Abrir menu'}>
-              <HiMenu className="h-4.5 w-4.5" />
-            </button>
+        <div className="flex items-center gap-1">
+          <div className="hidden items-center gap-1 md:flex">
+            <NavbarActions translate={translate} />
           </div>
+
+          <button
+            type="button"
+            id="mobile-menu-button"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 text-white transition-colors hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200 md:hidden"
+            onClick={() => setIsMobileMenuOpen(true)}
+            aria-controls="mobile-menu"
+            aria-expanded={isMobileMenuOpen}
+            aria-label={lang === 'en' ? 'Open menu' : 'Abrir menú'}>
+            <HiMenuAlt3 className="h-5 w-5" />
+          </button>
         </div>
       </div>
 
       <MobileMenu
         isOpen={isMobileMenuOpen}
-        onClose={() => setIsMobileMenuOpen(false)}
+        onClose={closeMobileMenu}
         navItems={navlink}
         pathname={pathname}
         translate={translate}
+        isActivePath={isActivePath}
       />
     </header>
   )

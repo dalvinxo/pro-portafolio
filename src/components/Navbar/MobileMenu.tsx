@@ -1,13 +1,12 @@
 'use client'
 
-import Link from 'next/link'
-import { useTheme } from 'next-themes'
-import { useEffect, useRef, useState } from 'react'
-import { FaBug } from 'react-icons/fa'
-import { IoClose, IoMoon, IoSunny } from 'react-icons/io5'
+// import Link from 'next/link'
+import { useEffect, useRef } from 'react'
+import { /* IoArrowForward, */ IoClose } from 'react-icons/io5'
 
 import Nav from '@common/Nav'
 import { useTranslateContext } from 'providers'
+import NavbarActions from './NavbarActions'
 
 interface MobileMenuProps {
   isOpen: boolean
@@ -18,6 +17,7 @@ interface MobileMenuProps {
   }>
   pathname: string
   translate: any
+  isActivePath: (path: string, pathname: string) => boolean
 }
 
 const MobileMenu = ({
@@ -26,29 +26,17 @@ const MobileMenu = ({
   navItems,
   pathname,
   translate,
+  isActivePath,
 }: MobileMenuProps) => {
-  const [mounted, setMounted] = useState(false)
   const closeButtonRef = useRef<HTMLButtonElement>(null)
-  const { theme, setTheme } = useTheme()
-  const { lang, setLanguage } = useTranslateContext()
-
-  useEffect(() => {
-    setMounted(true)
-  }, [])
-
-  useEffect(() => {
-    document.body.style.overflow = isOpen ? 'hidden' : 'unset'
-
-    return () => {
-      document.body.style.overflow = 'unset'
-    }
-  }, [isOpen])
+  const { lang } = useTranslateContext()
 
   useEffect(() => {
     if (!isOpen) {
       return
     }
 
+    document.body.style.overflow = 'hidden'
     closeButtonRef.current?.focus()
 
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -59,15 +47,16 @@ const MobileMenu = ({
 
     window.addEventListener('keydown', handleKeyDown)
 
-    return () => window.removeEventListener('keydown', handleKeyDown)
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', handleKeyDown)
+    }
   }, [isOpen, onClose])
-
-  const isDarkTheme = theme === 'dark'
 
   return (
     <>
       <div
-        className={`fixed inset-0 z-50 bg-black/40 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
+        className={`fixed inset-0 z-50 bg-slate-950/40 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
           isOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
         }`}
         onClick={onClose}
@@ -80,36 +69,36 @@ const MobileMenu = ({
         aria-modal="true"
         aria-labelledby="mobile-menu-title"
         aria-hidden={!isOpen}
-        className={`fixed right-0 top-0 z-50 flex h-full w-[300px] transform flex-col border-l border-slate-200 bg-white shadow-2xl transition-transform duration-300 ease-out dark:border-slate-800 dark:bg-slate-950 md:hidden ${
-          isOpen ? 'visible translate-x-0' : 'invisible translate-x-full'
+        className={`fixed inset-x-3 top-3 z-50 origin-top rounded-3xl border border-slate-200 bg-white p-3 shadow-2xl transition-all duration-300 ease-out dark:border-white/10 dark:bg-slate-950 md:hidden ${
+          isOpen
+            ? 'visible scale-100 opacity-100'
+            : 'invisible scale-95 opacity-0'
         }`}>
-        <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4 dark:border-slate-800">
-          <div>
-            <p className="text-xs font-medium uppercase tracking-[0.24em] text-slate-400">
-              <span id="mobile-menu-title">
-                {lang === 'en' ? 'Navigation' : 'Navegacion'}
-              </span>
-            </p>
-          </div>
+        <div className="flex items-center justify-between px-2 pb-2">
+          <p
+            id="mobile-menu-title"
+            className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
+            {lang === 'en' ? 'Menu' : 'Menú'}
+          </p>
 
           <button
             ref={closeButtonRef}
             type="button"
             onClick={onClose}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition-colors hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:bg-slate-900"
-            aria-label={lang === 'en' ? 'Close menu' : 'Cerrar menu'}>
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full text-slate-600 transition-colors hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 dark:text-slate-300 dark:hover:bg-white/10"
+            aria-label={lang === 'en' ? 'Close menu' : 'Cerrar menú'}>
             <IoClose className="h-5 w-5" />
           </button>
         </div>
 
         <nav
-          className="flex-1 px-4 py-5"
-          aria-label={lang === 'en' ? 'Mobile navigation' : 'Navegacion movil'}>
-          <ul className="space-y-2">
+          aria-label={lang === 'en' ? 'Mobile navigation' : 'Navegación móvil'}>
+          <ul className="space-y-1">
             {navItems.map(({ alias, path }) => (
               <li key={path}>
                 <Nav
-                  isActive={path === pathname}
+                  variant="block"
+                  isActive={isActivePath(path, pathname)}
                   as={alias(lang)}
                   path={path}
                   onNavigate={onClose}
@@ -119,57 +108,19 @@ const MobileMenu = ({
           </ul>
         </nav>
 
-        <div className="border-t border-slate-200 px-4 py-4 dark:border-slate-800">
-          <div className="grid grid-cols-3 gap-2">
-            {mounted ? (
-              <button
-                type="button"
-                title={translate.navbar['button-mode-dark'].title}
-                onClick={() => setTheme(isDarkTheme ? 'light' : 'dark')}
-                className="inline-flex h-12 items-center justify-center rounded-2xl border border-slate-200 text-slate-700 transition-colors hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:text-slate-200 dark:hover:border-slate-700 dark:hover:bg-slate-900"
-                aria-label={
-                  isDarkTheme
-                    ? translate.navbar['button-mode-dark']['aria-label'].light
-                    : translate.navbar['button-mode-dark']['aria-label'].dark
-                }>
-                {isDarkTheme ? (
-                  <IoSunny className="h-5 w-5 text-amber-500" />
-                ) : (
-                  <IoMoon className="h-5 w-5" />
-                )}
-              </button>
-            ) : (
-              <span
-                aria-hidden="true"
-                className="inline-flex h-12 items-center justify-center rounded-2xl border border-slate-200 text-slate-400 dark:border-slate-800 dark:text-slate-600">
-                <IoMoon className="h-5 w-5" />
-              </span>
-            )}
-
-            <button
-              type="button"
-              title={translate.navbar['button-language-mode'].title}
-              onClick={() => setLanguage(lang === 'en' ? 'es' : 'en')}
-              className="inline-flex h-12 items-center justify-center rounded-2xl border border-slate-200 text-sm font-medium text-slate-700 transition-colors hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:text-slate-200 dark:hover:border-slate-700 dark:hover:bg-slate-900"
-              aria-label={
-                lang === 'en'
-                  ? translate.navbar['button-language-mode']['aria-label'].es
-                  : translate.navbar['button-language-mode']['aria-label'].en
-              }>
-              {lang === 'en' ? 'ES' : 'EN'}
-            </button>
-
-            <Link
-              href="https://github.com/dalvinxo/pro-portafolio/issues/new"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={translate.navbar['button-bug']['aria-label']}
-              title={translate.navbar['button-bug'].title}
-              className="inline-flex h-12 items-center justify-center rounded-2xl border border-slate-200 text-slate-700 transition-colors hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:text-slate-200 dark:hover:border-slate-700 dark:hover:bg-slate-900">
-              <FaBug className="h-4 w-4" />
-            </Link>
-          </div>
+        <div className="mt-3 grid grid-cols-3 gap-2 border-t border-slate-200 pt-3 dark:border-white/10">
+          <NavbarActions translate={translate} size="lg" />
         </div>
+
+        {/* Resume hidden from the view temporarily
+        <Link
+          href="/resume"
+          onClick={onClose}
+          className="mt-3 flex items-center justify-center gap-2 rounded-2xl bg-sky-500 px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-sky-600">
+          {lang === 'en' ? 'View resume' : 'Ver currículum'}
+          <IoArrowForward className="h-4 w-4" aria-hidden="true" />
+        </Link>
+        */}
       </div>
     </>
   )
