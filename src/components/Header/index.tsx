@@ -15,38 +15,45 @@ interface HeaderProps extends EntityBrand {
   name: string
 }
 
-const Header = ({ brand, link, linkBrandTitle, role, name }: HeaderProps) => {
-  const href = brand.src || link || '/'
-  const isExternal = /^https?:\/\//.test(href)
-
+const Header = ({
+  brand,
+  link = '/',
+  linkBrandTitle,
+  role,
+  name,
+}: HeaderProps) => {
   return (
     <Link
-      href={href}
-      target={isExternal ? '_blank' : undefined}
-      rel={isExternal ? 'nofollow noreferrer' : undefined}
+      href={link}
       title={linkBrandTitle}
-      className="group flex min-w-0 items-center gap-2.5 rounded-xl transition-opacity hover:opacity-90 sm:gap-3">
-      <div className="relative md:h-18 md:w-18 shrink-0 overflow-hidden rounded-lg ring-1 ring-slate-200 dark:ring-slate-800 sm:h-10 sm:w-10">
-        <Image
-          alt="Profile avatar"
-          src={brand.avatar}
-          fill
-          sizes="3rem"
-          className="object-cover"
+      className="group flex min-w-0 items-center gap-3 rounded-full pr-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500">
+      <span className="relative h-9 w-9 shrink-0">
+        <span className="absolute inset-0 overflow-hidden rounded-full ring-2 ring-white transition-transform group-hover:scale-105 dark:ring-slate-900">
+          <Image
+            alt={name}
+            src={brand.avatar}
+            fill
+            sizes="36px"
+            className="object-cover"
+          />
+        </span>
+        <span
+          aria-hidden="true"
+          className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-emerald-500 ring-2 ring-white dark:ring-slate-950"
         />
-      </div>
+      </span>
 
-      <div className="min-w-0">
-        <p className="truncate text-sm font-semibold tracking-tight text-slate-900 dark:text-slate-50 sm:text-[0.95rem]">
-          {brand.title}
-        </p>
-        <p className="truncate text-xs font-medium text-slate-600 dark:text-slate-300 sm:text-[0.8rem]">
+      <span className="hidden min-w-0 flex-col leading-tight sm:flex">
+        <span className="truncate text-sm font-semibold tracking-tight text-slate-900 dark:text-white">
           {name}
-        </p>
-        <p className="truncate text-[10px] uppercase tracking-[0.16em] text-slate-400 dark:text-slate-500 sm:text-[11px]">
+        </span>
+        <span className="truncate text-xs text-slate-500 dark:text-slate-400">
           {role}
-        </p>
-      </div>
+        </span>
+      </span>
+      <span className="truncate text-sm font-semibold tracking-tight text-slate-900 dark:text-white sm:hidden">
+        {brand.title}
+      </span>
     </Link>
   )
 }
