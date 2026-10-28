@@ -86,7 +86,7 @@ const ProjectsPages = async () => {
 
   return (
     <PageWrapper>
-      <div className="flex flex-col space-y-8">
+      <div className="flex flex-col gap-20 sm:gap-24">
         <article className="w-full max-w-7xl mx-auto">
           <Portafolies proyects={project.portafolies} />
         </article>

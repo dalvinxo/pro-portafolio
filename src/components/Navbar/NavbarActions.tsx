@@ -13,7 +13,7 @@ export const BUG_REPORT_URL =
 type Size = 'sm' | 'lg'
 
 const baseClassName =
-  'inline-flex items-center justify-center text-slate-600 transition-colors hover:bg-slate-900/5 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white'
+  'inline-flex items-center justify-center text-slate-600 transition-colors hover:bg-slate-900/5 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:text-slate-300 dark:hover:bg-white/10 dark:hover:text-white'
 
 const sizeClassName: Record<Size, string> = {
   sm: 'h-9 w-9 rounded-full',

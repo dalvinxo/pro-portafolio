@@ -1,3 +1,89 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/*
+ * Accent palette (RGB channels, used as rgb(var(--accent) / alpha)).
+ * accent      -> decorative fills, rings and gradients (500 shade)
+ * accent-2    -> gradient partner
+ * accent-ink  -> accessible text color (700 in light / 300 in dark)
+ * accent-solid-> background for white text, AA contrast (700 shade)
+ */
+@layer base {
+  :root,
+  :root[data-accent='sky'] {
+    --accent: 14 165 233;
+    --accent-2: 99 102 241;
+    --accent-ink: 3 105 161;
+    --accent-ink-dark: 125 211 252;
+    --accent-solid: 3 105 161;
+  }
+
+  :root[data-accent='violet'] {
+    --accent: 139 92 246;
+    --accent-2: 217 70 239;
+    --accent-ink: 109 40 217;
+    --accent-ink-dark: 196 181 253;
+    --accent-solid: 109 40 217;
+  }
+
+  :root[data-accent='emerald'] {
+    --accent: 16 185 129;
+    --accent-2: 6 182 212;
+    --accent-ink: 4 120 87;
+    --accent-ink-dark: 110 231 183;
+    --accent-solid: 4 120 87;
+  }
+
+  :root[data-accent='rose'] {
+    --accent: 244 63 94;
+    --accent-2: 249 115 22;
+    --accent-ink: 190 18 60;
+    --accent-ink-dark: 253 164 175;
+    --accent-solid: 190 18 60;
+  }
+
+  :root[data-accent='amber'] {
+    --accent: 245 158 11;
+    --accent-2: 239 68 68;
+    --accent-ink: 180 83 9;
+    --accent-ink-dark: 252 211 77;
+    --accent-solid: 180 83 9;
+  }
+
+  .dark {
+    --accent-ink: var(--accent-ink-dark);
+  }
+
+  /* Font scale: every rem-based size follows the root font size */
+  :root[data-font-size='lg'] {
+    font-size: 112.5%;
+  }
+
+  :root[data-font-size='xl'] {
+    font-size: 125%;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  ::selection {
+    background-color: rgb(var(--accent) / 0.25);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}

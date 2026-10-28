@@ -1,6 +1,7 @@
 import MainLayout from '@layouts/MainLayout'
 import '@styles/tailwinds.css'
 import { Metadata, Viewport } from 'next'
+import { preferencesScript } from 'src/constants/preferences'
 
 export const metadata: Metadata = {
   description:
@@ -23,7 +24,10 @@ export const metadata: Metadata = {
 }
 
 export const viewport: Viewport = {
-  themeColor: 'white',
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#f8fafc' },
+    { media: '(prefers-color-scheme: dark)', color: '#020617' },
+  ],
   width: 'device-width',
   initialScale: 1.0,
 }
@@ -35,6 +39,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning={true}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: preferencesScript }} />
+      </head>
       <body>
         <MainLayout>{children}</MainLayout>
       </body>

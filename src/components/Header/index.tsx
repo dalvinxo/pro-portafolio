@@ -26,7 +26,7 @@ const Header = ({
     <Link
       href={link}
       title={linkBrandTitle}
-      className="group flex min-w-0 items-center gap-3 rounded-full pr-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500">
+      className="group flex min-w-0 items-center gap-3 rounded-full pr-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent">
       <span className="relative h-9 w-9 shrink-0">
         <span className="absolute inset-0 overflow-hidden rounded-full ring-2 ring-white transition-transform group-hover:scale-105 dark:ring-slate-900">
           <Image
