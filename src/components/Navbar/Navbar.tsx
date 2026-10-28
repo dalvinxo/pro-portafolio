@@ -11,6 +11,7 @@ import { useTranslateContext } from 'providers'
 import { routers } from 'var-contants'
 import MobileMenu from './MobileMenu'
 import NavbarActions from './NavbarActions'
+import PreferencesMenu from './Preferences'
 
 const isActivePath = (path: string, pathname: string) =>
   path === '/' ? pathname === '/' : pathname.startsWith(path)
@@ -73,13 +74,14 @@ const Navbar = () => {
 
         <div className="flex items-center gap-1">
           <div className="hidden items-center gap-1 md:flex">
+            <PreferencesMenu />
             <NavbarActions translate={translate} />
           </div>
 
           <button
             type="button"
             id="mobile-menu-button"
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 text-white transition-colors hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200 md:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-slate-900 text-white transition-colors hover:bg-slate-700 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:bg-white dark:text-slate-900 dark:hover:bg-slate-200 md:hidden"
             onClick={() => setIsMobileMenuOpen(true)}
             aria-controls="mobile-menu"
             aria-expanded={isMobileMenuOpen}

@@ -10,6 +10,14 @@ module.exports = {
   ],
   theme: {
     extend: {
+      colors: {
+        accent: {
+          DEFAULT: 'rgb(var(--accent) / <alpha-value>)',
+          2: 'rgb(var(--accent-2) / <alpha-value>)',
+          ink: 'rgb(var(--accent-ink) / <alpha-value>)',
+          solid: 'rgb(var(--accent-solid) / <alpha-value>)',
+        },
+      },
       animation: {
         'hidden-fade': 'wiggle 400ms ease-in',
         shimmer: 'shimmer 1.6s ease-in-out infinite',

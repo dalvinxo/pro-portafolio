@@ -1,11 +1,15 @@
 'use client'
 
+import { AnimatePresence, motion } from 'framer-motion'
 import Image from 'next/image'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import React from 'react'
+import { createPortal } from 'react-dom'
+import { IoClose, IoSearch } from 'react-icons/io5'
 import { useTranslateContext } from 'providers'
 import { getDictionary } from '@utils/dictionaries'
 import HeadSection from '@common/HeadSection'
+import { EASE_OUT, Stagger, StaggerItem } from '@common/Motion'
 import CertificateCard from './CertificateCard'
 
 type Certificate = TypeCertificates
@@ -19,6 +23,13 @@ export default function Certificate({
 }) {
   const { lang } = useTranslateContext()
   const translate = getDictionary(lang)
+
+  const closeButtonRef = useRef<HTMLButtonElement>(null)
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   const [search, setSearch] = useState('')
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -164,167 +175,296 @@ export default function Certificate({
     })
   }, [certificates, search, selectedType, allOptionLabel])
 
+  const selectedCertificate = useMemo(
+    () =>
+      certificates.find((cert) => cert.driveFileId === selectedFileId) ?? null,
+    [certificates, selectedFileId]
+  )
+
+  useEffect(() => {
+    if (!isModalOpen) {
+      return
+    }
+
+    document.body.style.overflow = 'hidden'
+    closeButtonRef.current?.focus()
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        closeModal()
+      }
+    }
+
+    window.addEventListener('keydown', onKeyDown)
+
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', onKeyDown)
+    }
+  }, [isModalOpen])
+
+  const previewMessage = (message: string, tone: 'muted' | 'error') => (
+    <div className="flex h-full items-center justify-center px-6 text-center">
+      <p
+        role={tone === 'error' ? 'alert' : 'status'}
+        className={
+          tone === 'error'
+            ? 'text-red-600 dark:text-red-400'
+            : 'text-slate-500 dark:text-slate-400'
+        }>
+        {message}
+      </p>
+    </div>
+  )
+
   return (
     <React.Fragment>
-      <section className="space-y-8">
-        <HeadSection title={translate.title.certificates} />
+      <section>
+        <HeadSection
+          eyebrow={
+            lang === 'en' ? 'Continuous learning' : 'Aprendizaje continuo'
+          }
+          title={translate.title.certificates}
+          count={certificates.length}
+          description={
+            lang === 'en'
+              ? 'Courses, programs and credentials that back my day-to-day work.'
+              : 'Cursos, programas y credenciales que respaldan mi trabajo diario.'
+          }
+        />
 
-        <div className="rounded-[1.75rem] border border-slate-200 bg-white p-5 shadow-[0_24px_60px_-42px_rgba(15,23,42,0.55)] dark:border-slate-800 dark:bg-slate-900 sm:p-6">
-          <div className="mb-6 flex flex-col gap-4 border-b border-slate-200 pb-5 dark:border-slate-800 sm:flex-row sm:items-center sm:justify-between">
-            <div className="max-w-md flex-1">
-              <input
-                type="search"
-                placeholder={translate.certificates.searchPlaceholder}
-                className="w-full rounded-full border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-700 outline-none transition-colors focus:border-sky-300 focus:bg-white focus:ring-2 focus:ring-sky-500/20 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200 dark:focus:border-sky-800 dark:focus:bg-slate-900"
-                value={search}
-                onChange={(event) => setSearch(event.target.value)}
-              />
-            </div>
+        <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div className="relative w-full lg:max-w-sm">
+            <IoSearch
+              className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400"
+              aria-hidden="true"
+            />
+            <label htmlFor="certificate-search" className="sr-only">
+              {translate.certificates.searchPlaceholder}
+            </label>
+            <input
+              id="certificate-search"
+              type="search"
+              placeholder={translate.certificates.searchPlaceholder}
+              className="w-full rounded-full border border-slate-200 bg-white/80 py-2.5 pl-11 pr-4 text-sm text-slate-700 outline-none backdrop-blur transition-colors placeholder:text-slate-400 focus:border-accent/50 focus:ring-4 focus:ring-accent/15 dark:border-white/10 dark:bg-white/[0.03] dark:text-slate-200"
+              value={search}
+              onChange={(event) => setSearch(event.target.value)}
+            />
+          </div>
 
-            <div className="flex gap-2 overflow-x-auto pb-2 sm:pb-0">
-              {certificateTypes.map((type) => (
+          <div
+            role="group"
+            aria-label={lang === 'en' ? 'Filter by type' : 'Filtrar por tipo'}
+            className="-mx-1 flex gap-1 overflow-x-auto px-1 pb-1 lg:pb-0">
+            {certificateTypes.map((type) => {
+              const isActive = selectedType === type
+
+              return (
                 <button
                   key={type}
                   type="button"
                   onClick={() => setSelectedType(type)}
-                  aria-pressed={selectedType === type}
-                  className={`whitespace-nowrap rounded-full border px-4 py-2 text-sm font-medium transition-colors ${
-                    selectedType === type
-                      ? 'border-slate-900 bg-slate-900 text-white dark:border-slate-100 dark:bg-slate-100 dark:text-slate-900'
-                      : 'border-slate-200 text-slate-600 hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:text-slate-300 dark:hover:border-slate-700 dark:hover:bg-slate-800'
+                  aria-pressed={isActive}
+                  className={`relative whitespace-nowrap rounded-full px-4 py-1.5 text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent ${
+                    isActive
+                      ? 'text-white dark:text-slate-900'
+                      : 'text-slate-600 hover:text-slate-900 dark:text-slate-400 dark:hover:text-white'
                   }`}>
-                  {type}
+                  {isActive && (
+                    <motion.span
+                      layoutId="certificate-filter"
+                      aria-hidden="true"
+                      transition={{
+                        type: 'spring',
+                        stiffness: 420,
+                        damping: 34,
+                      }}
+                      className="absolute inset-0 rounded-full bg-slate-900 dark:bg-white"
+                    />
+                  )}
+                  <span className="relative">{type}</span>
                 </button>
-              ))}
-            </div>
+              )
+            })}
           </div>
+        </div>
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {filteredCertificates.map((certificate) => (
-              <CertificateCard
-                key={certificate.id}
-                certificate={certificate}
-                onViewAction={openModal}
-              />
-            ))}
-          </div>
+        <p className="sr-only" aria-live="polite">
+          {lang === 'en'
+            ? `${filteredCertificates.length} certificates shown`
+            : `${filteredCertificates.length} certificados mostrados`}
+        </p>
 
-          {filteredCertificates.length === 0 && (
-            <p className="py-10 text-center text-slate-500 dark:text-slate-400">
+        {filteredCertificates.length === 0 ? (
+          <div className="rounded-3xl border border-dashed border-slate-300 px-6 py-16 text-center dark:border-white/10">
+            <p className="text-slate-500 dark:text-slate-400">
               {translate.certificates.noCertificatesFound}
             </p>
-          )}
-        </div>
+          </div>
+        ) : (
+          <Stagger
+            key={selectedType}
+            className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {filteredCertificates.map((certificate) => (
+              <StaggerItem key={certificate.id} className="h-full">
+                <CertificateCard
+                  certificate={certificate}
+                  onViewAction={openModal}
+                />
+              </StaggerItem>
+            ))}
+          </Stagger>
+        )}
       </section>
 
-      {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
-          <div className="relative max-h-[90vh] w-full max-w-5xl overflow-hidden rounded-[1.75rem] border border-slate-200 bg-white shadow-2xl dark:border-slate-800 dark:bg-slate-900">
-            <button
-              type="button"
-              onClick={closeModal}
-              aria-label={
-                lang === 'en'
-                  ? 'Close certificate preview'
-                  : 'Cerrar vista previa del certificado'
-              }
-              className="absolute right-4 top-4 z-10 inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-slate-700 transition-colors hover:border-slate-300 hover:bg-slate-50 dark:border-slate-800 dark:bg-slate-950 dark:text-slate-200 dark:hover:border-slate-700 dark:hover:bg-slate-800">
-              x
-            </button>
+      {isMounted &&
+        createPortal(
+          <AnimatePresence>
+            {isModalOpen && (
+              <motion.div
+                className="fixed inset-0 z-[70] flex items-center justify-center p-3 sm:p-6"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.2 }}>
+                <div
+                  className="absolute inset-0 bg-slate-950/60 backdrop-blur-sm"
+                  onClick={closeModal}
+                  aria-hidden="true"
+                />
 
-            <div className="h-[80vh] w-full">
-              {documentUrl ? (
-                <div className="relative h-full w-full">
-                  {isLoading && previewStatus !== 'error' && (
-                    <div className="absolute inset-0 flex items-center justify-center bg-white/90 dark:bg-slate-800/90">
-                      <div className="text-slate-500 dark:text-slate-400">
-                        {lang === 'en'
-                          ? 'Loading certificate...'
-                          : 'Cargando certificado...'}
-                      </div>
+                <motion.div
+                  role="dialog"
+                  aria-modal="true"
+                  aria-labelledby="certificate-preview-title"
+                  initial={{ opacity: 0, y: 16, scale: 0.98 }}
+                  animate={{ opacity: 1, y: 0, scale: 1 }}
+                  exit={{ opacity: 0, y: 16, scale: 0.98 }}
+                  transition={{ duration: 0.3, ease: EASE_OUT }}
+                  className="relative flex max-h-[92vh] w-full max-w-5xl flex-col overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-2xl dark:border-white/10 dark:bg-slate-900">
+                  <div className="flex items-center justify-between gap-4 border-b border-slate-200 px-5 py-4 dark:border-white/10">
+                    <div className="min-w-0">
+                      <p className="text-xs font-semibold uppercase tracking-[0.16em] text-accent-ink">
+                        {lang === 'en' ? 'Certificate' : 'Certificado'}
+                      </p>
+                      <h2
+                        id="certificate-preview-title"
+                        className="truncate text-base font-semibold text-slate-900 dark:text-white">
+                        {selectedCertificate?.title ??
+                          (lang === 'en'
+                            ? 'Certificate preview'
+                            : 'Vista previa del certificado')}
+                      </h2>
                     </div>
-                  )}
-
-                  {hasPreviewError ? (
-                    <div className="flex h-full items-center justify-center px-6 text-center">
-                      <div className="text-red-500">
-                        {lang === 'en'
-                          ? 'The certificate preview could not be loaded.'
-                          : 'No se pudo cargar la vista previa del certificado.'}
-                      </div>
-                    </div>
-                  ) : previewStatus === 'resolving' ? (
-                    <div className="flex h-full items-center justify-center px-6 text-center">
-                      <div className="text-slate-500 dark:text-slate-400">
-                        {lang === 'en'
-                          ? 'Preparing certificate preview...'
-                          : 'Preparando vista previa del certificado...'}
-                      </div>
-                    </div>
-                  ) : previewKind === 'image' ? (
-                    <div className="flex h-full items-center justify-center bg-slate-100 p-4 dark:bg-slate-950">
-                      <div className="relative h-full w-full">
-                        <Image
-                          src={documentUrl}
-                          alt={
-                            lang === 'en'
-                              ? 'Certificate preview'
-                              : 'Vista previa del certificado'
-                          }
-                          fill
-                          unoptimized
-                          sizes="100vw"
-                          className="object-contain"
-                          onLoad={() => setIsLoading(false)}
-                          onError={() => {
-                            setHasPreviewError(true)
-                            setIsLoading(false)
-                          }}
-                        />
-                      </div>
-                    </div>
-                  ) : previewKind === 'pdf' ? (
-                    <object
-                      data={documentUrl}
-                      className="h-full w-full"
-                      title="Certificate preview"
-                      type={
-                        previewKind === 'pdf' ? 'application/pdf' : undefined
-                      }>
-                      <iframe
-                        src={documentUrl}
-                        className="h-full w-full"
-                        title="Certificate preview"
-                        onLoad={() => setIsLoading(false)}
-                        onError={() => {
-                          setHasPreviewError(true)
-                          setIsLoading(false)
-                        }}
-                      />
-                    </object>
-                  ) : (
-                    <div className="flex h-full items-center justify-center px-6 text-center">
-                      <div className="text-slate-500 dark:text-slate-400">
-                        {lang === 'en'
-                          ? 'This file type cannot be previewed here.'
-                          : 'Este tipo de archivo no se puede previsualizar aqui.'}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              ) : (
-                <div className="flex h-full items-center justify-center px-6 text-center">
-                  <div className="text-red-500">
-                    {lang === 'en'
-                      ? 'No certificate file is available for preview.'
-                      : 'No hay un archivo de certificado disponible para vista previa.'}
+                    <button
+                      ref={closeButtonRef}
+                      type="button"
+                      onClick={closeModal}
+                      aria-label={
+                        lang === 'en'
+                          ? 'Close certificate preview'
+                          : 'Cerrar vista previa del certificado'
+                      }
+                      className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-slate-600 transition-colors hover:bg-slate-900/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:text-slate-300 dark:hover:bg-white/10">
+                      <IoClose className="h-5 w-5" />
+                    </button>
                   </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+
+                  <div className="h-[75vh] w-full bg-slate-100 dark:bg-slate-950">
+                    {documentUrl ? (
+                      <div className="relative h-full w-full">
+                        {isLoading && previewStatus !== 'error' && (
+                          <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 bg-white/90 dark:bg-slate-900/90">
+                            <div
+                              aria-hidden="true"
+                              className="h-10 w-10 animate-spin rounded-full border-2 border-accent/20 border-t-accent"
+                            />
+                            <p className="text-sm text-slate-500 dark:text-slate-400">
+                              {lang === 'en'
+                                ? 'Loading certificate...'
+                                : 'Cargando certificado...'}
+                            </p>
+                          </div>
+                        )}
+
+                        {hasPreviewError ? (
+                          previewMessage(
+                            lang === 'en'
+                              ? 'The certificate preview could not be loaded.'
+                              : 'No se pudo cargar la vista previa del certificado.',
+                            'error'
+                          )
+                        ) : previewStatus === 'resolving' ? (
+                          previewMessage(
+                            lang === 'en'
+                              ? 'Preparing certificate preview...'
+                              : 'Preparando vista previa del certificado...',
+                            'muted'
+                          )
+                        ) : previewKind === 'image' ? (
+                          <div className="flex h-full items-center justify-center p-4">
+                            <div className="relative h-full w-full">
+                              <Image
+                                src={documentUrl}
+                                alt={
+                                  selectedCertificate?.title ??
+                                  (lang === 'en'
+                                    ? 'Certificate preview'
+                                    : 'Vista previa del certificado')
+                                }
+                                fill
+                                unoptimized
+                                sizes="100vw"
+                                className="object-contain"
+                                onLoad={() => setIsLoading(false)}
+                                onError={() => {
+                                  setHasPreviewError(true)
+                                  setIsLoading(false)
+                                }}
+                              />
+                            </div>
+                          </div>
+                        ) : previewKind === 'pdf' ? (
+                          <object
+                            data={documentUrl}
+                            className="h-full w-full"
+                            title="Certificate preview"
+                            type="application/pdf">
+                            <iframe
+                              src={documentUrl}
+                              className="h-full w-full"
+                              title="Certificate preview"
+                              onLoad={() => setIsLoading(false)}
+                              onError={() => {
+                                setHasPreviewError(true)
+                                setIsLoading(false)
+                              }}
+                            />
+                          </object>
+                        ) : (
+                          previewMessage(
+                            lang === 'en'
+                              ? 'This file type cannot be previewed here.'
+                              : 'Este tipo de archivo no se puede previsualizar aquí.',
+                            'muted'
+                          )
+                        )}
+                      </div>
+                    ) : (
+                      previewMessage(
+                        lang === 'en'
+                          ? 'No certificate file is available for preview.'
+                          : 'No hay un archivo de certificado disponible para vista previa.',
+                        'error'
+                      )
+                    )}
+                  </div>
+                </motion.div>
+              </motion.div>
+            )}
+          </AnimatePresence>,
+          document.body
+        )}
     </React.Fragment>
   )
 }

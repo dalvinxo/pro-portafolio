@@ -19,7 +19,7 @@ const Loading = () => {
       <div
         aria-hidden="true"
         className="fixed inset-x-0 top-0 z-[60] h-0.5 overflow-hidden bg-transparent">
-        <div className="h-full w-2/5 animate-progress rounded-full bg-gradient-to-r from-sky-400 via-indigo-500 to-violet-500" />
+        <div className="h-full w-2/5 animate-progress rounded-full bg-gradient-to-r from-accent to-accent-2" />
       </div>
 
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-12">
@@ -27,7 +27,7 @@ const Loading = () => {
           <div className="relative h-20 w-20">
             <div
               aria-hidden="true"
-              className="absolute inset-0 animate-spin rounded-full bg-[conic-gradient(from_0deg,transparent_0deg,#38bdf8_120deg,#6366f1_240deg,#8b5cf6_360deg)] [animation-duration:1.2s] motion-reduce:animate-none"
+              className="absolute inset-0 animate-spin rounded-full bg-[conic-gradient(from_0deg,transparent_0deg,rgb(var(--accent))_180deg,rgb(var(--accent-2))_360deg)] [animation-duration:1.2s] motion-reduce:animate-none"
             />
             <div className="absolute inset-[3px] overflow-hidden rounded-full bg-slate-50 dark:bg-slate-950">
               <Image

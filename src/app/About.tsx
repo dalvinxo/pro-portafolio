@@ -182,7 +182,7 @@ const About = ({
               <span className="block text-2xl font-medium text-slate-500 dark:text-slate-400 sm:text-3xl">
                 {t.greeting}
               </span>
-              <span className="mt-2 block bg-gradient-to-r from-sky-500 via-indigo-500 to-violet-500 bg-clip-text pb-1 text-transparent">
+              <span className="mt-2 block bg-gradient-to-r from-accent to-accent-2 bg-clip-text pb-1 text-transparent">
                 Dalvin Molina
               </span>
             </h1>
@@ -197,7 +197,7 @@ const About = ({
           <div className="flex flex-wrap items-center gap-3">
             <Link
               href="/projects"
-              className="group inline-flex items-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-slate-900/10 transition-all hover:-translate-y-0.5 hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 dark:focus-visible:ring-offset-slate-950">
+              className="group inline-flex items-center gap-2 rounded-full bg-slate-900 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-slate-900/10 transition-all hover:-translate-y-0.5 hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 dark:bg-white dark:text-slate-900 dark:hover:bg-slate-100 dark:focus-visible:ring-offset-slate-950">
               {t.primaryCta}
               <IoArrowForward
                 className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
@@ -207,7 +207,7 @@ const About = ({
             {/* Resume hidden from the view temporarily
             <Link
               href="/resume"
-              className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/60 px-6 py-3 text-sm font-semibold text-slate-700 transition-all hover:-translate-y-0.5 hover:border-slate-300 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:border-white/20 dark:hover:bg-white/10">
+              className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/60 px-6 py-3 text-sm font-semibold text-slate-700 transition-all hover:-translate-y-0.5 hover:border-slate-300 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:border-white/20 dark:hover:bg-white/10">
               <IoDocumentTextOutline className="h-4 w-4" aria-hidden="true" />
               {t.secondaryCta}
             </Link>
@@ -237,7 +237,7 @@ const About = ({
                           ? `Open ${mediaSocial.name} profile`
                           : `Abrir perfil de ${mediaSocial.name}`)
                       }
-                      className="inline-flex h-11 w-11 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-slate-900/5 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white">
+                      className="inline-flex h-11 w-11 items-center justify-center rounded-full text-slate-500 transition-colors hover:bg-slate-900/5 hover:text-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:text-slate-400 dark:hover:bg-white/10 dark:hover:text-white">
                       {mediaSocials[name] || (
                         <IoInformationCircleOutline
                           className="h-5 w-5"
@@ -255,9 +255,9 @@ const About = ({
         <div className="relative order-1 mx-auto w-full max-w-[280px] sm:max-w-sm lg:order-2 lg:max-w-none">
           <div
             aria-hidden="true"
-            className="absolute -inset-6 rounded-full bg-gradient-to-tr from-sky-400/30 via-indigo-400/20 to-violet-400/30 blur-3xl dark:from-sky-500/20 dark:via-indigo-500/15 dark:to-violet-500/20"
+            className="absolute -inset-6 rounded-full bg-gradient-to-tr from-accent/30 to-accent-2/25 blur-3xl transition-colors duration-500 dark:from-accent/20 dark:to-accent-2/15"
           />
-          <div className="relative rounded-[2rem] bg-gradient-to-br from-sky-400 via-indigo-500 to-violet-500 p-[2px] shadow-2xl shadow-indigo-500/20">
+          <div className="relative rounded-[2rem] bg-gradient-to-br from-accent to-accent-2 p-[2px] shadow-2xl shadow-accent/20">
             <div className="relative aspect-[4/5] overflow-hidden rounded-[calc(2rem-2px)] bg-slate-100 dark:bg-slate-900">
               {profileImages.map((src, index) => (
                 <Image
@@ -282,7 +282,7 @@ const About = ({
         <article className="flex flex-col rounded-3xl border border-slate-200 bg-white/70 p-6 backdrop-blur dark:border-white/10 dark:bg-white/[0.03] sm:p-8 lg:col-span-2">
           <header className="flex items-center justify-between gap-4">
             <div>
-              <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-sky-600 dark:text-sky-400">
+              <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-accent-ink">
                 {t.journey}
               </h2>
               <p className="mt-1 font-mono text-xs text-slate-400">
@@ -341,7 +341,7 @@ const About = ({
                   aria-current={index === current ? 'step' : undefined}
                   className={`h-1.5 rounded-full transition-all ${
                     index === current
-                      ? 'w-8 bg-sky-500'
+                      ? 'w-8 bg-accent'
                       : 'w-4 bg-slate-200 hover:bg-slate-300 dark:bg-white/10 dark:hover:bg-white/20'
                   }`}
                 />
@@ -353,7 +353,7 @@ const About = ({
         <nav
           aria-label={t.explore}
           className="rounded-3xl border border-slate-200 bg-white/70 p-3 backdrop-blur dark:border-white/10 dark:bg-white/[0.03]">
-          <h2 className="px-3 pb-2 pt-3 text-sm font-semibold uppercase tracking-[0.2em] text-sky-600 dark:text-sky-400">
+          <h2 className="px-3 pb-2 pt-3 text-sm font-semibold uppercase tracking-[0.2em] text-accent-ink">
             {t.explore}
           </h2>
           <ul className="space-y-1">
@@ -361,8 +361,8 @@ const About = ({
               <li key={href}>
                 <Link
                   href={href}
-                  className="group flex items-center gap-4 rounded-2xl p-3 transition-colors hover:bg-slate-900/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 dark:hover:bg-white/5">
-                  <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-sky-500/10 text-sky-600 dark:text-sky-400">
+                  className="group flex items-center gap-4 rounded-2xl p-3 transition-colors hover:bg-slate-900/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:hover:bg-white/5">
+                  <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent-ink">
                     <Icon className="h-5 w-5" aria-hidden="true" />
                   </span>
                   <span className="min-w-0 flex-1">
