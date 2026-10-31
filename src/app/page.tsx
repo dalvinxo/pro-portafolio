@@ -1,16 +1,17 @@
 import About from './About'
-import { getHistoryDatabase, getSocialMediaDatabas } from 'services'
+import {
+  getHistoryDatabase,
+  getSocialMediaDatabas,
+  HistoryItem,
+  SocialMediaItem,
+} from 'services'
 import PageWrapper from '@common/PageWrapper'
 
 export const revalidate = 1200
 
 const fetchDataAbout = async (): Promise<{
-  histories: Array<{
-    id: number
-    message: string
-    messageSpanish: string | null
-  }>
-  social: Array<{ id: any; name: string; link: string }>
+  histories: HistoryItem[]
+  social: SocialMediaItem[]
 }> => {
   const [histories, social] = await Promise.all([
     getHistoryDatabase(),

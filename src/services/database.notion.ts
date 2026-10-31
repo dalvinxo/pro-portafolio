@@ -1,15 +1,40 @@
 import notion from '@utils/notion'
+import {
+  getCheckbox,
+  getDate,
+  getNumber,
+  getPages,
+  getRichText,
+  getSelect,
+  getTitle,
+  getUniqueId,
+  getUrl,
+} from '@utils/notion-properties'
 import { databaseId } from 'var-contants'
 
-export const getHistoryDatabase = async () => {
-  const blocks = await notion.databases.query({
+export type HistoryItem = {
+  id: number
+  message: string
+  messageSpanish: string | null
+}
+
+export type SocialMediaItem = {
+  id: number | null
+  name: string
+  link: string
+}
+
+const publishedFilter = {
+  property: 'Status',
+  checkbox: {
+    equals: true,
+  },
+}
+
+export const getHistoryDatabase = async (): Promise<HistoryItem[]> => {
+  const response = await notion.databases.query({
     database_id: databaseId.about,
-    filter: {
-      property: 'Status',
-      checkbox: {
-        equals: true,
-      },
-    },
+    filter: publishedFilter,
     sorts: [
       {
         property: 'Order',
@@ -18,25 +43,19 @@ export const getHistoryDatabase = async () => {
     ],
   })
 
-  const data = blocks.results.map((block) => ({
-    id: (block as any).properties.Order.number,
-    message: (block as any).properties.Description.rich_text[0].text['content'],
-    messageSpanish: (block as any).properties.DescriptionSpanish.rich_text[0]
-      .text['content'],
-  }))
-
-  return data
+  return getPages(response)
+    .map(({ properties }, index) => ({
+      id: getNumber(properties, 'Order') ?? index,
+      message: getRichText(properties, 'Description') ?? '',
+      messageSpanish: getRichText(properties, 'DescriptionSpanish'),
+    }))
+    .filter((item) => item.message || item.messageSpanish)
 }
 
-export const getSocialMediaDatabas = async () => {
-  const blocks = await notion.databases.query({
+export const getSocialMediaDatabas = async (): Promise<SocialMediaItem[]> => {
+  const response = await notion.databases.query({
     database_id: databaseId.contact,
-    filter: {
-      property: 'Status',
-      checkbox: {
-        equals: true,
-      },
-    },
+    filter: publishedFilter,
     sorts: [
       {
         property: 'Order',
@@ -45,24 +64,19 @@ export const getSocialMediaDatabas = async () => {
     ],
   })
 
-  const data = blocks.results.map((block) => ({
-    id: (block as any).properties.Order.number,
-    name: (block as any).properties.ID.title[0].text.content,
-    link: (block as any).properties.Link.rich_text[0].text['content'],
-  }))
-
-  return data
+  return getPages(response)
+    .map(({ properties }) => ({
+      id: getNumber(properties, 'Order'),
+      name: getTitle(properties, 'ID') ?? '',
+      link: getRichText(properties, 'Link') ?? '',
+    }))
+    .filter((item) => item.name && item.link)
 }
 
-export const getPortafoliesWorking = async () => {
-  const blocks = await notion.databases.query({
+export const getPortafoliesWorking = async (): Promise<TypeProyects[]> => {
+  const response = await notion.databases.query({
     database_id: databaseId.projects,
-    filter: {
-      property: 'Status',
-      checkbox: {
-        equals: true,
-      },
-    },
+    filter: publishedFilter,
     sorts: [
       {
         property: 'Date',
@@ -71,34 +85,22 @@ export const getPortafoliesWorking = async () => {
     ],
   })
 
-  const data = blocks.results.map((block) => ({
-    name: (block as any).properties.Name.title[0].text.content,
-    nameSpanish: (block as any).properties.NameSpanish.rich_text[0]?.text[
-      'content'
-    ],
-    state: (block as any).properties.Progress.checkbox ?? false,
-    deploy:
-      (block as any).properties.Deploy.rich_text[0]?.text['content'] ?? null,
-    repository:
-      (block as any).properties.Repository.rich_text[0]?.text['content'] ??
-      null,
-    date: (block as any).properties.Date.date?.start ?? null,
+  return getPages(response).map(({ properties }) => ({
+    name: getTitle(properties, 'Name'),
+    nameSpanish: getRichText(properties, 'NameSpanish'),
+    state: getCheckbox(properties, 'Progress'),
+    deploy: getRichText(properties, 'Deploy'),
+    repository: getRichText(properties, 'Repository'),
+    date: getDate(properties, 'Date'),
   }))
-
-  return data
 }
 
-export const getCertificatesDatabase: () => Promise<
+export const getCertificatesDatabase = async (): Promise<
   TypeCertificates[]
-> = async () => {
-  const blocks = await notion.databases.query({
+> => {
+  const response = await notion.databases.query({
     database_id: databaseId.certificates,
-    filter: {
-      property: 'Status',
-      checkbox: {
-        equals: true,
-      },
-    },
+    filter: publishedFilter,
     sorts: [
       {
         property: 'CompletionDate',
@@ -107,23 +109,16 @@ export const getCertificatesDatabase: () => Promise<
     ],
   })
 
-  const data = blocks.results.map((block) => ({
-    id: `${(block as any).properties.ID.unique_id.prefix}-${
-      (block as any).properties.ID.unique_id.number
-    }`,
-    title: (block as any).properties.Title.title[0].text.content,
-    description: (block as any).properties.Description.rich_text[0]?.text
-      .content,
-    descriptionSpanish: (block as any).properties.DescriptionSpanish
-      .rich_text[0]?.text.content,
-    typeSpanish: (block as any).properties.TypeSpanish.select.name,
-    type: (block as any).properties.Type.select.name,
-    completionDate: (block as any).properties.CompletionDate.date?.start,
-    expiryDate: (block as any).properties.ExpiryDate.date?.start ?? null,
-    certificateUrl: (block as any).properties.CertificateUrl.url ?? null,
-    driveFileId: (block as any).properties.DriveFileId.rich_text[0]?.text
-      .content,
+  return getPages(response).map(({ id, properties }) => ({
+    id: getUniqueId(properties, 'ID') ?? id,
+    title: getTitle(properties, 'Title') ?? '',
+    description: getRichText(properties, 'Description') ?? '',
+    descriptionSpanish: getRichText(properties, 'DescriptionSpanish') ?? '',
+    type: getSelect(properties, 'Type') ?? '',
+    typeSpanish: getSelect(properties, 'TypeSpanish') ?? '',
+    completionDate: getDate(properties, 'CompletionDate') ?? '',
+    expiryDate: getDate(properties, 'ExpiryDate'),
+    certificateUrl: getUrl(properties, 'CertificateUrl'),
+    driveFileId: getRichText(properties, 'DriveFileId'),
   }))
-
-  return data
 }

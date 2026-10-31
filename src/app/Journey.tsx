@@ -52,7 +52,9 @@ const Journey = ({ items }: { items: JourneyItem[] }) => {
   const total = items.length
 
   const getMessage = (item: JourneyItem) =>
-    (lang === 'en' ? item.message : item.messageSpanish) || item.message
+    (lang === 'en' ? item.message : item.messageSpanish) ||
+    item.message ||
+    item.messageSpanish
 
   return (
     <section ref={sectionRef} aria-labelledby="journey-title">

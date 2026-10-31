@@ -6,6 +6,7 @@ import { FaBug } from 'react-icons/fa'
 import { IoMoon, IoSunny } from 'react-icons/io5'
 
 import { useTranslateContext } from 'providers'
+import { getDictionary } from '@utils/dictionaries'
 
 export const BUG_REPORT_URL =
   'https://github.com/dalvinxo/pro-portafolio/issues/new?template=bug_report.md'
@@ -26,7 +27,7 @@ const iconClassName: Record<Size, string> = {
 }
 
 interface NavbarActionsProps {
-  translate: any
+  translate: ReturnType<typeof getDictionary>
   size?: Size
 }
 
