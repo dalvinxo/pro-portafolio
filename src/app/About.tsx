@@ -4,11 +4,10 @@ import { getDictionary } from '@utils/dictionaries'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useTranslateContext } from 'providers'
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
+import Journey, { JourneyItem } from './Journey'
 import {
   IoArrowForward,
-  IoChevronBack,
-  IoChevronForward,
   // IoDocumentTextOutline, // Resume hidden temporarily
   IoFolderOpenOutline,
   IoInformationCircleOutline,
@@ -20,19 +19,7 @@ import {
 
 const profileImages = ['/img/avatar_profile2.webp', '/img/avatar_profile3.webp']
 
-type AboutInfo = {
-  id: number
-  message: string
-  messageSpanish: string | null
-}
-
 type SocialMediaName = 'github' | 'linkedin' | 'youtube'
-
-const fallbackInfo: AboutInfo = {
-  id: 1,
-  message: 'Profile information is temporarily unavailable.',
-  messageSpanish: 'La información del perfil no está disponible temporalmente.',
-}
 
 const mediaSocials: Record<SocialMediaName, React.ReactNode> = {
   github: <IoLogoGithub className="h-5 w-5" aria-hidden="true" />,
@@ -49,14 +36,7 @@ const copy = {
       'I design and build reliable, thoughtful digital products — from clean interfaces to the services that power them.',
     primaryCta: 'View projects',
     // secondaryCta: 'Resume',
-    journey: 'My journey',
     explore: 'Explore',
-    unavailable: 'The personal journey could not be loaded right now.',
-    previous: 'Show previous journey item',
-    next: 'Show next journey item',
-    goTo: (index: number) => `Show journey item ${index}`,
-    status: (current: number, total: number) =>
-      `Journey item ${current} of ${total}`,
     photo: (index: number) => `Dalvin Molina profile photo ${index}`,
     links: [
       {
@@ -88,14 +68,7 @@ const copy = {
       'Diseño y construyo productos digitales confiables y bien pensados — desde interfaces limpias hasta los servicios que las impulsan.',
     primaryCta: 'Ver proyectos',
     // secondaryCta: 'Currículum',
-    journey: 'Mi recorrido',
     explore: 'Explorar',
-    unavailable: 'El recorrido personal no se pudo cargar en este momento.',
-    previous: 'Mostrar elemento anterior del recorrido',
-    next: 'Mostrar siguiente elemento del recorrido',
-    goTo: (index: number) => `Mostrar elemento ${index} del recorrido`,
-    status: (current: number, total: number) =>
-      `Elemento ${current} de ${total} del recorrido`,
     photo: (index: number) => `Foto de perfil de Dalvin Molina ${index}`,
     links: [
       {
@@ -121,36 +94,18 @@ const copy = {
   },
 }
 
-const pad = (value: number) => String(value).padStart(2, '0')
-
 const About = ({
   data,
   social,
 }: {
-  data: AboutInfo[]
+  data: JourneyItem[]
   social: Array<{ id: any; name: string; link: string }>
 }) => {
   const { lang } = useTranslateContext()
   const translate = getDictionary(lang)
   const t = copy[lang] ?? copy.en
 
-  const hasJourneyData = data.length > 0
-  const journeyItems = useMemo(
-    () => (hasJourneyData ? data : [fallbackInfo]),
-    [data, hasJourneyData]
-  )
-
   const [currentImage, setCurrentImage] = useState(0)
-  const [current, setCurrent] = useState(0)
-
-  const total = journeyItems.length
-  const currentInfo = journeyItems[Math.min(current, total - 1)]
-  const canNavigateJourney = hasJourneyData && total > 1
-  const currentMessage =
-    (lang === 'en' ? currentInfo.message : currentInfo.messageSpanish) ||
-    currentInfo.message
-
-  const goTo = (index: number) => setCurrent((index + total) % total)
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -159,10 +114,6 @@ const About = ({
 
     return () => clearInterval(timer)
   }, [])
-
-  useEffect(() => {
-    setCurrent(0)
-  }, [journeyItems])
 
   return (
     <div className="mx-auto max-w-6xl space-y-16 sm:space-y-20">
@@ -277,112 +228,40 @@ const About = ({
         </div>
       </section>
 
-      {/* Bento */}
-      <section className="grid gap-4 lg:grid-cols-3">
-        <article className="flex flex-col rounded-3xl border border-slate-200 bg-white/70 p-6 backdrop-blur dark:border-white/10 dark:bg-white/[0.03] sm:p-8 lg:col-span-2">
-          <header className="flex items-center justify-between gap-4">
-            <div>
-              <h2 className="text-sm font-semibold uppercase tracking-[0.2em] text-accent-ink">
-                {t.journey}
-              </h2>
-              <p className="mt-1 font-mono text-xs text-slate-400">
-                {pad(current + 1)} / {pad(total)}
-              </p>
-              <p className="sr-only" aria-live="polite">
-                {t.status(current + 1, total)}
-              </p>
-            </div>
+      <Journey items={data} />
 
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => goTo(current - 1)}
-                disabled={!canNavigateJourney}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition-colors hover:bg-slate-900/5 disabled:cursor-not-allowed disabled:opacity-40 dark:border-white/10 dark:text-slate-300 dark:hover:bg-white/10"
-                aria-label={t.previous}>
-                <IoChevronBack className="h-4 w-4" />
-              </button>
-              <button
-                type="button"
-                onClick={() => goTo(current + 1)}
-                disabled={!canNavigateJourney}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 text-slate-600 transition-colors hover:bg-slate-900/5 disabled:cursor-not-allowed disabled:opacity-40 dark:border-white/10 dark:text-slate-300 dark:hover:bg-white/10"
-                aria-label={t.next}>
-                <IoChevronForward className="h-4 w-4" />
-              </button>
-            </div>
-          </header>
-
-          <div className="flex flex-1 items-center py-8">
-            {hasJourneyData ? (
-              <blockquote
-                key={currentInfo.id}
-                className="animate-hidden-fade text-lg leading-8 text-slate-700 dark:text-slate-200 sm:text-xl sm:leading-9">
-                {currentMessage}
-              </blockquote>
-            ) : (
-              <p
-                role="status"
-                className="flex items-start gap-2 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900 dark:border-amber-500/30 dark:bg-amber-500/10 dark:text-amber-100">
-                <IoInformationCircleOutline className="mt-0.5 h-4 w-4 shrink-0" />
-                {t.unavailable}
-              </p>
-            )}
-          </div>
-
-          {canNavigateJourney && (
-            <div className="flex flex-wrap gap-2">
-              {journeyItems.map((item, index) => (
-                <button
-                  key={item.id}
-                  type="button"
-                  onClick={() => goTo(index)}
-                  aria-label={t.goTo(index + 1)}
-                  aria-current={index === current ? 'step' : undefined}
-                  className={`h-1.5 rounded-full transition-all ${
-                    index === current
-                      ? 'w-8 bg-accent'
-                      : 'w-4 bg-slate-200 hover:bg-slate-300 dark:bg-white/10 dark:hover:bg-white/20'
-                  }`}
+      <nav
+        aria-label={t.explore}
+        className="rounded-3xl border border-slate-200 bg-white/70 p-3 backdrop-blur dark:border-white/10 dark:bg-white/[0.03]">
+        <h2 className="px-3 pb-2 pt-3 text-sm font-semibold uppercase tracking-[0.2em] text-accent-ink">
+          {t.explore}
+        </h2>
+        <ul className="grid gap-1 sm:grid-cols-2">
+          {t.links.map(({ href, title, text, icon: Icon }) => (
+            <li key={href}>
+              <Link
+                href={href}
+                className="group flex items-center gap-4 rounded-2xl p-3 transition-colors hover:bg-slate-900/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:hover:bg-white/5">
+                <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent-ink">
+                  <Icon className="h-5 w-5" aria-hidden="true" />
+                </span>
+                <span className="min-w-0 flex-1">
+                  <span className="block text-sm font-semibold text-slate-900 dark:text-white">
+                    {title}
+                  </span>
+                  <span className="block truncate text-sm text-slate-500 dark:text-slate-400">
+                    {text}
+                  </span>
+                </span>
+                <IoArrowForward
+                  className="h-4 w-4 shrink-0 text-slate-400 transition-transform group-hover:translate-x-1 group-hover:text-slate-900 dark:group-hover:text-white"
+                  aria-hidden="true"
                 />
-              ))}
-            </div>
-          )}
-        </article>
-
-        <nav
-          aria-label={t.explore}
-          className="rounded-3xl border border-slate-200 bg-white/70 p-3 backdrop-blur dark:border-white/10 dark:bg-white/[0.03]">
-          <h2 className="px-3 pb-2 pt-3 text-sm font-semibold uppercase tracking-[0.2em] text-accent-ink">
-            {t.explore}
-          </h2>
-          <ul className="space-y-1">
-            {t.links.map(({ href, title, text, icon: Icon }) => (
-              <li key={href}>
-                <Link
-                  href={href}
-                  className="group flex items-center gap-4 rounded-2xl p-3 transition-colors hover:bg-slate-900/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:hover:bg-white/5">
-                  <span className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-accent/10 text-accent-ink">
-                    <Icon className="h-5 w-5" aria-hidden="true" />
-                  </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block text-sm font-semibold text-slate-900 dark:text-white">
-                      {title}
-                    </span>
-                    <span className="block truncate text-sm text-slate-500 dark:text-slate-400">
-                      {text}
-                    </span>
-                  </span>
-                  <IoArrowForward
-                    className="h-4 w-4 shrink-0 text-slate-400 transition-transform group-hover:translate-x-1 group-hover:text-slate-900 dark:group-hover:text-white"
-                    aria-hidden="true"
-                  />
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      </section>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </nav>
     </div>
   )
 }
