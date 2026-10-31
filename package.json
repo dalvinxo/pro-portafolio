@@ -19,8 +19,6 @@
     "test:watch": "vitest"
   },
   "dependencies": {
-    "@htmldocs/react": "^0.2.30",
-    "@htmldocs/render": "^0.2.30",
     "@notionhq/client": "^2.2.2",
     "@types/aws-lambda": "^8.10.119",
     "googleapis": "^171.4.0",

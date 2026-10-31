@@ -16,7 +16,6 @@ const translate = {
     title: {
       certificates: 'Certificates',
       app: 'Applications',
-      resume: 'Resume',
       github: "Github's Repositories",
       descriptionGithub: 'This repository has no description in its contents',
     },
@@ -89,7 +88,6 @@ const translate = {
     title: {
       certificates: 'Certificados',
       app: 'Aplicaciones',
-      resume: 'Resumen',
       github: 'Repositorios de Github',
       descriptionGithub:
         'Este repositorio no tiene descripcion en su contenido',

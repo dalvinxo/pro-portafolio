@@ -1,8 +1,7 @@
 'use client'
 
-import Link from 'next/link'
 import { useEffect, useRef } from 'react'
-import { IoArrowForward, IoClose } from 'react-icons/io5'
+import { IoClose } from 'react-icons/io5'
 
 import Nav from '@common/Nav'
 import { useTranslateContext } from 'providers'
@@ -117,14 +116,6 @@ const MobileMenu = ({
         <div className="mt-3 rounded-2xl border border-slate-200 p-4 dark:border-white/10">
           <PreferencesPanel />
         </div>
-
-        <Link
-          href="/resume"
-          onClick={onClose}
-          className="mt-3 flex items-center justify-center gap-2 rounded-2xl bg-accent-solid px-4 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-solid/90">
-          {lang === 'en' ? 'View resume' : 'Ver currículum'}
-          <IoArrowForward className="h-4 w-4" aria-hidden="true" />
-        </Link>
       </div>
     </>
   )
