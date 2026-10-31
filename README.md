@@ -228,7 +228,7 @@ Antes de desplegar:
 Importante:
 
 - El archivo `netlify.toml` existe, pero debe validarse segun el proveedor final.
-- Hay un workflow heredado de GitHub Pages en `.github/workflows/pages.yml`; con la arquitectura actual no deberia asumirse como via principal de despliegue sin una revision adicional.
+- El despliegue se hace automaticamente en Vercel al hacer push; no hay workflows de GitHub Actions.
 
 ## Estructura del proyecto
 
