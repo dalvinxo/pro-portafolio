@@ -40,7 +40,8 @@ const NavbarActions = ({ translate, size = 'sm' }: NavbarActionsProps) => {
     setMounted(true)
   }, [])
 
-  const isDarkTheme = resolvedTheme === 'dark'
+  // The theme is only known on the client; wait for mount to match the server HTML
+  const isDarkTheme = mounted && resolvedTheme === 'dark'
   const className = `${baseClassName} ${sizeClassName[size]}`
   const icon = iconClassName[size]
   const { navbar } = translate
@@ -58,7 +59,7 @@ const NavbarActions = ({ translate, size = 'sm' }: NavbarActionsProps) => {
         onClick={() => setTheme(isDarkTheme ? 'light' : 'dark')}
         disabled={!mounted}
         className={className}>
-        {mounted && isDarkTheme ? (
+        {isDarkTheme ? (
           <IoSunny className={`${icon} text-amber-400`} aria-hidden="true" />
         ) : (
           <IoMoon className={icon} aria-hidden="true" />
