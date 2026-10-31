@@ -1,5 +1,6 @@
 'use client'
 
+import Footer from '@components/Footer'
 import Navbar from '@components/Navbar/Navbar'
 import { ThemeProvider } from 'next-themes'
 import PreferencesProvider from 'src/context/PreferencesProvider'
@@ -13,7 +14,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           defaultTheme="dark"
           enableSystem={false}
           attribute={'class'}>
-          <div className="relative min-h-screen overflow-x-clip bg-slate-50 text-slate-700 antialiased dark:bg-slate-950 dark:text-slate-200">
+          <div className="relative flex min-h-screen flex-col overflow-x-clip bg-slate-50 text-slate-700 antialiased dark:bg-slate-950 dark:text-slate-200">
             <div
               aria-hidden="true"
               className="pointer-events-none absolute inset-x-0 top-0 h-[520px] bg-[radial-gradient(60%_60%_at_50%_0%,rgb(var(--accent)/0.14),transparent)] transition-colors duration-500"
@@ -24,7 +25,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
               Skip to main content / Saltar al contenido principal
             </a>
             <Navbar />
-            <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="relative mx-auto w-full max-w-7xl flex-1 px-4 sm:px-6 lg:px-8">
               <main
                 id="main-content"
                 className="py-8 focus:outline-none sm:py-12"
@@ -32,6 +33,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                 {children}
               </main>
             </div>
+            <Footer />
           </div>
         </ThemeProvider>
       </PreferencesProvider>
