@@ -30,23 +30,25 @@ beforeEach(() => {
 })
 
 describe('getHistoryDatabase', () => {
-  it('maps journey entries and only queries published ones', async () => {
+  it('maps philosophy entries and only queries published ones', async () => {
     respondWith(
       page({
         Order: { type: 'number', number: 1 },
-        Description: { type: 'rich_text', rich_text: text('Started coding') },
+        Description: { type: 'rich_text', rich_text: text('Keep learning') },
         DescriptionSpanish: {
           type: 'rich_text',
-          rich_text: text('Empecé a programar'),
+          rich_text: text('Seguir aprendiendo'),
         },
+        Category: { type: 'select', select: { name: 'Thought' } },
       })
     )
 
     await expect(getHistoryDatabase()).resolves.toEqual([
       {
         id: 1,
-        message: 'Started coding',
-        messageSpanish: 'Empecé a programar',
+        message: 'Keep learning',
+        messageSpanish: 'Seguir aprendiendo',
+        category: 'Thought',
       },
     ])
     expect(query.mock.calls[0][0].filter).toEqual({

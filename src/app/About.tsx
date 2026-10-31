@@ -6,10 +6,9 @@ import Link from 'next/link'
 import { useTranslateContext } from 'providers'
 import { SocialMediaItem } from 'services'
 import { useEffect, useState } from 'react'
-import Journey, { JourneyItem } from './Journey'
+import Philosophy, { PhilosophyItem } from './Philosophy'
 import {
   IoArrowForward,
-  IoDocumentTextOutline,
   IoFolderOpenOutline,
   IoInformationCircleOutline,
   IoLogoGithub,
@@ -36,7 +35,6 @@ const copy = {
     description:
       'I design and build reliable, thoughtful digital products — from clean interfaces to the services that power them.',
     primaryCta: 'View projects',
-    secondaryCta: 'Resume',
     explore: 'Explore',
     photo: (index: number) => `Dalvin Molina profile photo ${index}`,
     links: [
@@ -52,12 +50,6 @@ const copy = {
         text: 'Courses and credentials I have earned.',
         icon: IoRibbonOutline,
       },
-      {
-        href: '/resume',
-        title: 'Resume',
-        text: 'Experience, education and skills.',
-        icon: IoDocumentTextOutline,
-      },
     ],
   },
   es: {
@@ -67,7 +59,6 @@ const copy = {
     description:
       'Diseño y construyo productos digitales confiables y bien pensados — desde interfaces limpias hasta los servicios que las impulsan.',
     primaryCta: 'Ver proyectos',
-    secondaryCta: 'Currículum',
     explore: 'Explorar',
     photo: (index: number) => `Foto de perfil de Dalvin Molina ${index}`,
     links: [
@@ -83,12 +74,6 @@ const copy = {
         text: 'Cursos y credenciales obtenidas.',
         icon: IoRibbonOutline,
       },
-      {
-        href: '/resume',
-        title: 'Currículum',
-        text: 'Experiencia, educación y habilidades.',
-        icon: IoDocumentTextOutline,
-      },
     ],
   },
 }
@@ -97,7 +82,7 @@ const About = ({
   data,
   social,
 }: {
-  data: JourneyItem[]
+  data: PhilosophyItem[]
   social: SocialMediaItem[]
 }) => {
   const { lang } = useTranslateContext()
@@ -153,12 +138,6 @@ const About = ({
                 className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
                 aria-hidden="true"
               />
-            </Link>
-            <Link
-              href="/resume"
-              className="inline-flex items-center gap-2 rounded-full border border-slate-200 bg-white/60 px-6 py-3 text-sm font-semibold text-slate-700 transition-all hover:-translate-y-0.5 hover:border-slate-300 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent dark:border-white/10 dark:bg-white/5 dark:text-slate-200 dark:hover:border-white/20 dark:hover:bg-white/10">
-              <IoDocumentTextOutline className="h-4 w-4" aria-hidden="true" />
-              {t.secondaryCta}
             </Link>
 
             {social.length > 0 && (
@@ -225,7 +204,7 @@ const About = ({
         </div>
       </section>
 
-      <Journey items={data} />
+      <Philosophy items={data} />
 
       <nav
         aria-label={t.explore}

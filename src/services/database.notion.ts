@@ -16,6 +16,7 @@ export type HistoryItem = {
   id: number
   message: string
   messageSpanish: string | null
+  category: string | null
 }
 
 export type SocialMediaItem = {
@@ -48,6 +49,7 @@ export const getHistoryDatabase = async (): Promise<HistoryItem[]> => {
       id: getNumber(properties, 'Order') ?? index,
       message: getRichText(properties, 'Description') ?? '',
       messageSpanish: getRichText(properties, 'DescriptionSpanish'),
+      category: getSelect(properties, 'Category'),
     }))
     .filter((item) => item.message || item.messageSpanish)
 }
