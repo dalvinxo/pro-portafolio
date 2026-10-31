@@ -1,6 +1,6 @@
 # Pro Portafolio
 
-Portafolio profesional de [dalvinxo](https://github.com/dalvinxo) construido con Next.js 15, React 18 y TypeScript. Centraliza perfil, recorrido profesional, proyectos, certificados y resume bilingue, consumiendo el contenido desde Notion, GitHub y Google Drive. Se despliega automaticamente en Vercel.
+Portafolio profesional de [dalvinxo](https://github.com/dalvinxo) construido con Next.js 15, React 18 y TypeScript. Centraliza perfil, filosofia personal y profesional, proyectos y certificados en espanol e ingles, consumiendo el contenido desde Notion, GitHub y Google Drive. Se despliega automaticamente en Vercel.
 
 ## Estado del proyecto
 
@@ -42,28 +42,43 @@ El proyecto queda en modo mantenimiento: el contenido se actualiza desde Notion 
 - Contenido dinamico desde bases de datos de Notion (editable sin desplegar).
 - Repositorios y lenguajes obtenidos desde la API de GitHub.
 - Certificados servidos desde Google Drive con vista previa de PDF e imagenes.
-- Resume generado en HTML via endpoint interno.
 - Soporte bilingue `es` / `en` con deteccion del idioma del navegador.
 - Preferencias persistentes: color de acento y tamano de fuente.
 - Accesibilidad: navegacion por teclado, `aria-*`, contraste AA en el color de acento.
 
 ## Paginas
 
-| Ruta            | Descripcion                                                                                                  |
-| --------------- | ------------------------------------------------------------------------------------------------------------ |
-| `/`             | Inicio: presentacion, fotos de perfil, redes sociales, linea de tiempo "Mi recorrido" y accesos a secciones. |
-| `/projects`     | Proyectos destacados (Notion) y repositorios publicos con sus lenguajes (GitHub).                            |
-| `/certificates` | Certificados y cursos con filtros y vista previa del archivo almacenado en Drive.                            |
-| `/resume`       | Resume en espanol e ingles, accesible desde la navegacion y la pagina de inicio.                             |
+| Ruta            | Descripcion                                                                                  |
+| --------------- | -------------------------------------------------------------------------------------------- |
+| `/`             | Inicio: presentacion, fotos de perfil, redes sociales, "Mi filosofia" y accesos a secciones. |
+| `/projects`     | Proyectos destacados (Notion) y repositorios publicos con sus lenguajes (GitHub).            |
+| `/certificates` | Certificados y cursos con filtros y vista previa del archivo almacenado en Drive.            |
 
-### Mi recorrido
+### Mi filosofia
 
-La seccion "Mi recorrido" de la pagina de inicio (`src/app/Journey.tsx`) es una linea de tiempo vertical:
+La pagina de inicio muestra las frases que resumen la forma de pensar personal y profesional del autor (`src/app/Philosophy.tsx`). No es una cronologia y no lleva titulo visible: el contenido habla por si mismo. Todo sale de la base `about` de Notion, asi que se pueden agregar o quitar entradas sin tocar codigo; si no hay ninguna publicada, la seccion no se muestra.
 
-- En escritorio las etapas alternan a izquierda y derecha de una linea central; en movil se apilan en una columna.
-- La linea se rellena con el color de acento a medida que se hace scroll.
-- La ultima etapa se marca como "Actualidad".
-- Cada etapa sale de la base de datos `about` de Notion, ordenada por `Order`.
+Cada entrada se presenta de una de tres formas:
+
+| Categoria (`Category` en Notion) | Como se ve                                                           |
+| -------------------------------- | -------------------------------------------------------------------- |
+| `Welcome` / `Bienvenida`         | Texto grande con una linea de acento, arriba de todo.                |
+| `Thought` / `Pensamiento`        | Tarjeta de cita en una cuadricula de dos columnas.                   |
+| `Quote` / `Frase` / `Cita`       | Cita destacada a todo el ancho, con antetitulo y autor si los tiene. |
+
+`Category` es opcional:
+
+- **Si ninguna entrada tiene categoria**, la primera (la de `Order` mas bajo) es la bienvenida, las que tienen autor son citas destacadas y el resto son tarjetas.
+- **Si al menos una tiene categoria**, manda la categoria. Las entradas sin ella se muestran como cita destacada si tienen autor, o como tarjeta si no.
+
+Para que una frase muestre autor, terminala con un guion y el nombre despues de la comilla de cierre. El texto antes de la comilla de apertura se muestra como antetitulo:
+
+```text
+“Un esfuerzo total es una victoria completa”. - Mahatma Gandhi
+La frase que guia mi vida es: "Un esfuerzo total es una victoria completa." - Mahatma Gandhi
+```
+
+Las comillas de cada texto se quitan y se reemplazan por el estilo visual, asi que da igual si en Notion se usan `"`, `“ ”` o ninguna. La logica esta en `src/utils/thoughts.ts`.
 
 ## Stack
 
@@ -99,7 +114,7 @@ La seccion "Mi recorrido" de la pagina de inicio (`src/app/Journey.tsx`) es una 
                        Client Components (UI)
 ```
 
-1. Notion provee perfil, recorrido, redes, proyectos y certificados.
+1. Notion provee las frases de "Mi filosofia", redes, proyectos y certificados.
 2. GitHub provee los repositorios publicos y sus lenguajes.
 3. Google Drive almacena los archivos de certificados; la app los sirve a traves de su propia API, sin exponer Drive al navegador.
 4. Las paginas se generan en el servidor y se revalidan periodicamente (ISR).
@@ -153,14 +168,15 @@ Todas las bases usan un checkbox `Status`: solo se muestran los registros marcad
 
 Las propiedades se leen con helpers tipados de `src/utils/notion-properties.ts` (`getTitle`, `getRichText`, `getNumber`, `getDate`, ...). Si una propiedad falta, esta vacia o cambia de tipo, el helper devuelve `null` en lugar de romper la pagina. Para anadir un campo nuevo, crea la propiedad en Notion y leela en `src/services/database.notion.ts` con el helper que corresponda a su tipo.
 
-### `about` — Mi recorrido
+### `about` — Mi filosofia
 
-| Propiedad            | Tipo      | Uso                             |
-| -------------------- | --------- | ------------------------------- |
-| `Order`              | Number    | Orden de la etapa (ascendente). |
-| `Description`        | Rich text | Texto en ingles.                |
-| `DescriptionSpanish` | Rich text | Texto en espanol.               |
-| `Status`             | Checkbox  | Publicar / ocultar.             |
+| Propiedad            | Tipo      | Uso                                                            |
+| -------------------- | --------- | -------------------------------------------------------------- |
+| `Order`              | Number    | Orden de presentacion (ascendente).                            |
+| `Category`           | Select    | Opcional: `Welcome`, `Thought` o `Quote` (tambien en espanol). |
+| `Description`        | Rich text | Texto en ingles.                                               |
+| `DescriptionSpanish` | Rich text | Texto en espanol.                                              |
+| `Status`             | Checkbox  | Publicar / ocultar.                                            |
 
 ### `contact` — Redes sociales
 
@@ -246,7 +262,6 @@ Los colores de acento se definen como variables CSS en `src/styles/tailwinds.css
 | ---------------------- | -------------------------- |
 | Pagina de inicio       | cada 20 minutos (`1200 s`) |
 | Repositorios de GitHub | cada 3 minutos (`180 s`)   |
-| `/api/resume`          | sin cache (`no-store`)     |
 
 Los cambios en Notion aparecen en el sitio, como maximo, al cumplirse el intervalo de revalidacion. No hace falta volver a desplegar.
 
@@ -282,7 +297,7 @@ Las pruebas usan [Vitest](https://vitest.dev/) y viven junto al codigo que prueb
 | `src/services/database.notion.test.ts`       | Mapeo de las 4 bases de datos y filtro de publicados.           |
 | `src/services/drive.service.test.ts`         | Cliente de Drive con y sin credenciales, errores de acceso.     |
 | `src/app/api/certificate/[id]/route.test.ts` | Deteccion del tipo de archivo, `HEAD` y respuestas 404.         |
-| `src/app/api/resume/route.test.ts`           | Idioma, cabeceras sin cache y datos enviados al documento.      |
+| `src/utils/thoughts.test.ts`                 | Separacion de texto, autor y antetitulo en "Mi filosofia".      |
 
 La configuracion esta en `vitest.config.mts` y replica los alias de `tsconfig.json`. Si anades un alias nuevo, agregalo en ambos archivos.
 
@@ -298,7 +313,7 @@ Formato de mensaje:
 ```text
 <tipo>(<alcance opcional>): <descripcion>
 
-feat(home): redesign journey section as a vertical timeline
+feat(home): add philosophy section with featured quotes
 fix(drive): create Google Drive client lazily so the build does not fail
 chore(ci): remove GitHub Pages workflow, deploys run on Vercel
 ```
@@ -323,11 +338,10 @@ No hay workflows de GitHub Actions: Vercel compila y despliega por si mismo.
 
 ## Endpoints internos
 
-| Metodo | Ruta                      | Descripcion                                              |
-| ------ | ------------------------- | -------------------------------------------------------- |
-| `GET`  | `/api/certificate/[id]`   | Devuelve el archivo del certificado desde Google Drive.  |
-| `HEAD` | `/api/certificate/[id]`   | Devuelve metadatos para decidir el tipo de vista previa. |
-| `GET`  | `/api/resume?lang=es\|en` | Genera el resume en HTML segun el idioma.                |
+| Metodo | Ruta                    | Descripcion                                              |
+| ------ | ----------------------- | -------------------------------------------------------- |
+| `GET`  | `/api/certificate/[id]` | Devuelve el archivo del certificado desde Google Drive.  |
+| `HEAD` | `/api/certificate/[id]` | Devuelve metadatos para decidir el tipo de vista previa. |
 
 ## Seguridad
 
@@ -359,25 +373,21 @@ src/
   app/
     api/
       certificate/[id]/   # Proxy de archivos de Google Drive
-      resume/             # Resume en HTML
     certificates/         # Pagina de certificados
     projects/             # Pagina de proyectos
-    resume/               # Pagina del resume
     About.tsx             # Hero, redes y accesos de la pagina de inicio
-    Journey.tsx           # Linea de tiempo "Mi recorrido"
+    Philosophy.tsx        # Seccion "Mi filosofia"
     layout.tsx            # Layout raiz, metadatos y proveedores
     page.tsx              # Pagina de inicio (carga datos de Notion)
   common/                 # Componentes compartidos (Motion, Nav, PageWrapper, ...)
   components/             # Header, Navbar, Loading
   constants/              # IDs de Notion, rutas, preferencias, traducciones
-  content/                # Contenido estatico del resume
   context/                # Proveedores de idioma y preferencias
-  documents/              # Plantilla HTML del resume
   helpers/                # Formateo de fechas
   layouts/                # Layout principal
   services/               # Notion y Google Drive
   styles/                 # Tailwind y variables de acento
-  utils/                  # Cliente y helpers tipados de Notion, diccionarios, idioma
+  utils/                  # Cliente y helpers de Notion, parser de frases, diccionarios
 public/
   img/                    # Fotos de perfil
 .github/
