@@ -1,11 +1,12 @@
 'use client'
 
-// import Link from 'next/link'
+import Link from 'next/link'
 import { useEffect, useRef } from 'react'
-import { /* IoArrowForward, */ IoClose } from 'react-icons/io5'
+import { IoArrowForward, IoClose } from 'react-icons/io5'
 
 import Nav from '@common/Nav'
 import { useTranslateContext } from 'providers'
+import { getDictionary } from '@utils/dictionaries'
 import NavbarActions from './NavbarActions'
 import { PreferencesPanel } from './Preferences'
 
@@ -17,7 +18,7 @@ interface MobileMenuProps {
     path: string
   }>
   pathname: string
-  translate: any
+  translate: ReturnType<typeof getDictionary>
   isActivePath: (path: string, pathname: string) => boolean
 }
 
@@ -117,7 +118,6 @@ const MobileMenu = ({
           <PreferencesPanel />
         </div>
 
-        {/* Resume hidden from the view temporarily
         <Link
           href="/resume"
           onClick={onClose}
@@ -125,7 +125,6 @@ const MobileMenu = ({
           {lang === 'en' ? 'View resume' : 'Ver currículum'}
           <IoArrowForward className="h-4 w-4" aria-hidden="true" />
         </Link>
-        */}
       </div>
     </>
   )

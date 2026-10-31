@@ -23,12 +23,11 @@ export const navbar: EntityRouters = {
         return lang == 'en' ? 'Certificates' : 'Certificados'
       },
     },
-    // Resume hidden from the view temporarily
-    // {
-    //   path: '/resume',
-    //   alias(lang) {
-    //     return lang == 'en' ? 'Resume' : 'Resumen'
-    //   },
-    // },
+    {
+      path: '/resume',
+      alias(lang) {
+        return lang == 'en' ? 'Resume' : 'Currículum'
+      },
+    },
   ],
 }
