@@ -24,13 +24,13 @@ El proyecto queda en modo mantenimiento: el contenido se actualiza desde Notion 
 - [Cache y revalidacion](#cache-y-revalidacion)
 - [Desarrollo local](#desarrollo-local)
 - [Scripts disponibles](#scripts-disponibles)
+- [Pruebas](#pruebas)
 - [Calidad de codigo y commits](#calidad-de-codigo-y-commits)
 - [Flujo de ramas y despliegue](#flujo-de-ramas-y-despliegue)
 - [Endpoints internos](#endpoints-internos)
 - [Seguridad](#seguridad)
 - [Solucion de problemas](#solucion-de-problemas)
 - [Estructura del proyecto](#estructura-del-proyecto)
-- [Mejoras futuras](#mejoras-futuras)
 - [Autor](#autor)
 - [Licencia](#licencia)
 
@@ -49,12 +49,12 @@ El proyecto queda en modo mantenimiento: el contenido se actualiza desde Notion 
 
 ## Paginas
 
-| Ruta            | Descripcion                                                                                                   |
-| --------------- | ------------------------------------------------------------------------------------------------------------- |
+| Ruta            | Descripcion                                                                                                  |
+| --------------- | ------------------------------------------------------------------------------------------------------------ |
 | `/`             | Inicio: presentacion, fotos de perfil, redes sociales, linea de tiempo "Mi recorrido" y accesos a secciones. |
-| `/projects`     | Proyectos destacados (Notion) y repositorios publicos con sus lenguajes (GitHub).                             |
-| `/certificates` | Certificados y cursos con filtros y vista previa del archivo almacenado en Drive.                             |
-| `/resume`       | Resume en espanol e ingles. Actualmente oculto de la navegacion, pero la ruta sigue disponible.               |
+| `/projects`     | Proyectos destacados (Notion) y repositorios publicos con sus lenguajes (GitHub).                            |
+| `/certificates` | Certificados y cursos con filtros y vista previa del archivo almacenado en Drive.                            |
+| `/resume`       | Resume en espanol e ingles, accesible desde la navegacion y la pagina de inicio.                             |
 
 ### Mi recorrido
 
@@ -67,18 +67,18 @@ La seccion "Mi recorrido" de la pagina de inicio (`src/app/Journey.tsx`) es una 
 
 ## Stack
 
-| Area          | Tecnologia                                   |
-| ------------- | -------------------------------------------- |
-| Framework     | Next.js 15 (App Router)                      |
-| UI            | React 18, Tailwind CSS 3, Framer Motion      |
-| Lenguaje      | TypeScript                                   |
-| Iconos        | `react-icons` (Ionicons 5)                   |
-| Contenido     | Notion API (`@notionhq/client`)              |
-| Repositorios  | GitHub REST API                              |
-| Archivos      | Google Drive API (`googleapis`)              |
-| Tema          | `next-themes`                                |
-| Calidad       | ESLint, Prettier, Husky, Commitlint          |
-| Despliegue    | Vercel                                       |
+| Area         | Tecnologia                                  |
+| ------------ | ------------------------------------------- |
+| Framework    | Next.js 15 (App Router)                     |
+| UI           | React 18, Tailwind CSS 3, Framer Motion     |
+| Lenguaje     | TypeScript                                  |
+| Iconos       | `react-icons` (Ionicons 5)                  |
+| Contenido    | Notion API (`@notionhq/client`)             |
+| Repositorios | GitHub REST API                             |
+| Archivos     | Google Drive API (`googleapis`)             |
+| Tema         | `next-themes`                               |
+| Calidad      | ESLint, Prettier, Husky, Commitlint, Vitest |
+| Despliegue   | Vercel                                      |
 
 ## Arquitectura
 
@@ -132,12 +132,12 @@ TOKEN_GITHUB=github_pat_xxx
 GOOGLE_SERVICE_ACCOUNT_KEY='{"type":"service_account", ... }'
 ```
 
-| Variable                     | Obligatoria | Uso                                                                  |
-| ---------------------------- | ----------- | -------------------------------------------------------------------- |
-| `NOTION_TOKEN`               | Si          | Secret de la integracion interna de Notion.                          |
-| `PAGE_NOTION_MAIN`           | Si          | ID de la pagina principal de Notion.                                 |
-| `TOKEN_GITHUB`               | Si          | Token personal de GitHub (solo lectura de repos publicos).           |
-| `GOOGLE_SERVICE_ACCOUNT_KEY` | Si\*        | JSON completo de la service account de Google Drive.                 |
+| Variable                     | Obligatoria | Uso                                                        |
+| ---------------------------- | ----------- | ---------------------------------------------------------- |
+| `NOTION_TOKEN`               | Si          | Secret de la integracion interna de Notion.                |
+| `PAGE_NOTION_MAIN`           | Si          | ID de la pagina principal de Notion.                       |
+| `TOKEN_GITHUB`               | Si          | Token personal de GitHub (solo lectura de repos publicos). |
+| `GOOGLE_SERVICE_ACCOUNT_KEY` | Si\*        | JSON completo de la service account de Google Drive.       |
 
 \* El build funciona sin `GOOGLE_SERVICE_ACCOUNT_KEY` (el cliente de Drive se crea al primer uso), pero la vista previa de certificados fallara en tiempo de ejecucion.
 
@@ -151,51 +151,53 @@ En Vercel se configuran en **Settings → Environment Variables**, para los ento
 
 Todas las bases usan un checkbox `Status`: solo se muestran los registros marcados.
 
+Las propiedades se leen con helpers tipados de `src/utils/notion-properties.ts` (`getTitle`, `getRichText`, `getNumber`, `getDate`, ...). Si una propiedad falta, esta vacia o cambia de tipo, el helper devuelve `null` en lugar de romper la pagina. Para anadir un campo nuevo, crea la propiedad en Notion y leela en `src/services/database.notion.ts` con el helper que corresponda a su tipo.
+
 ### `about` — Mi recorrido
 
-| Propiedad            | Tipo      | Uso                                  |
-| -------------------- | --------- | ------------------------------------ |
-| `Order`              | Number    | Orden de la etapa (ascendente).      |
-| `Description`        | Rich text | Texto en ingles.                     |
-| `DescriptionSpanish` | Rich text | Texto en espanol.                    |
-| `Status`             | Checkbox  | Publicar / ocultar.                  |
+| Propiedad            | Tipo      | Uso                             |
+| -------------------- | --------- | ------------------------------- |
+| `Order`              | Number    | Orden de la etapa (ascendente). |
+| `Description`        | Rich text | Texto en ingles.                |
+| `DescriptionSpanish` | Rich text | Texto en espanol.               |
+| `Status`             | Checkbox  | Publicar / ocultar.             |
 
 ### `contact` — Redes sociales
 
-| Propiedad | Tipo      | Uso                                                        |
-| --------- | --------- | ---------------------------------------------------------- |
-| `ID`      | Title     | Nombre de la red: `github`, `linkedin` o `youtube`.        |
-| `Link`    | Rich text | URL del perfil.                                            |
-| `Order`   | Number    | Orden de aparicion.                                        |
-| `Status`  | Checkbox  | Publicar / ocultar.                                        |
+| Propiedad | Tipo      | Uso                                                 |
+| --------- | --------- | --------------------------------------------------- |
+| `ID`      | Title     | Nombre de la red: `github`, `linkedin` o `youtube`. |
+| `Link`    | Rich text | URL del perfil.                                     |
+| `Order`   | Number    | Orden de aparicion.                                 |
+| `Status`  | Checkbox  | Publicar / ocultar.                                 |
 
 ### `projects` — Proyectos destacados
 
-| Propiedad     | Tipo      | Uso                                       |
-| ------------- | --------- | ----------------------------------------- |
-| `Name`        | Title     | Nombre en ingles.                         |
-| `NameSpanish` | Rich text | Nombre en espanol.                        |
-| `Progress`    | Checkbox  | Marca el proyecto como "en progreso".     |
-| `Deploy`      | Rich text | URL del despliegue (opcional).            |
-| `Repository`  | Rich text | URL del repositorio (opcional).           |
+| Propiedad     | Tipo      | Uso                                         |
+| ------------- | --------- | ------------------------------------------- |
+| `Name`        | Title     | Nombre en ingles.                           |
+| `NameSpanish` | Rich text | Nombre en espanol.                          |
+| `Progress`    | Checkbox  | Marca el proyecto como "en progreso".       |
+| `Deploy`      | Rich text | URL del despliegue (opcional).              |
+| `Repository`  | Rich text | URL del repositorio (opcional).             |
 | `Date`        | Date      | Fecha; se ordena de mas reciente a antigua. |
-| `Status`      | Checkbox  | Publicar / ocultar.                       |
+| `Status`      | Checkbox  | Publicar / ocultar.                         |
 
 ### `certificates` — Certificados
 
-| Propiedad            | Tipo      | Uso                                             |
-| -------------------- | --------- | ----------------------------------------------- |
-| `ID`                 | Unique ID | Identificador (prefijo + numero).               |
-| `Title`              | Title     | Titulo del certificado.                         |
-| `Description`        | Rich text | Descripcion en ingles.                          |
-| `DescriptionSpanish` | Rich text | Descripcion en espanol.                         |
-| `Type`               | Select    | Tipo en ingles (curso, certificacion, ...).     |
-| `TypeSpanish`        | Select    | Tipo en espanol.                                |
-| `CompletionDate`     | Date      | Fecha de obtencion (orden descendente).         |
-| `ExpiryDate`         | Date      | Fecha de expiracion (opcional).                 |
-| `CertificateUrl`     | URL       | Enlace de verificacion externo (opcional).      |
-| `DriveFileId`        | Rich text | ID del archivo en Google Drive.                 |
-| `Status`             | Checkbox  | Publicar / ocultar.                             |
+| Propiedad            | Tipo      | Uso                                         |
+| -------------------- | --------- | ------------------------------------------- |
+| `ID`                 | Unique ID | Identificador (prefijo + numero).           |
+| `Title`              | Title     | Titulo del certificado.                     |
+| `Description`        | Rich text | Descripcion en ingles.                      |
+| `DescriptionSpanish` | Rich text | Descripcion en espanol.                     |
+| `Type`               | Select    | Tipo en ingles (curso, certificacion, ...). |
+| `TypeSpanish`        | Select    | Tipo en espanol.                            |
+| `CompletionDate`     | Date      | Fecha de obtencion (orden descendente).     |
+| `ExpiryDate`         | Date      | Fecha de expiracion (opcional).             |
+| `CertificateUrl`     | URL       | Enlace de verificacion externo (opcional).  |
+| `DriveFileId`        | Rich text | ID del archivo en Google Drive.             |
+| `Status`             | Checkbox  | Publicar / ocultar.                         |
 
 ## Integracion con GitHub
 
@@ -227,12 +229,12 @@ Funcionamiento interno:
 
 Desde la barra de navegacion (boton de tema y menu de preferencias):
 
-| Preferencia     | Valores                                        | Almacenamiento            |
-| --------------- | ---------------------------------------------- | ------------------------- |
-| Tema            | claro, oscuro                                  | `next-themes`             |
-| Color de acento | `sky`, `violet`, `emerald`, `rose`, `amber`    | `localStorage.accent`     |
-| Tamano de letra | `md`, `lg`, `xl`                               | `localStorage.font-size`  |
-| Idioma          | `es`, `en`                                     | `localStorage.language`   |
+| Preferencia     | Valores                                     | Almacenamiento           |
+| --------------- | ------------------------------------------- | ------------------------ |
+| Tema            | claro, oscuro                               | `next-themes`            |
+| Color de acento | `sky`, `violet`, `emerald`, `rose`, `amber` | `localStorage.accent`    |
+| Tamano de letra | `md`, `lg`, `xl`                            | `localStorage.font-size` |
+| Idioma          | `es`, `en`                                  | `localStorage.language`  |
 
 Un script inline (`src/constants/preferences.ts`) aplica el acento y el tamano antes del primer pintado para evitar parpadeos. Solo se aceptan valores de la lista permitida.
 
@@ -240,11 +242,11 @@ Los colores de acento se definen como variables CSS en `src/styles/tailwinds.css
 
 ## Cache y revalidacion
 
-| Recurso                 | Revalidacion                 |
-| ----------------------- | ---------------------------- |
-| Pagina de inicio        | cada 20 minutos (`1200 s`)   |
-| Repositorios de GitHub  | cada 3 minutos (`180 s`)     |
-| `/api/resume`           | sin cache (`no-store`)       |
+| Recurso                | Revalidacion               |
+| ---------------------- | -------------------------- |
+| Pagina de inicio       | cada 20 minutos (`1200 s`) |
+| Repositorios de GitHub | cada 3 minutos (`180 s`)   |
+| `/api/resume`          | sin cache (`no-store`)     |
 
 Los cambios en Notion aparecen en el sitio, como maximo, al cumplirse el intervalo de revalidacion. No hace falta volver a desplegar.
 
@@ -260,19 +262,35 @@ Abre http://localhost:3000.
 
 ## Scripts disponibles
 
-| Script             | Descripcion                               |
-| ------------------ | ----------------------------------------- |
-| `npm run dev`      | Servidor de desarrollo.                   |
-| `npm run build`    | Compilacion de produccion.                |
-| `npm run start`    | Ejecuta la compilacion de produccion.     |
-| `npm run lint`     | Analisis estatico con ESLint.             |
-| `npm run prettier` | Formatea todo el proyecto.                |
+| Script               | Descripcion                           |
+| -------------------- | ------------------------------------- |
+| `npm run dev`        | Servidor de desarrollo.               |
+| `npm run build`      | Compilacion de produccion.            |
+| `npm run start`      | Ejecuta la compilacion de produccion. |
+| `npm run lint`       | Analisis estatico con ESLint.         |
+| `npm run prettier`   | Formatea todo el proyecto.            |
+| `npm test`           | Ejecuta las pruebas una vez.          |
+| `npm run test:watch` | Ejecuta las pruebas en modo watch.    |
+
+## Pruebas
+
+Las pruebas usan [Vitest](https://vitest.dev/) y viven junto al codigo que prueban (`*.test.ts`). No llaman a Notion, GitHub ni Google Drive: los clientes externos se reemplazan con mocks.
+
+| Archivo                                      | Que cubre                                                       |
+| -------------------------------------------- | --------------------------------------------------------------- |
+| `src/utils/notion-properties.test.ts`        | Lectura de cada tipo de propiedad de Notion y valores ausentes. |
+| `src/services/database.notion.test.ts`       | Mapeo de las 4 bases de datos y filtro de publicados.           |
+| `src/services/drive.service.test.ts`         | Cliente de Drive con y sin credenciales, errores de acceso.     |
+| `src/app/api/certificate/[id]/route.test.ts` | Deteccion del tipo de archivo, `HEAD` y respuestas 404.         |
+| `src/app/api/resume/route.test.ts`           | Idioma, cabeceras sin cache y datos enviados al documento.      |
+
+La configuracion esta en `vitest.config.mts` y replica los alias de `tsconfig.json`. Si anades un alias nuevo, agregalo en ambos archivos.
 
 ## Calidad de codigo y commits
 
 Husky ejecuta dos hooks:
 
-- **pre-commit**: `npm run prettier` y `npm run lint`.
+- **pre-commit**: `npm run prettier` y `npm run lint`. Las pruebas no corren en el hook; ejecuta `npm test` antes de abrir un PR.
 - **commit-msg**: Commitlint con [Conventional Commits](https://www.conventionalcommits.org/).
 
 Formato de mensaje:
@@ -289,10 +307,10 @@ Tipos habituales: `feat`, `fix`, `refactor`, `chore`, `docs`, `style`, `perf`.
 
 ## Flujo de ramas y despliegue
 
-| Rama   | Uso                                                        | Despliegue en Vercel |
-| ------ | ---------------------------------------------------------- | -------------------- |
-| `main` | Produccion. Protegida.                                     | Produccion           |
-| `dev`  | Desarrollo e integracion.                                  | Preview              |
+| Rama   | Uso                       | Despliegue en Vercel |
+| ------ | ------------------------- | -------------------- |
+| `main` | Produccion. Protegida.    | Produccion           |
+| `dev`  | Desarrollo e integracion. | Preview              |
 
 Flujo recomendado:
 
@@ -301,15 +319,15 @@ Flujo recomendado:
 3. Abre un Pull Request de `dev` a `main`.
 4. Al hacer merge, Vercel despliega a produccion automaticamente.
 
-No hay workflows de GitHub Actions: Vercel compila y despliega por si mismo. El archivo `netlify.toml` es una configuracion heredada y no se usa.
+No hay workflows de GitHub Actions: Vercel compila y despliega por si mismo.
 
 ## Endpoints internos
 
-| Metodo | Ruta                       | Descripcion                                              |
-| ------ | -------------------------- | -------------------------------------------------------- |
-| `GET`  | `/api/certificate/[id]`    | Devuelve el archivo del certificado desde Google Drive.  |
-| `HEAD` | `/api/certificate/[id]`    | Devuelve metadatos para decidir el tipo de vista previa. |
-| `GET`  | `/api/resume?lang=es\|en`  | Genera el resume en HTML segun el idioma.                |
+| Metodo | Ruta                      | Descripcion                                              |
+| ------ | ------------------------- | -------------------------------------------------------- |
+| `GET`  | `/api/certificate/[id]`   | Devuelve el archivo del certificado desde Google Drive.  |
+| `HEAD` | `/api/certificate/[id]`   | Devuelve metadatos para decidir el tipo de vista previa. |
+| `GET`  | `/api/resume?lang=es\|en` | Genera el resume en HTML segun el idioma.                |
 
 ## Seguridad
 
@@ -324,15 +342,15 @@ No hay workflows de GitHub Actions: Vercel compila y despliega por si mismo. El 
 
 ## Solucion de problemas
 
-| Sintoma                                                        | Causa y solucion                                                                                              |
-| -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- |
-| Errores de webpack o `Cannot find module` en `npm run dev`     | Se ejecuto `build` con el servidor de desarrollo abierto. Deten el servidor, borra `.next` y reinicia.        |
-| `GOOGLE_SERVICE_ACCOUNT_KEY environment variable is not set`   | Falta la variable en `.env.local` o en Vercel.                                                                |
-| `Certificate not found or access denied`                       | `DriveFileId` incorrecto o la carpeta no esta compartida con la service account.                             |
-| La vista previa del certificado no aparece                     | El archivo no es PDF ni imagen, o el ID no coincide.                                                          |
-| Una seccion sale vacia o con "no disponible"                   | La base de Notion no esta compartida con la integracion, o ningun registro tiene `Status` marcado.           |
-| Un cambio en Notion no aparece                                 | Espera el intervalo de revalidacion (ver [Cache y revalidacion](#cache-y-revalidacion)).                      |
-| Error al hacer commit                                          | El mensaje no cumple Conventional Commits, o ESLint encontro errores.                                         |
+| Sintoma                                                      | Causa y solucion                                                                                       |
+| ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| Errores de webpack o `Cannot find module` en `npm run dev`   | Se ejecuto `build` con el servidor de desarrollo abierto. Deten el servidor, borra `.next` y reinicia. |
+| `GOOGLE_SERVICE_ACCOUNT_KEY environment variable is not set` | Falta la variable en `.env.local` o en Vercel.                                                         |
+| `Certificate not found or access denied`                     | `DriveFileId` incorrecto o la carpeta no esta compartida con la service account.                       |
+| La vista previa del certificado no aparece                   | El archivo no es PDF ni imagen, o el ID no coincide.                                                   |
+| Una seccion sale vacia o con "no disponible"                 | La base de Notion no esta compartida con la integracion, o ningun registro tiene `Status` marcado.     |
+| Un cambio en Notion no aparece                               | Espera el intervalo de revalidacion (ver [Cache y revalidacion](#cache-y-revalidacion)).               |
+| Error al hacer commit                                        | El mensaje no cumple Conventional Commits, o ESLint encontro errores.                                  |
 
 ## Estructura del proyecto
 
@@ -359,19 +377,12 @@ src/
   layouts/                # Layout principal
   services/               # Notion y Google Drive
   styles/                 # Tailwind y variables de acento
-  utils/                  # Cliente de Notion, diccionarios, idioma
+  utils/                  # Cliente y helpers tipados de Notion, diccionarios, idioma
 public/
   img/                    # Fotos de perfil
 .github/
   ISSUE_TEMPLATE/         # Plantillas de bug y feature request
 ```
-
-## Mejoras futuras
-
-- Pruebas automaticas para servicios y rutas API.
-- Tipar las respuestas de Notion en lugar de usar `any`.
-- Volver a mostrar el resume en la navegacion.
-- Eliminar `netlify.toml` si no se va a usar Netlify.
 
 ## Autor
 
